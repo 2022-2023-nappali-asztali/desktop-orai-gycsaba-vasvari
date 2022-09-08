@@ -16,6 +16,11 @@ namespace KretaCommandLine.Model.Abstract
         {
             this.Id = -1;
             this.SubjectName = String.Empty;
-        } 
+        }
+
+        public override string ToString()
+        {
+            return Id + ". " + SubjectName;
+        }
     }
 }
