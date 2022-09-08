@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KretaDesktop", "KretaDesktop\KretaDesktop.csproj", "{C00D449C-7DC4-45B0-9FB1-6C0BE3E9B8AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KretaDesktop", "KretaDesktop\KretaDesktop.csproj", "{C00D449C-7DC4-45B0-9FB1-6C0BE3E9B8AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KretaCommandLine", "..\KretaCommandLine\KretaCommandLine.csproj", "{62D04AAA-442D-4CC6-A575-327C9FD69932}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C00D449C-7DC4-45B0-9FB1-6C0BE3E9B8AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C00D449C-7DC4-45B0-9FB1-6C0BE3E9B8AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C00D449C-7DC4-45B0-9FB1-6C0BE3E9B8AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62D04AAA-442D-4CC6-A575-327C9FD69932}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62D04AAA-442D-4CC6-A575-327C9FD69932}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62D04AAA-442D-4CC6-A575-327C9FD69932}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62D04AAA-442D-4CC6-A575-327C9FD69932}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
