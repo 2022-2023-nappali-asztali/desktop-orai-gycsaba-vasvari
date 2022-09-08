@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace KretaCommandLine.Model.Abstract
 {
-    class ClassWithId
+    public abstract class  ClassWithId
     {
+        public long Id { get; set; }
     }
 }
