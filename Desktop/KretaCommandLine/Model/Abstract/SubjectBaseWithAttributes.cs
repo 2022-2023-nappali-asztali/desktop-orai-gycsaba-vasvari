@@ -12,6 +12,7 @@ namespace KretaCommandLine.Model.Abstract
     {
         [Column("name")]
         [Display(Name = "Subject name:")]
+        [Required(ErrorMessage = "The name is required")]
         public override string SubjectName 
         { 
             get => base.SubjectName; 
