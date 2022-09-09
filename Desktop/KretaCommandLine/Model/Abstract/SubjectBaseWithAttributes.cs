@@ -3,10 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KretaCommandLine.Model.Abstract
 {
     class SubjectBaseWithAttributes : SubjectBase
     {
+        [Column("name")]
+        public override string SubjectName 
+        { 
+            get => base.SubjectName; 
+            set => base.SubjectName = value; 
+        }
     }
 }
