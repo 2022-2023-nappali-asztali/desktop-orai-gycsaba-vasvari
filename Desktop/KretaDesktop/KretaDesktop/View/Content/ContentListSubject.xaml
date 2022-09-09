@@ -10,5 +10,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
+        <Label Foreground="White" Grid.Row="0" Content="Krétea - iskolai adminisztráció"></Label>
     </Grid>
 </UserControl>
