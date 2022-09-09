@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KretaCommandLine.Model.Abstract
 {
-    class SubjectBaseWithAttributes : ClassWithId
+    class SubjectBaseWithAttributes : SubjectBase
     {
     }
 }
