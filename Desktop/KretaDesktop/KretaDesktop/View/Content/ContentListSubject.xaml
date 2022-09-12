@@ -29,5 +29,9 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
         </Grid>
+        <StackPanel Grid.Row="2" Grid.Column="0">
+            <Label Content="Rendezés"></Label>
+            <Image></Image>
+        </StackPanel>
     </Grid>
 </UserControl>
