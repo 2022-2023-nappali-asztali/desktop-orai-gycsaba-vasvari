@@ -28,15 +28,22 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
+        
+            <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+                <Label Content="Rendezés:"></Label>
+                <Button>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="//Resources/Icons/sort-alpha-down.png"></Image>
+                        <Label>Növekvő</Label>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="30 0 0 0">
+                <Label Content="Szűres:"></Label>
+                <TextBox Width="150"></TextBox>
+                <Button Content="Szűres"></Button>
+                <Button Content="Összes"></Button>
+            </StackPanel>
         </Grid>
-        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
-            <Label Content="Rendezés:"></Label>
-            <Button>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="//Resources/Icons/sort-alpha-down.png"></Image>
-                    <Label>Növekvő</Label>
-                </StackPanel>
-            </Button>
-        </StackPanel>
     </Grid>
 </UserControl>
