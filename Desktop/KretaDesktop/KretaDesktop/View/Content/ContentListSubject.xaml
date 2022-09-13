@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:KretaDesktop.View.Content"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
+    <Grid Background="White" Margin="0,4,0,-4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -29,9 +29,14 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
         </Grid>
-        <StackPanel Grid.Row="2" Grid.Column="0">
-            <Label Content="Rendezés"></Label>
-            <Image></Image>
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+            <Label Content="Rendezés:"></Label>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="//Resources/Icons/sort-alpha-down.png"></Image>
+                    <Label>Növekvő</Label>
+                </StackPanel>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>
