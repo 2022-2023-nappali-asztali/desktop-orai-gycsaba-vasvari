@@ -55,5 +55,13 @@
             </DataGrid>
             <Button Content="Törlés"></Button>
         </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="4">
+            <Button Content="&lt;&lt;"></Button>
+            <Button Content="&lt;"></Button>
+            <Label Content="Oldal"></Label>
+            <Label Content=" / "></Label>
+            <Button Content="&gt;"></Button>
+            <Button Content="&gt;&gt;"></Button>
+        </StackPanel>
     </Grid>
 </UserControl>
