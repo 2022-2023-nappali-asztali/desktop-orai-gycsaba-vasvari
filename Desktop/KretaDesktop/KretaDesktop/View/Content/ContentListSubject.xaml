@@ -46,5 +46,14 @@
                 <ComboBox></ComboBox>
             </StackPanel>
         </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="3">
+            <DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Azon."></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tantágy név"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Törlés"></Button>
+        </StackPanel>
     </Grid>
 </UserControl>
