@@ -27,10 +27,12 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="4">
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
                     <Button Content="Új"></Button>
                     <Button Content="Mégsem"></Button>
                 </StackPanel>
+                <Label Grid.Row="1" Grid.Column="0" Content="Azonosító"></Label>
+                <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
             </Grid>
         </Expander>
         <Grid Grid.Row="2">
