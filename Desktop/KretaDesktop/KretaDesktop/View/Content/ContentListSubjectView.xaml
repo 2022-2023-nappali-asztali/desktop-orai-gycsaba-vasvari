@@ -31,8 +31,10 @@
                     <Button Content="Új"></Button>
                     <Button Content="Mégsem"></Button>
                 </StackPanel>
-                <Label Grid.Row="1" Grid.Column="0" Content="Azonosító"></Label>
+                <Label Grid.Row="1" Grid.Column="0" Content="Azonosító:"></Label>
                 <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+                <Label Grid.Row="2" Grid.Column="0" Content="Tantárgy név:"></Label>
+                <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
             </Grid>
         </Expander>
         <Grid Grid.Row="2">
