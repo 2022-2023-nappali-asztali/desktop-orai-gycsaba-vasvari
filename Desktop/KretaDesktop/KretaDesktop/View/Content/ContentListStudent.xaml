@@ -12,9 +12,9 @@
 			<RowDefinition Height="Auto"></RowDefinition>
 			<RowDefinition Height="Auto"></RowDefinition>
 			<RowDefinition Height="Auto"></RowDefinition>
-			<RowDefinition Height="Auto"></RowDefinition>
-			<RowDefinition Height="Auto"></RowDefinition>
-		</Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
 
 		<Label Grid.Row="0" Content="Kréta - Iskolai Adminisztráció"></Label>
 		<Expander Grid.Row="1" Header="Tanuló Adatai"></Expander>
@@ -51,18 +51,33 @@
 				<ComboBox></ComboBox>
 			</StackPanel>
 		</Grid>
-
-		<StackPanel Orientation="Horizontal" Grid.Row="3">
-			<DataGrid>
+        <StackPanel Orientation="Horizontal" Grid.Row="3">
+            <Label Content="Osztály választás"></Label>
+            <ComboBox>
+                <ComboBoxItem>Összes</ComboBoxItem>
+                <ComboBoxItem>9.a</ComboBoxItem>
+                <ComboBoxItem>9.b</ComboBoxItem>
+            </ComboBox>
+            <Label Content="Felelők száma:" Margin="12 0 0 0"></Label>
+            <ComboBox>
+                <ComboBoxItem>1</ComboBoxItem>
+                <ComboBoxItem>3</ComboBoxItem>
+                <ComboBoxItem>5</ComboBoxItem>
+            </ComboBox>
+            <Label Content="Felelés:" Margin="12 0 0 0"></Label>
+            <Button Content="Véletlen választás"></Button>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="4">                   
+			<DataGrid  >
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Azon"></DataGridTextColumn>
 					<DataGridTextColumn Header="Tanuló Név"></DataGridTextColumn>
 				</DataGrid.Columns>
 			</DataGrid>
-			<Button Content="Törlés"></Button>
-		</StackPanel>
+            <Button Content="Törlés"></Button>
+        </StackPanel>
 
-		<StackPanel Orientation="Horizontal" Grid.Row="4">
+        <StackPanel Orientation="Horizontal" Grid.Row="5">
 			<Button Content="&lt;&lt;"></Button>
 			<Button Content="&lt;"></Button>
 
