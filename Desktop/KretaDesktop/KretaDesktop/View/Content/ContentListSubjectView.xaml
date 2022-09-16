@@ -25,9 +25,14 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="10.497"></ColumnDefinition>
+                    <ColumnDefinition Width="54.48"/>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="4">
+                    <Button Content="Új"></Button>
+                    <Button Content="Mégsem"></Button>
+                </StackPanel>
             </Grid>
         </Expander>
         <Grid Grid.Row="2">
@@ -37,7 +42,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-        
+
             <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
                 <Label Content="Rendezés:"></Label>
                 <Button>
