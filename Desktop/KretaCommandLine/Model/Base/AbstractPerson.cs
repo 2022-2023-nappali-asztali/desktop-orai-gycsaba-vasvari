@@ -7,22 +7,12 @@ using System.Threading.Tasks;
 
 namespace KretaCommandLine.Model.Base
 {
-    public abstract class Person : IId, IEquatable<Person>, IComparable
+    public abstract class AbstractPerson : IId, IPerson, IEquatable<AbstractPerson>, IComparable
     {
         public long Id { get; set;}
    
-        private IPerson person;
         private IAddress address;
         private IAccount account;
 
-        public bool Equals(Person other)
-        {
-            return false;
-        }
-
-        public int CompareTo(object obj)
-        {
-            return 0;
-        }
     }
 }
