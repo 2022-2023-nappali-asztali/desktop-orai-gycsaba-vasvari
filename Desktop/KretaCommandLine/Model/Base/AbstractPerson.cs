@@ -18,6 +18,28 @@ namespace KretaCommandLine.Model.Base
         private IAddress address;
         private IAccount account;
 
+        protected AbstractPerson(long id, string firstName, string lastName, bool wooman, DateTime dataOfBirth, IAddress address, IAccount account)
+        {
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Wooman = wooman;
+            DataOfBirth = dataOfBirth;
+            this.address = address;
+            this.account = account;
+        }
+
+        protected AbstractPerson()
+        {
+            Id = -1;
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            Wooman = false;
+            DataOfBirth = DateTime.MinValue;
+            this.address = new IAddress();
+            this.account = new IAccount();
+        }
+
         public bool Equals(AbstractPerson other)
         {
             return false;
