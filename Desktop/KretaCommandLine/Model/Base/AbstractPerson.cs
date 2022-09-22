@@ -36,7 +36,7 @@ namespace KretaCommandLine.Model.Base
             LastName = string.Empty;
             Wooman = false;
             DataOfBirth = DateTime.MinValue;
-            this.address = new IAddress();
+            this.address = new Address();
             this.account = new IAccount();
         }
 
