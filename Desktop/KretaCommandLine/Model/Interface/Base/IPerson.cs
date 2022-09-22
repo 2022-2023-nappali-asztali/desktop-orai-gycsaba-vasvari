@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KretaCommandLine.Model.Interface.Base
 {
-    interface IPerson
+    public interface IPerson :IId
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

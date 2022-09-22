@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KretaCommandLine.Model.Interface.Base
 {
-    interface IId
+    public interface IId
     {
         public long Id { get; set; }
     }
