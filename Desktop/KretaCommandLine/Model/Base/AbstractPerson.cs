@@ -18,5 +18,14 @@ namespace KretaCommandLine.Model.Base
         private IAddress address;
         private IAccount account;
 
+        public bool Equals(AbstractPerson other)
+        {
+            return false;
+        }
+
+        public int CompareTo(object obj)
+        {
+            return 0;
+        }
     }
 }
