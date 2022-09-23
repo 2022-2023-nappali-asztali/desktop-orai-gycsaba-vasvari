@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KretaCommandLine.Model.Base
 {
-    public abstract class AbstractPerson : IId, IPerson, IEquatable<AbstractPerson>, IComparable
+    public abstract class Person : IId, IPerson, IEquatable<Person>, IComparable
     {
         public long Id { get; set;}
         public string FirstName { get; set ;}
@@ -18,7 +18,7 @@ namespace KretaCommandLine.Model.Base
         private IAddress address;
         private IAccount account;
 
-        protected AbstractPerson(long id, string firstName, string lastName, bool wooman, DateTime dataOfBirth, IAddress address, IAccount account)
+        protected Person(long id, string firstName, string lastName, bool wooman, DateTime dataOfBirth, IAddress address, IAccount account)
         {
             Id = id;
             FirstName = firstName;
@@ -29,7 +29,7 @@ namespace KretaCommandLine.Model.Base
             this.account = account;
         }
 
-        protected AbstractPerson()
+        protected Person()
         {
             Id = -1;
             FirstName = string.Empty;
@@ -40,7 +40,7 @@ namespace KretaCommandLine.Model.Base
             this.account = new Account();
         }
 
-        public bool Equals(AbstractPerson other)
+        public bool Equals(Person other)
         {
             return false;
         }

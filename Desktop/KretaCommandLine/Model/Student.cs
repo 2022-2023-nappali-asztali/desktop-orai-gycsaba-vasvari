@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KretaCommandLine.Model
 {
-    public class Student : AbstractPerson
+    public class Student : Person
     {
     }
 }
