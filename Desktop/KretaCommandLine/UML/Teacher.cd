@@ -16,12 +16,26 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="KretaCommandLine.Model.Base.Person">
-    <Position X="3" Y="5.25" Width="8" />
+    <Position X="5.5" Y="5.25" Width="3" />
     <TypeIdentifier>
       <HashCode>AAACAEAAAAAAAAQAgAQAAAAAAAIAAQAAAAAAQAAAAAg=</HashCode>
       <FileName>Model\Base\Person.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
+  <Interface Name="KretaCommandLine.Model.Interface.Base.IAccount">
+    <Position X="0.5" Y="5.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAIQAAAECgAACAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Interface\Base\IAccaount.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KretaCommandLine.Model.Interface.Base.IAddress">
+    <Position X="10.25" Y="6" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAIIAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Model\Interface\Base\IAddress.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
