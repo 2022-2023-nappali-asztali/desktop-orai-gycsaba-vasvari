@@ -15,6 +15,11 @@ namespace KretaCommandLine.Model
             return 0;
         }
 
+        // Két tantrgyá megegyezhet: pl. 1. Történelem == 1. Történelem
+        // Két nantárgy nem egyezik meg:
+        // 2. a pl. 1. Történelem != 2. Matek
+        // 2. b pl. 1. Történelem != 1. Matek
+        // 2. c pl. 1. Történelem != 2. Történelem
         public bool Equals(Subject other)
         {
             return false;
