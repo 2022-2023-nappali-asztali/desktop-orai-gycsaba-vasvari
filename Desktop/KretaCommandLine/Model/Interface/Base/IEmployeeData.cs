@@ -10,6 +10,6 @@ namespace KretaCommandLine.Model.Interface.Base
     {
         public ulong TaxNumber { set; get; }
         public ulong Salary { set; get; }
-        public int NumberOfChildren { set; get }
+        public int NumberOfChildren { set; get; }
     }
 }

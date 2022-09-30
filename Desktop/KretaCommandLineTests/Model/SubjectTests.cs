@@ -12,9 +12,15 @@ namespace KretaCommandLine.Model.Tests
     public class SubjectTests
     {
         [TestMethod()]
-        public void EqualsTest()
+        public void EqualsTestSubjectsAreEquals()
         {
-            Assert.Fail();
+            // arrange
+            Subject subject1 = new Subject(1, "Történelem");
+            Subject subject2 = new Subject(2, "Történelem");
+
+            // act
+
+            // assert
         }
     }
 }
