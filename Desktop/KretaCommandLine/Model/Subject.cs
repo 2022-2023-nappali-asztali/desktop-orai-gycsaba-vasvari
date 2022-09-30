@@ -10,6 +10,10 @@ namespace KretaCommandLine.Model
 {
     public class Subject : SubjectBase, IEquatable<Subject>, IComparable
     {
+        public Subject(long id, string subName) : base(id, subName)
+        {
+        }
+
         public int CompareTo(object obj)
         {
             return 0;

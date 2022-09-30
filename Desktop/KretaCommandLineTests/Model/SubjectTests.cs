@@ -19,8 +19,10 @@ namespace KretaCommandLine.Model.Tests
             Subject subject2 = new Subject(2, "Történelem");
 
             // act
+            bool actual=subject1.Equals(subject2);
 
             // assert
+            Assert.IsTrue(actual);
         }
     }
 }
