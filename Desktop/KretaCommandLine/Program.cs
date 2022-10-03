@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KretaCommandLine.Model;
+using System;
 
 namespace KretaCommandLine
 {
@@ -6,7 +7,8 @@ namespace KretaCommandLine
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Subject history = new Subject(1, "Történelem");
+            history.Equals(null);
         }
     }
 }
