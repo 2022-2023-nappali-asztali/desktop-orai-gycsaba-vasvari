@@ -69,5 +69,19 @@ namespace KretaCommandLine.Model.Tests
             Assert.IsFalse(actual);
         }
 
+        [TestMethod()]
+        public void EqualsTestOtherIsNotSubject()
+        {
+            // arrange
+            Subject subject1 = new Subject(1, "Történelem");
+            string subject2 = "1. Történelem";
+
+            // act
+            bool actual = subject1.Equals(subject2);
+
+            // assert
+            Assert.IsFalse(actual);
+        }
+
     }
 }
