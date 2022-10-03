@@ -24,9 +24,13 @@ namespace KretaCommandLine.Model
         // 2. a pl. 1. Történelem != 2. Matek
         // 2. b pl. 1. Történelem != 1. Matek
         // 2. c pl. 1. Történelem != 2. Történelem
+        // this.Equals(other)
         public bool Equals(Subject other)
         {
-            return false;
+            if (this.Id == other.Id && this.SubjectName == other.SubjectName)
+                return true;
+            else
+                return false;
         }
     }
 }
