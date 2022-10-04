@@ -12,6 +12,7 @@ namespace KretaCommandLine.Model.Tests
     public class SubjectTests
     {
         //https://codinghelmet.com/articles/testing-equals-and-gethashcode
+        //https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/how-to-define-value-equality-for-a-type
         // pl. 1. Történelem == 1. Történelem                
         [TestMethod()]
         public void EqualsTestSubjectsAreEquals()
@@ -81,6 +82,30 @@ namespace KretaCommandLine.Model.Tests
 
             // assert
             Assert.IsFalse(actual);
+        }
+        [TestMethod]
+        public void EqualsTestOtherIsNull()
+        {
+            // arrange
+            Subject subject1 = new Subject(1, "Történelem");
+
+            // act
+            bool actual = subject1.Equals(null);
+
+            // assert
+            Assert.IsFalse(actual);
+        }
+        [TestMethod]
+        public void EqualsTestSameReference()
+        {
+            // arrange
+            Subject subject1 = new Subject(1, "Történelem");
+
+            // act
+            bool actual = subject1.Equals(subject1);
+
+            // assert
+            Assert.IsTrue(actual);
         }
 
     }

@@ -27,16 +27,20 @@ namespace KretaCommandLine.Model
         // this.Equals(other)
         public bool Equals(object other)
         {
+            if (other == null)
+                return false;
+            // A két objektum a memeóriában ugyan ott van
+            if (Object.ReferenceEquals(this, other))
+                return true;
             // OOP: is -> a változó adott típusú-e
             if (other is Subject)
             {
                 // (Subject) -> tipúskényszerítés (cast)
-                Subject subjectToChek = (Subject)other;
+                Subject subjectToChek = (Subject) other;
                 if (this.Id == subjectToChek.Id && this.SubjectName == subjectToChek.SubjectName)
                     return true;
             }
             return false;
-
         }
     }
 }
