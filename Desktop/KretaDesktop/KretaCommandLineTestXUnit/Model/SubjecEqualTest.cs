@@ -1,8 +1,9 @@
-using KretaCommandLine.Model;
 using System;
 using Xunit;
 
-namespace KretaCommandLineTestXUnit
+using KretaCommandLine.Model;
+
+namespace KretaCommandLineTestXUnit.Model
 {
     public class SubjecEqualTest
     {
