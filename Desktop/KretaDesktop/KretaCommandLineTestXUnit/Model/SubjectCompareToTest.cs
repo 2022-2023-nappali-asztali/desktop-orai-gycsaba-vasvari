@@ -25,5 +25,25 @@ namespace KretaCommandLineTestXUnit.Model
             // assert
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void SubjectComareTestOtherIsNotSubject()
+        {
+            // arrange
+            Subject subject = new Subject(1, "Törénelem");
+            Account account = new Account();
+            // act
+            int actual = subject.CompareTo(account);
+        }
+
+        [Fact]
+        public void SubjectComapareTestOtherIsNull()
+        {
+            // arrange
+            Subject subject = new Subject(1, "Történelem");
+            // act
+            int actual = subject.CompareTo(null);
+
+        }
     }
 }
