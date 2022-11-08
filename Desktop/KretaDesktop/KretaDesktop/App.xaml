@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:KretaDesktop"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="/Resources/AppStyling.xaml"></ResourceDictionary>
     </Application.Resources>
 </Application>
