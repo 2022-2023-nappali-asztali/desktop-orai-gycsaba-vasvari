@@ -6,7 +6,9 @@
              xmlns:local="clr-namespace:KretaDesktop.View.Content"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Black" Margin="0,5,0,-5">
+    <Grid Background="{DynamicResource ContentBackgroundColor}"          
+          Style="{DynamicResource ContentGridStyle}"
+          Margin="0,5,0,-5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -14,8 +16,11 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Content="Krétea - iskolai adminisztráció"></Label>
-        <Expander Grid.Row="1" Header="Tantárgy adatai">
+        <Label Grid.Row="0" 
+               Content="Krétea - iskolai adminisztráció"
+               Style="{DynamicResource ContentTitle}">
+        </Label>
+        <Expander Margin="4" Grid.Row="1" Header="Tantárgy adatai">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -41,7 +46,7 @@
                 </StackPanel>
             </Grid>
         </Expander>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Margin="14">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -52,9 +57,9 @@
             <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
                 <Label Content="Rendezés:"></Label>
                 <Button>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Background="Orange">
                         <Image Source="//Resources/Icons/sort-alpha-down.png"></Image>
-                        <Label>Növekvő</Label>
+                        <Label>   Növekvő   </Label>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -69,7 +74,7 @@
                 <ComboBox></ComboBox>
             </StackPanel>
         </Grid>
-        <StackPanel Orientation="Horizontal" Grid.Row="3">
+        <StackPanel Margin="14" Orientation="Horizontal" Grid.Row="3">
             <DataGrid>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Azon."></DataGridTextColumn>
@@ -78,7 +83,7 @@
             </DataGrid>
             <Button Content="Törlés"></Button>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="4">
+        <StackPanel Margin="14" Orientation="Horizontal" Grid.Row="4">
             <Button Content="&lt;&lt;"></Button>
             <Button Content="&lt;"></Button>
             <Label Content="Oldal"></Label>

@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:KretaDesktop"
              StartupUri="View/Content/ContentListSubjectView.xaml">
     <Application.Resources>
-        <ResourceDictionary Source="/Resources/AppStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/AppStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Resources/ContentStyle.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
