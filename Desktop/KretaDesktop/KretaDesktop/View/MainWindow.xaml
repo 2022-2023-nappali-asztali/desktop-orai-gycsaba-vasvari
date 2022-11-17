@@ -15,6 +15,12 @@
                 <ColumnDefinition Width="2"/>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Vertical">
+                
+            </StackPanel>
+            <GridSplitter  Grid.Column="1" Width="2" Background="Black"></GridSplitter>
+            <ContentControl Grid.Column="2" Content="{Binding SelectedView}" />
         </Grid>
     </Grid>
 </Window>
