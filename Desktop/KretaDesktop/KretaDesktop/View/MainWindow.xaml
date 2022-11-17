@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KretaDesktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Kréta - iskolai adminisztráció" Height="450" Width="800"
+        WindowStyle="None"
+        WindowState="Maximized">
     <Grid>
-
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160" MinWidth="5" MaxWidth="120"/>
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+        </Grid>
     </Grid>
 </Window>
