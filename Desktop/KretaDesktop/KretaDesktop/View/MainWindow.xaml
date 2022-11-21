@@ -15,9 +15,14 @@
                 <ColumnDefinition Width="2"/>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-
-            <StackPanel Grid.Column="0" Orientation="Vertical">
-                
+            <StackPanel Grid.Column="0" 
+                        Orientation="Vertical"
+                        Background="{DynamicResource HeaderBackgroundColor}">
+                <Image  Source="/Resources/Icons/school.png" Stretch="Fill" Width="110" Height="110"/>
+                <Menu Margin="5 20">
+                    <MenuItem Header="Adatkezelés"></MenuItem>
+                    <MenuItem Header="Kilépés"></MenuItem>
+                </Menu>
             </StackPanel>
             <GridSplitter  Grid.Column="1" Width="2" Background="Black"></GridSplitter>
             <ContentControl Grid.Column="2" Content="{Binding SelectedView}" />
