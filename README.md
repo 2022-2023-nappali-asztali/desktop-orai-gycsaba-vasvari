@@ -1,0 +1,2 @@
+# Záródolgozat órai munka gyakorló
+

@@ -1,0 +1,1 @@
+# Záródolgozat - desktop applikáció
