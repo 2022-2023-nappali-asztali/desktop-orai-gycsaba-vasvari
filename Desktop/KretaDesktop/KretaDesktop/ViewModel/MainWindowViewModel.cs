@@ -12,8 +12,11 @@ namespace KretaDesktop.ViewModel
     {
         public RelayCommand UpdateViewCommand { get; }
 
-        public MainWindowViewModel()
+        private MainWindow window;
+
+        public MainWindowViewModel(MainWindow window)
         {
+            this.window = window;
             UpdateViewCommand = new RelayCommand((parameter) => UpdateView(parameter));
         }
 
@@ -24,7 +27,7 @@ namespace KretaDesktop.ViewModel
                 string commandParameter=(string)parameter;
                 if (commandParameter == "Exit")
                 {
-                    ;
+                   window.Close();
                 }
             }
         }
