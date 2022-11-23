@@ -21,6 +21,10 @@
                 <Image  Source="/Resources/Icons/school.png" Stretch="Fill" Width="110" Height="110"/>
                 <Menu Margin="5 20" Style="{DynamicResource HeaderMenu}">
                     <MenuItem Header="Adatkezelés"></MenuItem>
+                    <MenuItem Header="Konfiguráció"
+                        Command="{Binding UpdateViewCommand}"
+                        CommandParameter="Configuration">
+                    </MenuItem>
                     <MenuItem Header="Kilépés"
                           Command="{Binding UpdateViewCommand}"
                           CommandParameter="Exit">
