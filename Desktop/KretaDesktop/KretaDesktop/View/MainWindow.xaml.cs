@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KretaDesktop.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace KretaDesktop
         public MainWindow()
         {
             InitializeComponent();
+            MainWindowViewModel viewModel = new MainWindowViewModel(this);
+            this.DataContext= viewModel;
         }
     }
 }
