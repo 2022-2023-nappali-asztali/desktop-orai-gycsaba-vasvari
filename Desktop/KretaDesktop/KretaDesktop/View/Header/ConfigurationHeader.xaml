@@ -6,7 +6,23 @@
              xmlns:local="clr-namespace:KretaDesktop.View.Header"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Background="Gray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <ContentControl Grid.Row="0" 
+                        Content="K R É T E   -   Konfiguráció"
+                        Style="{DynamicResource HeaderAppTitle}">
+        </ContentControl>
+        <StackPanel Grid.Row="1">
+            <Button  CommandParameter="Localization"  Content="Nyelv választás">
+            </Button>
+        </StackPanel>
+        <ContentControl Grid.Row="2" Content="{Binding SelectedView}"></ContentControl>
+
     </Grid>
 </UserControl>
