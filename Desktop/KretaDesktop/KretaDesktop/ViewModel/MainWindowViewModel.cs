@@ -5,14 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KretaDesktop.ViewModel.BaseClass;
+using KretaDesktop.ViewModel.Header;
 
 namespace KretaDesktop.ViewModel
 {
-    class MainWindowViewModel
+    class MainWindowViewModel : ViewModelBase
     {
         public RelayCommand UpdateViewCommand { get; }
 
         private MainWindow window;
+
+        private ViewModelBase selectedView;
+        public ViewModelBase SelectedView
+        {
+            get { return selectedView; }
+            set
+            {
+                selectedView = value;
+                OnPropertyChanged(nameof(SelectedView));
+            }
+        }
 
         public MainWindowViewModel(MainWindow window)
         {
@@ -28,6 +40,12 @@ namespace KretaDesktop.ViewModel
                 if (commandParameter == "Exit")
                 {
                    window.Close();
+                }
+                else if (commandParameter=="Configuration")
+                {
+                    // Itt módosítjuk a View-t, készítünk egy BaseViewModel-ből öröklődő ViewModel-t
+                    // Ennyi a menü választás
+                    SelectedView = new ConfigurationHeaderViewModel();
                 }
             }
         }
