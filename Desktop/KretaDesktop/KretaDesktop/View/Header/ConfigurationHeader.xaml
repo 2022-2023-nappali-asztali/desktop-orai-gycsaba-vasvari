@@ -19,7 +19,13 @@
                         Style="{DynamicResource HeaderAppTitle}">
         </ContentControl>
         <StackPanel Grid.Row="1">
-            <Button HorizontalAlignment="Left" Margin="32 0 0 0" Content="Nyelv választás"></Button>
+            <Button HorizontalAlignment="Left" 
+                    Margin="32 0 0 0" 
+                    Content="Nyelv választás"
+                    Command="{Binding UpdateViewCommand}"
+                    CommandParameter="SelectLanguage"
+                    >
+            </Button>
         </StackPanel>
         <ContentControl Grid.Row="2" Content="{Binding SelectedView}"></ContentControl>
     </Grid>

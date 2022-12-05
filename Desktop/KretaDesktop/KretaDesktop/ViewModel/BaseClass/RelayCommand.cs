@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         public event EventHandler CanExecuteChanged
         {

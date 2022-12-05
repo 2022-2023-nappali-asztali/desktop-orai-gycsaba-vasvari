@@ -6,28 +6,28 @@
              xmlns:local="clr-namespace:KretaDesktop.View.Configuration"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid Background="{DynamicResource ContentBackgroundColor}">
-            <StackPanel Orientation="Vertical" Margin="0 32 0 0">
-                <StackPanel Orientation="Horizontal" Margin="12 0 0 0">
-                    <Label Style="{DynamicResource FormLabel}" 
-                           Content="Választott nyelv:"></Label>
-                    <Label Style="{DynamicResource FormLabel}" 
-                           Content="{Binding CurrentLanguage}">
-                    </Label>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="12 32 0 0">
-                    <Label VerticalAlignment="Top" 
-                           Style="{DynamicResource FormLabel}" 
-                           Content="Válasszon nyelvet:"></Label>
-                    <ListBox VerticalAlignment="Top" Style="{DynamicResource FormListBox}" 
-                         ItemContainerStyle="{DynamicResource ListBoxItem}"
-                         ItemsSource="{Binding AllLanguage}"
-                         SelectedItem="{Binding SelectedLanguage}"
-                          >
-                    </ListBox>
-                </StackPanel>
+
+    <Grid Background="{DynamicResource ContentBackgroundColor}">
+        <StackPanel Orientation="Vertical" Margin="0 32 0 0">
+            <StackPanel Orientation="Horizontal" Margin="12 0 0 0">
+                <Label Style="{DynamicResource FormLabel}" 
+                        Content="Választott nyelv:"></Label>
+                <Label Style="{DynamicResource FormLabel}" 
+                        Content="{Binding CurrentLanguage}">
+                </Label>
             </StackPanel>
-        </Grid>
+            <StackPanel Orientation="Horizontal" Margin="12 32 0 0">
+                <Label VerticalAlignment="Top" 
+                        Style="{DynamicResource FormLabel}" 
+                        Content="Válasszon nyelvet:"></Label>
+                <ListBox VerticalAlignment="Top" Style="{DynamicResource FormListBox}" 
+                        ItemContainerStyle="{DynamicResource FormListBoxItem}"
+                        ItemsSource="{Binding AllLanguage}"
+                        SelectedItem="{Binding SelectedLanguage}"
+                        >
+                </ListBox>
+            </StackPanel>
+        </StackPanel>
     </Grid>
+
 </UserControl>
