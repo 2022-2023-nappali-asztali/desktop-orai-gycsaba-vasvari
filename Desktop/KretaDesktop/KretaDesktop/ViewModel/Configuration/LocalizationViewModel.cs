@@ -11,7 +11,30 @@ namespace KretaDesktop.ViewModel.Configuration
 {
     class LocalizationViewModel : ViewModelBase
     {
+        public string CurrentLanguage
+        {
+            get 
+            {                
+                return selectedLanguage;
+            }
+        }
+
+        private string selectedLanguage;
+        public string SelectedLanguage
+        {
+            get
+            {
+                return selectedLanguage;
+            }
+            set
+            {
+                selectedLanguage = value;
+                OnPropertyChanged(nameof(CurrentLanguage));
+            } 
+        }
+        
         public ObservableCollection<string> AllLanguage { get; set; }
+
 
         public LocalizationViewModel()
         {
