@@ -5,6 +5,13 @@
     <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#ff003f5c"></SolidColorBrush>
     <SolidColorBrush x:Key="ContentForegroundColor" Color="White"></SolidColorBrush>
 
+    <Style x:Key="HeaderAppTitle" TargetType="ContentControl">
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="FontSize" Value="32"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Margin" Value="0 32 0 0"></Setter>
+    </Style>
+
     <Style x:Key="HeaderMenu" TargetType="Menu">
         <Setter Property="Margin" Value="5 10 6 10"></Setter>
         <Setter Property="Background" Value="#02060A"></Setter>
@@ -15,6 +22,20 @@
         <Setter Property="Margin" Value="2 4 2 4"></Setter>
         <Setter Property="FontFamily" Value="Cascadia Code"></Setter>
         <Setter Property="FontSize" Value="14"></Setter>
+    </Style>
+
+    <Style x:Key="FormLabel" TargetType="Label">
+        <Setter Property="Margin" Value="18 4 2 2"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource ContentForegroundColor}"></Setter>
+    </Style>
+
+    <Style x:Key="FormListBox" TargetType="ListBox">
+        <Setter Property="Foreground"  Value="{DynamicResource ContentForegroundColor}"></Setter>
+        <Setter Property="Background" Value="{DynamicResource ContentBackgroundColor}"></Setter>
+    </Style>
+
+    <Style x:Key="FormListBoxItem" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="{DynamicResource ContentBackgroundColor}"></Setter>
     </Style>
 
 </ResourceDictionary>

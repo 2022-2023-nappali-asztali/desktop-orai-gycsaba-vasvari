@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="KretaDesktop.View.Configuration.LocalizationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:KretaDesktop.View.Configuration"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Background="{DynamicResource ContentBackgroundColor}">
+        <StackPanel Orientation="Vertical" Margin="0 32 0 0">
+            <StackPanel Orientation="Horizontal" Margin="12 0 0 0">
+                <Label Style="{DynamicResource FormLabel}" 
+                        Content="Választott nyelv:"></Label>
+                <Label Style="{DynamicResource FormLabel}" 
+                        Content="{Binding CurrentLanguage}">
+                </Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="12 32 0 0">
+                <Label VerticalAlignment="Top" 
+                        Style="{DynamicResource FormLabel}" 
+                        Content="Válasszon nyelvet:"></Label>
+                <ListBox VerticalAlignment="Top" Style="{DynamicResource FormListBox}" 
+                        ItemContainerStyle="{DynamicResource FormListBoxItem}"
+                        ItemsSource="{Binding AllLanguage}"
+                        SelectedItem="{Binding SelectedLanguage}"
+                        >
+                </ListBox>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+
+</UserControl>
