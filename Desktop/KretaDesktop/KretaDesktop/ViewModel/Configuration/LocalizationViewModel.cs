@@ -9,7 +9,7 @@ using KretaDesktop.ViewModel.BaseClass;
 
 namespace KretaDesktop.ViewModel.Configuration
 {
-    class LocalizationViewModel : ViewModelBase
+    public class LocalizationViewModel : ViewModelBase
     {
         public string CurrentLanguage
         {

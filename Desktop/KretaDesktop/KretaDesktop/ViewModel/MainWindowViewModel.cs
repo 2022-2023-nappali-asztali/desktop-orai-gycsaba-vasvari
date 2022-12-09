@@ -26,9 +26,14 @@ namespace KretaDesktop.ViewModel
             }
         }
 
-        public MainWindowViewModel()
+        private ConfigurationHeaderViewModel configurationHeaderViewModel;
+
+        public MainWindowViewModel(
+            ConfigurationHeaderViewModel configurationHeaderViewModel
+        )
         {
             //this.window = mainWindow;
+            this.configurationHeaderViewModel = configurationHeaderViewModel;
             UpdateViewCommand = new RelayCommand((parameter) => UpdateView(parameter));
         }
 
@@ -46,7 +51,8 @@ namespace KretaDesktop.ViewModel
                 {
                     // Itt módosítjuk a View-t, készítünk egy BaseViewModel-ből öröklődő ViewModel-t
                     // Ennyi a menü választás
-                    SelectedView = new ConfigurationHeaderViewModel();
+                    //SelectedView = new ConfigurationHeaderViewModel();
+                    SelectedView = configurationHeaderViewModel;
                 }
             }
         }

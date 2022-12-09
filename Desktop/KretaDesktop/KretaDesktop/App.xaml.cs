@@ -15,6 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using KretaDesktop.ViewModel;
 using KretaDesktop.View.Header;
 using KretaDesktop.ViewModel.Header;
+using KretaDesktop.ViewModel.Configuration;
+using KretaDesktop.View.Configuration;
 
 namespace KretaDesktop
 {
@@ -45,9 +47,20 @@ namespace KretaDesktop
                     {
                         DataContext = s.GetRequiredService<MainWindowViewModel>()
                     });
-
-
-                    
+                    services.AddSingleton<ConfigurationHeaderViewModel>();
+                    services.AddSingleton<ConfigurationHeader>(
+                        service => new ConfigurationHeader()
+                        {
+                            DataContext= service.GetRequiredService<ConfigurationHeaderViewModel>()
+                        }
+                    );
+                    services.AddSingleton<LocalizationViewModel>();
+                    services.AddSingleton<LocalizationView>(
+                        s => new LocalizationView()
+                        {
+                            DataContext=s.GetRequiredService<LocalizationViewModel>()
+                        }
+                    );                    
                 })
                 .Build();
         }
