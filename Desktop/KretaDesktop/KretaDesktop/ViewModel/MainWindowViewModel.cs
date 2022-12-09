@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows;
 using KretaDesktop.ViewModel.BaseClass;
 using KretaDesktop.ViewModel.Header;
 
@@ -39,7 +39,8 @@ namespace KretaDesktop.ViewModel
                 string commandParameter=(string)parameter;
                 if (commandParameter == "Exit")
                 {
-                    window.Close();
+                    //window.Close();
+                    Application.Current.Shutdown();
                 }
                 else if (commandParameter=="Configuration")
                 {

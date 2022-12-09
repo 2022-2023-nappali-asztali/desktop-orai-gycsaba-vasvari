@@ -13,6 +13,8 @@ using Serilog;
 
 using Microsoft.Extensions.DependencyInjection;
 using KretaDesktop.ViewModel;
+using KretaDesktop.View.Header;
+using KretaDesktop.ViewModel.Header;
 
 namespace KretaDesktop
 {
@@ -43,6 +45,7 @@ namespace KretaDesktop
                     {
                         DataContext = s.GetRequiredService<MainWindowViewModel>()
                     });
+                    
                 })
                 .Build();
         }
@@ -59,9 +62,6 @@ namespace KretaDesktop
             {
                 logger.Information($"{ex.Message}");
             }
-            
-
-
             base.OnStartup(e);
         }
 
