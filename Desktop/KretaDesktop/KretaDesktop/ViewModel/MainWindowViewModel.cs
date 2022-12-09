@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows;
 using KretaDesktop.ViewModel.BaseClass;
 using KretaDesktop.ViewModel.Header;
 
@@ -13,7 +13,7 @@ namespace KretaDesktop.ViewModel
     {
         public RelayCommand UpdateViewCommand { get; }
 
-        private MainWindow window;
+        //private MainWindow window;
 
         private ViewModelBase selectedView;
         public ViewModelBase SelectedView
@@ -26,9 +26,9 @@ namespace KretaDesktop.ViewModel
             }
         }
 
-        public MainWindowViewModel(MainWindow window)
+        public MainWindowViewModel()
         {
-            this.window = window;
+            //this.window = mainWindow;
             UpdateViewCommand = new RelayCommand((parameter) => UpdateView(parameter));
         }
 
@@ -39,7 +39,8 @@ namespace KretaDesktop.ViewModel
                 string commandParameter=(string)parameter;
                 if (commandParameter == "Exit")
                 {
-                   window.Close();
+                    //window.Close();
+                    Application.Current.Shutdown();
                 }
                 else if (commandParameter=="Configuration")
                 {
