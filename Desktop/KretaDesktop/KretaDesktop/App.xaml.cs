@@ -45,6 +45,8 @@ namespace KretaDesktop
                     {
                         DataContext = s.GetRequiredService<MainWindowViewModel>()
                     });
+
+
                     
                 })
                 .Build();
