@@ -36,7 +36,7 @@ namespace KretaDesktop
                 .WriteTo.File($"log\\log.txt")
                 .CreateLogger();
 
-            logger.Information("Appplication is started...");
+            logger.Information("Applikáció elinudlt...");
 
             host = Host.CreateDefaultBuilder()
                 .UseSerilog()
@@ -63,6 +63,7 @@ namespace KretaDesktop
                     );                    
                 })
                 .Build();
+                logger.Information("Build megtörtént...");
         }
 
         protected async override void OnStartup(StartupEventArgs e)
@@ -72,6 +73,7 @@ namespace KretaDesktop
             {
                 var window = host.Services.GetRequiredService<MainWindow>();
                 window.Show();
+                logger.Information("Ablak megjelent...");
             }
             catch(Exception ex)
             {
@@ -84,7 +86,7 @@ namespace KretaDesktop
         {
             await host.StopAsync();
             host.Dispose();
-
+            logger.Information("Kilépés az applikációból...");
             base.OnExit(e);
         }
 

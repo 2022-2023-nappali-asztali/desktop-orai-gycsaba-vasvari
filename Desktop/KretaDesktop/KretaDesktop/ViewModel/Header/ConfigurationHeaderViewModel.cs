@@ -29,10 +29,10 @@ namespace KretaDesktop.ViewModel.Header
 
         public RelayCommand UpdateViewCommand { get; set;}
 
-        private ILogger logger;
+        private ILogger<ConfigurationHeaderViewModel> logger;
         private LocalizationViewModel localizationView;
 
-        public ConfigurationHeaderViewModel(ILogger logger, LocalizationViewModel localizationViewModel)
+        public ConfigurationHeaderViewModel(ILogger<ConfigurationHeaderViewModel> logger, LocalizationViewModel localizationViewModel)
         {
             this.logger = logger;
             this.localizationView = localizationViewModel;
