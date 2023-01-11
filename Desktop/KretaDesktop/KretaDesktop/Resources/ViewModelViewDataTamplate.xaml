@@ -7,7 +7,7 @@
                     >
 
     <DataTemplate DataType="{x:Type headerviewmodels:ConfigurationHeaderViewModel}">
-        <headerviews:ConfigurationHeader></headerviews:ConfigurationHeader>
+        <headerviews:ConfigurationHeaderView></headerviews:ConfigurationHeaderView>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type configurationviewmodels:LocalizationViewModel}">
