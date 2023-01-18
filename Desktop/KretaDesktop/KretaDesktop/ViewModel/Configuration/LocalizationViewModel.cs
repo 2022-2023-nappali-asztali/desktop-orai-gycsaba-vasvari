@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,10 @@ namespace KretaDesktop.ViewModel.Configuration
             set
             {
                 selectedLanguage = value;
+                CultureInfo culture = new CultureInfo(SelectedLanguage);
+                System.Threading.Thread.CurrentThread.CurrentCulture = culture;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
+
                 OnPropertyChanged(nameof(CurrentLanguage));
             } 
         }
