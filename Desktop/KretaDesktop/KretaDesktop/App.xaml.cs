@@ -15,6 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using KretaDesktop.ViewModel;
 using KretaDesktop.View.Header;
 using KretaDesktop.ViewModel.Header;
+using KretaDesktop.ViewModel.Configuration;
+using KretaDesktop.View.Configuration;
 
 namespace KretaDesktop
 {
@@ -24,17 +26,17 @@ namespace KretaDesktop
     public partial class App : Application
     {
         private readonly IHost host;
-        ILogger logger;
+        //ILogger logger;
 
         public App()
         {
-            logger = new LoggerConfiguration()
+            Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
                 .WriteTo.File($"log\\log.txt")
                 .CreateLogger();
 
-            logger.Information("Appplication is started...");
+            Log.Logger.Information("Applikáció elinudlt...");
 
             host = Host.CreateDefaultBuilder()
                 .UseSerilog()
@@ -45,9 +47,23 @@ namespace KretaDesktop
                     {
                         DataContext = s.GetRequiredService<MainWindowViewModel>()
                     });
-                    
+                    services.AddSingleton<ConfigurationHeaderViewModel>();
+                    services.AddSingleton<ConfigurationHeaderView>(
+                        service => new ConfigurationHeaderView()
+                        {
+                            DataContext= service.GetRequiredService<ConfigurationHeaderViewModel>()
+                        }
+                    );
+                    services.AddSingleton<LocalizationViewModel>();
+                    services.AddSingleton<LocalizationView>(
+                        s => new LocalizationView()
+                        {
+                            DataContext=s.GetRequiredService<LocalizationViewModel>()
+                        }
+                    );                    
                 })
                 .Build();
+            Log.Logger.Information("Build megtörtént...");
         }
 
         protected async override void OnStartup(StartupEventArgs e)
@@ -57,10 +73,11 @@ namespace KretaDesktop
             {
                 var window = host.Services.GetRequiredService<MainWindow>();
                 window.Show();
+                Log.Logger.Information("Ablak megjelent...");
             }
             catch(Exception ex)
             {
-                logger.Information($"{ex.Message}");
+                Log.Logger.Information($"{ex.Message}");
             }
             base.OnStartup(e);
         }
@@ -69,7 +86,7 @@ namespace KretaDesktop
         {
             await host.StopAsync();
             host.Dispose();
-
+            Log.Logger.Information("Kilépés az applikációból...");
             base.OnExit(e);
         }
 

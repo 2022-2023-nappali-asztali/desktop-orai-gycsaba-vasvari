@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using KretaDesktop.ViewModel.BaseClass;
 using KretaDesktop.ViewModel.Header;
+using Microsoft.Extensions.Logging;
 
 namespace KretaDesktop.ViewModel
 {
@@ -26,9 +27,18 @@ namespace KretaDesktop.ViewModel
             }
         }
 
-        public MainWindowViewModel()
+        private ConfigurationHeaderViewModel configurationHeaderViewModel;
+
+        ILogger<MainWindowViewModel> logger;
+
+        // a paraméter a dependency injection
+        public MainWindowViewModel(
+            ILogger<MainWindowViewModel> logger, 
+            ConfigurationHeaderViewModel configurationHeaderViewModel)
         {
+            this.logger = logger;
             //this.window = mainWindow;
+            this.configurationHeaderViewModel = configurationHeaderViewModel;
             UpdateViewCommand = new RelayCommand((parameter) => UpdateView(parameter));
         }
 
@@ -46,7 +56,9 @@ namespace KretaDesktop.ViewModel
                 {
                     // Itt módosítjuk a View-t, készítünk egy BaseViewModel-ből öröklődő ViewModel-t
                     // Ennyi a menü választás
-                    SelectedView = new ConfigurationHeaderViewModel();
+                    //SelectedView = new ConfigurationHeaderViewModel();
+                    logger.LogInformation($"{nameof(MainWindowViewModel)} ->Konfigurációs menüpontot választotta");
+                    SelectedView = configurationHeaderViewModel;
                 }
             }
         }

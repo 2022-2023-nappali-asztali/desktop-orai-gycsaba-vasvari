@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using KretaDesktop.ViewModel.BaseClass;
 using KretaDesktop.ViewModel.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace KretaDesktop.ViewModel.Header
 {
@@ -28,8 +29,13 @@ namespace KretaDesktop.ViewModel.Header
 
         public RelayCommand UpdateViewCommand { get; set;}
 
-        public ConfigurationHeaderViewModel()
+        private ILogger<ConfigurationHeaderViewModel> logger;
+        private LocalizationViewModel localizationView;
+
+        public ConfigurationHeaderViewModel(ILogger<ConfigurationHeaderViewModel> logger, LocalizationViewModel localizationViewModel)
         {
+            this.logger = logger;
+            this.localizationView = localizationViewModel;
             UpdateViewCommand = new RelayCommand(
                 (parameter) => ChangeView(parameter)
             );
@@ -44,7 +50,9 @@ namespace KretaDesktop.ViewModel.Header
                     switch (viewName)
                     {
                         case "SelectLanguage":
-                            SelectedView= new LocalizationViewModel();
+                            //SelectedView= new LocalizationViewModel();
+                            logger.LogInformation($"{nameof(ConfigurationHeaderViewModel)} -> A nyelv választás menüpontot választotta");
+                            SelectedView= localizationView;
                             break;
                     }
                 }

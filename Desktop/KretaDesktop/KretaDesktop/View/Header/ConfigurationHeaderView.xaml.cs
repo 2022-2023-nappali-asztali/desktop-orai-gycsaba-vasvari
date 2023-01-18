@@ -18,9 +18,9 @@ namespace KretaDesktop.View.Header
     /// <summary>
     /// Interaction logic for ConfigurationHeader.xaml
     /// </summary>
-    public partial class ConfigurationHeader : UserControl
+    public partial class ConfigurationHeaderView : UserControl
     {
-        public ConfigurationHeader()
+        public ConfigurationHeaderView()
         {
             InitializeComponent();
         }
