@@ -14,7 +14,7 @@
         <configurationview:LocalizationView></configurationview:LocalizationView>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type headerviewmodels:DataMagmentHeaderViewModel}">
+    <DataTemplate DataType="{x:Type headerviewmodels:DataManagmentHeaderViewModel}">
         <headerviews:DataManagmentHeaderView></headerviews:DataManagmentHeaderView>
     </DataTemplate>
     

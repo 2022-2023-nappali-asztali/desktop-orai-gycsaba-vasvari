@@ -62,11 +62,11 @@ namespace KretaDesktop
                             DataContext=s.GetRequiredService<LocalizationViewModel>()
                         }
                     );
-                    services.AddSingleton<DataMagmentHeaderViewModel>();
+                    services.AddSingleton<DataManagmentHeaderViewModel>();
                     services.AddSingleton<DataManagmentHeaderView>(
                         s => new DataManagmentHeaderView()
                         {
-                            DataContext=s.GetRequiredService<DataMagmentHeaderViewModel>
+                            DataContext=s.GetRequiredService<DataManagmentHeaderViewModel>
                         }
                     );
                 })

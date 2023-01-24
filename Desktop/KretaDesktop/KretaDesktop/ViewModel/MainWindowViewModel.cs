@@ -28,17 +28,20 @@ namespace KretaDesktop.ViewModel
         }
 
         private ConfigurationHeaderViewModel configurationHeaderViewModel;
+        private DataManagmentHeaderViewModel dataMagmentHeaderViewModel;
 
         ILogger<MainWindowViewModel> logger;
 
         // a paraméter a dependency injection
         public MainWindowViewModel(
             ILogger<MainWindowViewModel> logger, 
-            ConfigurationHeaderViewModel configurationHeaderViewModel)
+            ConfigurationHeaderViewModel configurationHeaderViewModel,
+            DataManagmentHeaderViewModel dataManagmentHeaderViewModel)
         {
             this.logger = logger;
             //this.window = mainWindow;
             this.configurationHeaderViewModel = configurationHeaderViewModel;
+            this.dataMagmentHeaderViewModel = dataManagmentHeaderViewModel;
             UpdateViewCommand = new RelayCommand((parameter) => UpdateView(parameter));
         }
 
@@ -60,6 +63,12 @@ namespace KretaDesktop.ViewModel
                     logger.LogInformation($"{nameof(MainWindowViewModel)} ->Konfigurációs menüpontot választotta");
                     SelectedView = configurationHeaderViewModel;
                 }
+                else  if (commandParameter=="DataMagment")
+                {
+                    logger.LogInformation($"{nameof(MainWindowViewModel)} - Adatkezelés menüpont választás");
+                    SelectedView = dataMagmentHeaderViewModel;
+                }
+
             }
         }
     }
