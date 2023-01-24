@@ -17,6 +17,7 @@ using KretaDesktop.View.Header;
 using KretaDesktop.ViewModel.Header;
 using KretaDesktop.ViewModel.Configuration;
 using KretaDesktop.View.Configuration;
+using KretaDesktop.Localization;
 
 namespace KretaDesktop
 {
@@ -71,6 +72,8 @@ namespace KretaDesktop
             await host.StartAsync();
             try
             {
+                ProjectLocalization projectLocalization = new ProjectLocalization();
+                projectLocalization.SwitchToCurrentCuture();
                 var window = host.Services.GetRequiredService<MainWindow>();
                 window.Show();
                 Log.Logger.Information("Ablak megjelent...");

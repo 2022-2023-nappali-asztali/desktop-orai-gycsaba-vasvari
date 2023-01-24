@@ -11,7 +11,7 @@
         <StackPanel Orientation="Vertical" Margin="0 32 0 0">
             <StackPanel Orientation="Horizontal" Margin="12 0 0 0">
                 <Label Style="{DynamicResource FormLabel}" 
-                        Content="Választott nyelv:"></Label>
+                        Content="{DynamicResource contentLocalizationCurrentLanguage}"></Label>
                 <Label Style="{DynamicResource FormLabel}" 
                         Content="{Binding CurrentLanguage}">
                 </Label>
@@ -19,7 +19,7 @@
             <StackPanel Orientation="Horizontal" Margin="12 32 0 0">
                 <Label VerticalAlignment="Top" 
                         Style="{DynamicResource FormLabel}" 
-                        Content="Válasszon nyelvet:"></Label>
+                        Content="{DynamicResource contentLocalizationSelectLanguage}"></Label>
                 <ListBox VerticalAlignment="Top" Style="{DynamicResource FormListBox}" 
                         ItemContainerStyle="{DynamicResource FormListBoxItem}"
                         ItemsSource="{Binding AllLanguage}"

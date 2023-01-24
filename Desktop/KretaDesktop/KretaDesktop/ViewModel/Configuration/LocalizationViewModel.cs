@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using KretaDesktop.Localization;
 using KretaDesktop.ViewModel.BaseClass;
 
 namespace KretaDesktop.ViewModel.Configuration
@@ -29,6 +30,11 @@ namespace KretaDesktop.ViewModel.Configuration
             set
             {
                 selectedLanguage = value;
+                CultureInfo culture = new CultureInfo(SelectedLanguage);
+                System.Threading.Thread.CurrentThread.CurrentCulture = culture;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
+                ProjectLocalization localization = new ProjectLocalization();
+                localization.SwitchToCurrentCuture();
                 OnPropertyChanged(nameof(CurrentLanguage));
             } 
         }
@@ -39,7 +45,7 @@ namespace KretaDesktop.ViewModel.Configuration
         public LocalizationViewModel()
         {
             AllLanguage = new ObservableCollection<string>(
-                new List<string> { "hu-HU","en-US" }
+                new List<string> { "hu-HU","en-EN" }
             );
         }
     }
