@@ -12,25 +12,20 @@ namespace KretaDesktop.ViewModel
 {
     class MainWindowViewModel : ViewModelBase
     {
-        public RelayCommand UpdateViewCommand { get; }
+        ILogger<MainWindowViewModel> _logger;
+        private ConfigurationHeaderViewModel _configurationHeaderViewModel;
+        private DataManagmentHeaderViewModel _dataMagmentHeaderViewModel;
 
-        //private MainWindow window;
-
-        private ViewModelBase selectedView;
+        private ViewModelBase _selectedView;
         public ViewModelBase SelectedView
         {
-            get { return selectedView; }
+            get { return _selectedView; }
             set
             {
-                selectedView = value;
+                _selectedView = value;
                 OnPropertyChanged(nameof(SelectedView));
             }
         }
-
-        private ConfigurationHeaderViewModel configurationHeaderViewModel;
-        private DataManagmentHeaderViewModel dataMagmentHeaderViewModel;
-
-        ILogger<MainWindowViewModel> logger;
 
         // a paraméter a dependency injection
         public MainWindowViewModel(
@@ -38,12 +33,15 @@ namespace KretaDesktop.ViewModel
             ConfigurationHeaderViewModel configurationHeaderViewModel,
             DataManagmentHeaderViewModel dataManagmentHeaderViewModel)
         {
-            this.logger = logger;
+            _logger = logger;
             //this.window = mainWindow;
-            this.configurationHeaderViewModel = configurationHeaderViewModel;
-            this.dataMagmentHeaderViewModel = dataManagmentHeaderViewModel;
+            _configurationHeaderViewModel = configurationHeaderViewModel;
+            _dataMagmentHeaderViewModel = dataManagmentHeaderViewModel;
+
             UpdateViewCommand = new RelayCommand((parameter) => UpdateView(parameter));
         }
+
+        public RelayCommand UpdateViewCommand { get; }
 
         void UpdateView(object parameter)
         {
@@ -60,13 +58,13 @@ namespace KretaDesktop.ViewModel
                     // Itt módosítjuk a View-t, készítünk egy BaseViewModel-ből öröklődő ViewModel-t
                     // Ennyi a menü választás
                     //SelectedView = new ConfigurationHeaderViewModel();
-                    logger.LogInformation($"{nameof(MainWindowViewModel)} ->Konfigurációs menüpontot választotta");
-                    SelectedView = configurationHeaderViewModel;
+                    _logger.LogInformation($"{nameof(MainWindowViewModel)} ->Konfigurációs menüpontot választotta");
+                    SelectedView = _configurationHeaderViewModel;
                 }
                 else  if (commandParameter=="DataMagment")
                 {
-                    logger.LogInformation($"{nameof(MainWindowViewModel)} - Adatkezelés menüpont választás");
-                    SelectedView = dataMagmentHeaderViewModel;
+                    _logger.LogInformation($"{nameof(MainWindowViewModel)} - Adatkezelés menüpont választás");
+                    SelectedView = _dataMagmentHeaderViewModel;
                 }
 
             }
