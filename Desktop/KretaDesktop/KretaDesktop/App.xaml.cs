@@ -61,7 +61,14 @@ namespace KretaDesktop
                         {
                             DataContext=s.GetRequiredService<LocalizationViewModel>()
                         }
-                    );                    
+                    );
+                    services.AddSingleton<DataMagmentHeaderViewModel>();
+                    services.AddSingleton<DataManagmentHeaderView>(
+                        s => new DataManagmentHeaderView()
+                        {
+                            DataContext=s.GetRequiredService<DataMagmentHeaderViewModel>
+                        }
+                    );
                 })
                 .Build();
             Log.Logger.Information("Build megtörtént...");
