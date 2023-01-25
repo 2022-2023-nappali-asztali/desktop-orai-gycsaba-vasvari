@@ -18,6 +18,8 @@ using KretaDesktop.ViewModel.Header;
 using KretaDesktop.ViewModel.Configuration;
 using KretaDesktop.View.Configuration;
 using KretaDesktop.Localization;
+using KretaDesktop.ViewModel.Content;
+using KretaDesktop.View.Content;
 
 namespace KretaDesktop
 {
@@ -66,7 +68,22 @@ namespace KretaDesktop
                     services.AddSingleton<DataManagmentHeaderView>(
                         s => new DataManagmentHeaderView()
                         {
-                            DataContext=s.GetRequiredService<DataManagmentHeaderViewModel>
+                            DataContext=s.GetRequiredService<DataManagmentHeaderViewModel>()
+                        }
+                    );
+                    services.AddSingleton<ContentListSubjectViewModel>();
+                    services.AddSingleton<ContentListSubjectView>(
+                        s => new ContentListSubjectView()
+                        {
+                            DataContext=s.GetRequiredService<ContentListSubjectViewModel>()
+                        }
+                    );
+
+                    services.AddSingleton<ContentListStudentViewModel>();
+                    services.AddSingleton<ContentListStudentView>(
+                        s => new ContentListStudentView()
+                        {
+                            DataContext=s.GetRequiredService<ContentListStudentView>()
                         }
                     );
                 })

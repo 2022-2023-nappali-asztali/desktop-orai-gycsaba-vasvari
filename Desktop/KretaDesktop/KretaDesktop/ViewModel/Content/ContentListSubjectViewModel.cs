@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 using KretaDesktop.ViewModel.BaseClass;
 
-namespace KretaDesktop.ViewModel.Header
+namespace KretaDesktop.ViewModel.Content
 {
-    public class DataManagmentHeaderViewModel : ViewModelBase
+    public class ContentListSubjectViewModel : ViewModelBase
     {
     }
 }
