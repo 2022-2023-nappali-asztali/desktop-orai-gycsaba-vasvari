@@ -16,5 +16,22 @@
                         Content="{DynamicResource headerConfigurationDataManagmentTitle}"
                         Style="{DynamicResource HeaderAppTitle}"
         />
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button HorizontalAlignment="Left"
+                    Margin="32 0 0 0"
+                    Content="{DynamicResource headDataManagmentSubject}"
+                    Command="{Binding UpdateViewCommand}"
+                    CommandParameter="SubjectDataManagment"
+                    />
+            <Button HorizontalAlignment="Left"
+                    Margin="12 0 0 0"
+                    Content="{DynamicResource headDataManagmentStudent}"
+                    Command="{Binding UpdateViewModel}"
+                    CommandParameter="StudentDateManagment"
+            />
+        </StackPanel>
+        <ContentControl Grid.Row="2"
+                        Content="{Binding SelectedView}" 
+        />
     </Grid>
 </UserControl>
