@@ -13,7 +13,7 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <ContentControl Grid.Row="0"
-                        Content="K R É T A  -  Adatkezlés"
+                        Content="{DynamicResource headerConfigurationDataManagmentTitle}"
                         Style="{DynamicResource HeaderAppTitle}"
         />
     </Grid>

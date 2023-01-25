@@ -15,7 +15,7 @@
 
 
         <ContentControl Grid.Row="0" 
-                        Content="K R É T E   -   Konfiguráció"
+                        Content="{DynamicResource headerConfigurationConfigurationTitle}"
                         Style="{DynamicResource HeaderAppTitle}">
         </ContentControl>
         <StackPanel Grid.Row="1">
