@@ -26,7 +26,7 @@
             <Button HorizontalAlignment="Left"
                     Margin="12 0 0 0"
                     Content="{DynamicResource headDataManagmentStudent}"
-                    Command="{Binding UpdateViewModel}"
+                    Command="{Binding UpdateViewCommand}"
                     CommandParameter="StudentDateManagment"
             />
         </StackPanel>
