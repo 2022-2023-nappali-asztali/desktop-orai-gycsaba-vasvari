@@ -8,7 +8,7 @@ using KretaDesktop.ViewModel.BaseClass;
 
 namespace KretaDesktop.ViewModel.Content
 {
-    public class ContentListSubjectViewModel : ViewModelBase
+    public class ListSubjectViewModel : ViewModelBase
     {
     }
 }

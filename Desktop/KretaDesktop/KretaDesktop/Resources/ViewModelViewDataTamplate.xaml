@@ -20,12 +20,12 @@
         <headerviews:DataManagmentHeaderView></headerviews:DataManagmentHeaderView>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type contentviewmodels:ContentListSubjectViewModel}">
-        <contentviews:ContentListStudentView></contentviews:ContentListStudentView>
+    <DataTemplate DataType="{x:Type contentviewmodels:ListSubjectViewModel}">
+        <contentviews:ListSubjectView></contentviews:ListSubjectView>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type contentviewmodels:ContentListStudentViewModel}">
-        <contentviews:ContentListStudentView></contentviews:ContentListStudentView>
+    <DataTemplate DataType="{x:Type contentviewmodels:ListStudentViewModel}">
+        <contentviews:ListStudentView></contentviews:ListStudentView>
     </DataTemplate>
     
     

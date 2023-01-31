@@ -71,19 +71,19 @@ namespace KretaDesktop
                             DataContext=s.GetRequiredService<DataManagmentHeaderViewModel>()
                         }
                     );
-                    services.AddSingleton<ContentListSubjectViewModel>();
-                    services.AddSingleton<ContentListSubjectView>(
-                        s => new ContentListSubjectView()
+                    services.AddSingleton<ListSubjectViewModel>();
+                    services.AddSingleton<ListSubjectView>(
+                        s => new ListSubjectView()
                         {
-                            DataContext=s.GetRequiredService<ContentListSubjectViewModel>()
+                            DataContext=s.GetRequiredService<ListSubjectViewModel>()
                         }
                     );
 
-                    services.AddSingleton<ContentListStudentViewModel>();
-                    services.AddSingleton<ContentListStudentView>(
-                        s => new ContentListStudentView()
+                    services.AddSingleton<ListStudentViewModel>();
+                    services.AddSingleton<ListStudentView>(
+                        s => new ListStudentView()
                         {
-                            DataContext=s.GetRequiredService<ContentListStudentView>()
+                            DataContext=s.GetRequiredService<ListStudentView>()
                         }
                     );
                 })
