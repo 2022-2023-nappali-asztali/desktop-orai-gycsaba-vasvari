@@ -2,7 +2,17 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-<!-- Localization view -->
+    <!-- Header view -->
+        <!-- Title -->
+    <system:String x:Key="headerConfigurationConfigurationTitle">K R É T E   -   Konfiguráció</system:String>
+    <system:String x:Key="headerConfigurationDataManagmentTitle">K R É T E   -   Adatkezelés</system:String>
+        <!-- Almenüpont -->
+            <!-- Konfiguráció -->
+    <system:String x:Key="headerConfigurationChooseLanguage">Nyelv választás</system:String>
+            <!-- Adatkezelés -->
+    <system:String x:Key="headDataManagmentSubject">Tantárgyak kezelése</system:String>
+    <system:String x:Key="headDataManagmentStudent">Tanulók kezelése</system:String>
+        <!-- Localization view -->
     <system:String x:Key="contentLocalizationCurrentLanguage">Aktuális nyelv:</system:String>
     <system:String x:Key="contentLocalizationSelectLanguage">Nyelv választás</system:String>
 

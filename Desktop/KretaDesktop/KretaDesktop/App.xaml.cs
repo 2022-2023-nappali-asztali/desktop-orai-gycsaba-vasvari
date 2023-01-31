@@ -18,6 +18,8 @@ using KretaDesktop.ViewModel.Header;
 using KretaDesktop.ViewModel.Configuration;
 using KretaDesktop.View.Configuration;
 using KretaDesktop.Localization;
+using KretaDesktop.ViewModel.Content;
+using KretaDesktop.View.Content;
 
 namespace KretaDesktop
 {
@@ -61,7 +63,29 @@ namespace KretaDesktop
                         {
                             DataContext=s.GetRequiredService<LocalizationViewModel>()
                         }
-                    );                    
+                    );
+                    services.AddSingleton<DataManagmentHeaderViewModel>();
+                    services.AddSingleton<DataManagmentHeaderView>(
+                        s => new DataManagmentHeaderView()
+                        {
+                            DataContext=s.GetRequiredService<DataManagmentHeaderViewModel>()
+                        }
+                    );
+                    services.AddSingleton<ListSubjectViewModel>();
+                    services.AddSingleton<ListSubjectView>(
+                        s => new ListSubjectView()
+                        {
+                            DataContext=s.GetRequiredService<ListSubjectViewModel>()
+                        }
+                    );
+
+                    services.AddSingleton<ListStudentViewModel>();
+                    services.AddSingleton<ListStudentView>(
+                        s => new ListStudentView()
+                        {
+                            DataContext=s.GetRequiredService<ListStudentView>()
+                        }
+                    );
                 })
                 .Build();
             Log.Logger.Information("Build megtörtént...");

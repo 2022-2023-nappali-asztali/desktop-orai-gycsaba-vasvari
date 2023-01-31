@@ -18,9 +18,9 @@ namespace KretaDesktop.View.Content
     /// <summary>
     /// Interaction logic for ContentListStudent.xaml
     /// </summary>
-    public partial class ContentListStudentView : UserControl
+    public partial class ListStudentView : UserControl
     {
-        public ContentListStudentView()
+        public ListStudentView()
         {
             InitializeComponent();
         }

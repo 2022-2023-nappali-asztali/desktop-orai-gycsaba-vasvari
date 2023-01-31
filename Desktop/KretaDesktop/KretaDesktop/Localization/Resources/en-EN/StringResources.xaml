@@ -1,10 +1,17 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    
-    <!-- Localization view -->
+    <!-- Header view -->
+        <!-- Title -->
+    <system:String x:Key="headerConfigurationConfigurationTitle">K R É T E   -   Configuration</system:String>
+    <system:String x:Key="headerConfigurationDataManagmentTitle">K R É T E   -   Data managment</system:String>
+        <!-- Almenüpont -->
+        <!-- Konfiguráció -->
+    <system:String x:Key="headerConfigurationChooseLanguage">Choose language</system:String>
+        <!-- Adatkezelés -->
+    <system:String x:Key="headDataManagmentSubject">Manage subjects</system:String>
+    <system:String x:Key="headDataManagmentStudent">Manage students</system:String>
+        <!-- Localization view -->
     <system:String x:Key="contentLocalizationCurrentLanguage">Current language:</system:String>
     <system:String x:Key="contentLocalizationSelectLanguage">Select language</system:String>
-
-
 </ResourceDictionary>

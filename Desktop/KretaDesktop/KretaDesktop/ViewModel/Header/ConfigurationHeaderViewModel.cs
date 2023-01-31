@@ -12,6 +12,8 @@ namespace KretaDesktop.ViewModel.Header
 {
     public class ConfigurationHeaderViewModel : ViewModelBase
     {
+        private readonly ILogger<ConfigurationHeaderViewModel> _logger;
+        private LocalizationViewModel _localizationView;
 
         private ViewModelBase selectedView;
         public ViewModelBase SelectedView
@@ -29,19 +31,16 @@ namespace KretaDesktop.ViewModel.Header
 
         public RelayCommand UpdateViewCommand { get; set;}
 
-        private ILogger<ConfigurationHeaderViewModel> logger;
-        private LocalizationViewModel localizationView;
-
         public ConfigurationHeaderViewModel(ILogger<ConfigurationHeaderViewModel> logger, LocalizationViewModel localizationViewModel)
         {
-            this.logger = logger;
-            this.localizationView = localizationViewModel;
+            this._logger = logger;
+            this._localizationView = localizationViewModel;
             UpdateViewCommand = new RelayCommand(
                 (parameter) => ChangeView(parameter)
             );
         }
 
-        public void ChangeView(object viewName)
+        private void ChangeView(object viewName)
         {
             if (viewName != null)
             {
@@ -51,8 +50,8 @@ namespace KretaDesktop.ViewModel.Header
                     {
                         case "SelectLanguage":
                             //SelectedView= new LocalizationViewModel();
-                            logger.LogInformation($"{nameof(ConfigurationHeaderViewModel)} -> A nyelv választás menüpontot választotta");
-                            SelectedView= localizationView;
+                            _logger.LogInformation($"{nameof(ConfigurationHeaderViewModel)} -> A nyelv választás menüpontot választotta");
+                            SelectedView= _localizationView;
                             break;
                     }
                 }

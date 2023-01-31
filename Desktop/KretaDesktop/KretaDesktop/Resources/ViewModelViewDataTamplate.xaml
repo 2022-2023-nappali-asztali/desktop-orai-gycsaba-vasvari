@@ -1,18 +1,34 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:headerviews="clr-namespace:KretaDesktop.View.Header"
-                    xmlns:configurationview="clr-namespace:KretaDesktop.View.Configuration"
+                    xmlns:configurationviews="clr-namespace:KretaDesktop.View.Configuration"
                     xmlns:headerviewmodels="clr-namespace:KretaDesktop.ViewModel.Header"
                     xmlns:configurationviewmodels="clr-namespace:KretaDesktop.ViewModel.Configuration"
-                    >
+                    xmlns:contentviews="clr-namespace:KretaDesktop.View.Content"
+                    xmlns:contentviewmodels="clr-namespace:KretaDesktop.ViewModel.Content"
+                >
 
     <DataTemplate DataType="{x:Type headerviewmodels:ConfigurationHeaderViewModel}">
         <headerviews:ConfigurationHeaderView></headerviews:ConfigurationHeaderView>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type configurationviewmodels:LocalizationViewModel}">
-        <configurationview:LocalizationView></configurationview:LocalizationView>
+        <configurationviews:LocalizationView></configurationviews:LocalizationView>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type headerviewmodels:DataManagmentHeaderViewModel}">
+        <headerviews:DataManagmentHeaderView></headerviews:DataManagmentHeaderView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type contentviewmodels:ListSubjectViewModel}">
+        <contentviews:ListSubjectView></contentviews:ListSubjectView>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type contentviewmodels:ListStudentViewModel}">
+        <contentviews:ListStudentView></contentviews:ListStudentView>
+    </DataTemplate>
+    
+    
     
     
 </ResourceDictionary>

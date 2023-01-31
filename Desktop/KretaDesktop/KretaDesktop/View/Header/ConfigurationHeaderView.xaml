@@ -15,18 +15,20 @@
 
 
         <ContentControl Grid.Row="0" 
-                        Content="K R É T E   -   Konfiguráció"
+                        Content="{DynamicResource headerConfigurationConfigurationTitle}"
                         Style="{DynamicResource HeaderAppTitle}">
         </ContentControl>
         <StackPanel Grid.Row="1">
             <Button HorizontalAlignment="Left" 
                     Margin="32 0 0 0" 
-                    Content="Nyelv választás"
+                    Content="{DynamicResource headerConfigurationChooseLanguage}"
                     Command="{Binding UpdateViewCommand}"
                     CommandParameter="SelectLanguage"
                     >
             </Button>
         </StackPanel>
-        <ContentControl Grid.Row="2" Content="{Binding SelectedView}"></ContentControl>
+        <ContentControl Grid.Row="2" 
+                        Content="{Binding SelectedView}">
+        </ContentControl>
     </Grid>
 </UserControl>
