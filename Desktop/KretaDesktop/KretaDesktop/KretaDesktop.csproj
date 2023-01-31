@@ -18,6 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\KretaCommandLine\KretaCommandLine.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Icons\school.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
