@@ -9,41 +9,24 @@ using KretaCommandLine.Model;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class ViewModelBase<TEntity, TCollection> 
+    public class ViewModelBase<TEntity, TCollection> :ViewModelBase
         where TEntity : class
-        where TCollection : ICollection<TEntity>
+        where TCollection : Collection<TEntity>
     {
 
-        private TCollection collection;
+        protected TCollection _collection;       
 
         public void Add(TEntity entiy)
         {
-            collection.Add(entiy);
+            _collection.Add(entiy);
         }
-    }
 
-    public class SubjectViewModel : ViewModelBase<Subject,ObservableCollection<Subject>>
-    {
-        Subject subject = new Subject(1, "Töri");
-
-        public SubjectViewModel()
+        public void Add(IList<TEntity> collection)
         {
-            Add(subject);
+            foreach (var item in collection)
+            {
+                _collection.Add(item);
+            }
         }
     }
-
-    public class StudentViewModel : ViewModelBase<Student, ObservableCollection<Student>>
-    {
-        Student student = new Student();
-
-        public StudentViewModel()
-        {
-            Add(student);
-        }
-
-    }
-        
-
-
-
 }
