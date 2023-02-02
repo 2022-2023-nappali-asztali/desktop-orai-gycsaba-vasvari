@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="{x:Type DataGrid}" x:Key="DataGridCrudStyle">
+        <Setter Property="Margin" Value="8 4 0 4"></Setter>
+        <Setter Property="AutoGenerateColumns" Value="False"></Setter>
+        <Setter Property="CanUserAddRows" Value="False"></Setter>
+        <Setter Property="CanUserDeleteRows" Value="False"></Setter>
+        <Setter Property="IsReadOnly" Value="True"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Background" Value="#02060A"></Setter>
+        <Setter Property="RowBackground" Value="#02060A"></Setter>
+        <Setter Property="AlternatingRowBackground" Value="#0D2644"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+    </Style>
+
+    <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="DataGridCRUDHeaderStyle">
+        <Setter Property="Background" Value="#0D2644"></Setter>
+        <Setter Property="Foreground" Value="#ff8531"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
+
+</ResourceDictionary>
