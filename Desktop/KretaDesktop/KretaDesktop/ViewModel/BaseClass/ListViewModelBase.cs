@@ -12,9 +12,17 @@ namespace KretaDesktop.ViewModel.BaseClass
     public class ListViewModelBase<TEntity> : ViewModelBase<TEntity,ObservableCollection<TEntity>> 
         where TEntity : class
     {
-        public TEntity SelectedItem { get; set; }
+        private TEntity selectedItem;
+        public TEntity SelectedItem 
+        { 
+            get => selectedItem; 
+            set 
+            {
+                SetValue(ref selectedItem, value);
+            }
+        }
 
-        RelayCommand DeleteCommand { get; set; }
+        public RelayCommand DeleteCommand { get; set; }
 
         public ListViewModelBase()
         {

@@ -9,7 +9,7 @@ using KretaDesktop.ViewModel.BaseClass;
 
 namespace KretaDesktop.ViewModel.Content
 {
-    public class ListSubjectViewModel : ViewModelBase<Subject,ObservableCollection<Subject>>
+    public class ListSubjectViewModel : ListViewModelBase<Subject>
     {
         public ListSubjectViewModel()
         {
@@ -19,6 +19,7 @@ namespace KretaDesktop.ViewModel.Content
             subjects.Add(new Subject(2, "Magyar nyelv"));
             subjects.Add(new Subject(3, "Történelem"));
 
+            // Ősosztály
             Add(subjects);
         }
     }

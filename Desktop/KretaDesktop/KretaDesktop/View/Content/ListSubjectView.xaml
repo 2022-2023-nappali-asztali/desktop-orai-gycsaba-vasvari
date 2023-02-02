@@ -76,6 +76,7 @@
         </Grid>
         <StackPanel Margin="14" Orientation="Horizontal" Grid.Row="3">
             <DataGrid ItemsSource="{Binding Items}"
+                      SelectedItem="{Binding SelectedItem}"
                       Style="{DynamicResource DataGridCrudStyle}"
                       ColumnHeaderStyle="{DynamicResource DataGridCRUDHeaderStyle}">
                 <DataGrid.Columns>
@@ -83,7 +84,9 @@
                     <DataGridTextColumn Header="Tantárgy név" Binding="{Binding SubjectName}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Content="Törlés"></Button>
+            <Button Command="{Binding DeleteCommand}"
+                    CommandParameter="{Binding SelectedItem}"
+                    Content="Törlés"></Button>
         </StackPanel>
         <StackPanel Margin="14" Orientation="Horizontal" Grid.Row="4">
             <Button Content="&lt;&lt;"></Button>
