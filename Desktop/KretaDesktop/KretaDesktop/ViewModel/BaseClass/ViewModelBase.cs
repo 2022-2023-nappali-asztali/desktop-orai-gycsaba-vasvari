@@ -18,6 +18,13 @@ namespace KretaDesktop.ViewModel.BaseClass
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        protected void SetValue<T>(ref T backingFiled, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(backingFiled, value)) return;
+            backingFiled = value;
+            OnPropertyChanged(propertyName);
+        }
+
         public virtual void Dispose() 
         {
         }

@@ -75,10 +75,12 @@
             </StackPanel>
         </Grid>
         <StackPanel Margin="14" Orientation="Horizontal" Grid.Row="3">
-            <DataGrid>
+            <DataGrid ItemsSource="{Binding Items}"
+                      Style="{DynamicResource DataGridCrudStyle}"
+                      ColumnHeaderStyle="{DynamicResource DataGridCRUDHeaderStyle}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Azon."></DataGridTextColumn>
-                    <DataGridTextColumn Header="Tantágy név"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Azon." Binding="{Binding Id}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tantárgy név" Binding="{Binding SubjectName}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <Button Content="Törlés"></Button>

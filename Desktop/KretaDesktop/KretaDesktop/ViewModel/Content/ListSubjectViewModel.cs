@@ -13,7 +13,7 @@ namespace KretaDesktop.ViewModel.Content
     {
         public ListSubjectViewModel()
         {
-            // Backenről jön
+            // Backendről jön
             List<Subject> subjects = new List<Subject>();
             subjects.Add(new Subject(1, "Matematika"));
             subjects.Add(new Subject(2, "Magyar nyelv"));

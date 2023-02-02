@@ -11,21 +11,26 @@ namespace KretaDesktop.ViewModel.BaseClass
 {
     public class ViewModelBase<TEntity, TCollection> :ViewModelBase
         where TEntity : class
-        where TCollection : Collection<TEntity>
+        where TCollection : Collection<TEntity>, new()
     {
 
-        protected TCollection _collection;       
+        public TCollection Items { get; set; } = new();    
 
         public void Add(TEntity entiy)
         {
-            _collection.Add(entiy);
+            Items.Add(entiy);
+        }
+
+        public void Delete(TEntity entity)
+        {
+            Items.Remove(entity);
         }
 
         public void Add(IList<TEntity> collection)
         {
             foreach (var item in collection)
             {
-                _collection.Add(item);
+                Items.Add(item);
             }
         }
     }

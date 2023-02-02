@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="/Resources/AppStyle.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="/Resources/ContentStyle.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="/Resources/ViewModelViewDataTamplate.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Resources/DataGridStyling.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
