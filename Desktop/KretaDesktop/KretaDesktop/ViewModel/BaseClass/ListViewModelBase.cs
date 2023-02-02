@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace KretaDesktop.ViewModel.BaseClass
 {
     public class ListViewModelBase<TEntity> : ViewModelBase<TEntity,ObservableCollection<TEntity>> 
-        where TEntity : class
+        where TEntity : class, new()
     {
         private TEntity selectedItem;
         public TEntity SelectedItem 
@@ -21,6 +21,16 @@ namespace KretaDesktop.ViewModel.BaseClass
                 SetValue(ref selectedItem, value);
             }
         }
+
+        private TEntity displaydItem = new();
+        public TEntity DisplaydItem
+        {
+            get => displaydItem;
+            set
+            {
+                SetValue(ref displaydItem, value);
+            }
+        } 
 
         public RelayCommand DeleteCommand { get; set; }
 
