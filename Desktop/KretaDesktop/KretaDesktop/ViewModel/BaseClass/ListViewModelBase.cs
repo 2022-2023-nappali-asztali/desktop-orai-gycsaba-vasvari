@@ -18,14 +18,14 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public ListViewModelBase()
         {
-            DeleteCommand = new RelayCommand(parameter => DeleteItem(parameter));
+            DeleteCommand = new RelayCommand(parameter => Delete(parameter));
         }
 
-        public void DeleteItem(object parameter)
+        public void Delete(object parameter)
         {
             if (parameter is TEntity entity) 
             {
-                Delete(entity);
+                Remove(entity);
             }
         }
     }

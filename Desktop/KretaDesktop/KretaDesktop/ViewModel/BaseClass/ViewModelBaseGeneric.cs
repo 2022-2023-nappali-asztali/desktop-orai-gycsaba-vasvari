@@ -21,7 +21,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             Items.Add(entiy);
         }
 
-        public void Delete(TEntity entity)
+        public void Remove(TEntity entity)
         {
             Items.Remove(entity);
         }
