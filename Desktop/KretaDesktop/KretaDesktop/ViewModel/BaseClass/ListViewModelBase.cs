@@ -53,17 +53,14 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public void Add(object parameter)
         {
-            throw new NotImplementedException();
         }
 
         public void Refresh(object parameter)
         {
-            throw new NotImplementedException();
         }
 
         public void RemoveAll(object parameter)
         {
-            throw new NotImplementedException();
         }
     }
 }
