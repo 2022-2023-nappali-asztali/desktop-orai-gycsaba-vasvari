@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class ListViewModelBase<TEntity> : ViewModelBase<TEntity,ObservableCollection<TEntity>> 
+    public class ListViewModelBase<TEntity> : ViewModelBase<TEntity,ObservableCollection<TEntity>>, IListViewModelBase<TEntity>
         where TEntity : class, new()
     {
         private TEntity selectedItem;
@@ -33,18 +33,37 @@ namespace KretaDesktop.ViewModel.BaseClass
         } 
 
         public RelayCommand DeleteCommand { get; set; }
+        public RelayCommand AddCommand { get; set; }
+        public RelayCommand RemoveCommand { get; set; }
+        public RelayCommand RefreshCommand { get; set; }
+        public RelayCommand RemoveAllCommand { get; set; }
 
         public ListViewModelBase()
         {
-            DeleteCommand = new RelayCommand(parameter => Delete(parameter));
+            DeleteCommand = new RelayCommand(parameter => Remove(parameter));
         }
 
-        public void Delete(object parameter)
+        public void Remove(object parameter)
         {
             if (parameter is TEntity entity) 
             {
                 Remove(entity);
             }
+        }
+
+        public void Add(object parameter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Refresh(object parameter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveAll(object parameter)
+        {
+            throw new NotImplementedException();
         }
     }
 }

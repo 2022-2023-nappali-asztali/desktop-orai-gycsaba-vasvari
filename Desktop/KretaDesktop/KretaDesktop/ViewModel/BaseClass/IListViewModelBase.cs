@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace KretaDesktop.ViewModel.BaseClass
+{
+    public interface IListViewModelBase<TEntity>
+    {
+        public TEntity SelectedItem { get; set; }
+        public RelayCommand AddCommand { get; set; }
+        public RelayCommand RemoveCommand { get; set; }
+        public RelayCommand RefreshCommand { get; set; }
+        public RelayCommand RemoveAllCommand { get; set; }
+
+        public void Add(object parameter);
+        public void Remove(object parameter);
+        public void Refresh(object parameter);
+        public void RemoveAll(object parameter);
+
+    }
+}
