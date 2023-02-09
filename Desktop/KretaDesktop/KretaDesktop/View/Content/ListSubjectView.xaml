@@ -45,7 +45,10 @@
                          Text="{Binding DisplaydItem.SubjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 </TextBox>
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-                    <Button Content="Mentés"></Button>
+                    <Button Content="Mentés" 
+                            Command="{Binding SaveAndRefreshCommand}"
+                            CommandParameter="{Binding DisplayedItem}">
+                    </Button>
                     <Button Content="Törlés"></Button>
                 </StackPanel>
             </Grid>

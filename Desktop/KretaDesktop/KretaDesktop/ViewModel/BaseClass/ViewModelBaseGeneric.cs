@@ -36,7 +36,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public void Update(TEntity entity)
         {
-
+            entity.Id
         }
 
         public void DeleteAll()
