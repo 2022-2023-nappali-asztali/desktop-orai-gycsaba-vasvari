@@ -31,8 +31,7 @@ namespace KretaDesktop.ViewModel.BaseClass
                 SetValue(ref displaydItem, value);
             }
         } 
-
-        public RelayCommand DeleteCommand { get; set; }
+        
         public RelayCommand AddCommand { get; set; }
         public RelayCommand RemoveCommand { get; set; }
         public RelayCommand RefreshCommand { get; set; }
@@ -40,19 +39,20 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public ListViewModelBase()
         {
-            DeleteCommand = new RelayCommand(parameter => Remove(parameter));
+            RemoveCommand = new RelayCommand(parameter => Remove(parameter));
         }
 
         public void Remove(object parameter)
         {
             if (parameter is TEntity entity) 
             {
-                Remove(entity);
+                Delete(entity);
             }
         }
 
         public void Add(object parameter)
-        {
+        {     
+            
         }
 
         public void Refresh(object parameter)

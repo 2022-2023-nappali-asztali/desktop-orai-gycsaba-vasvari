@@ -20,7 +20,7 @@ namespace KretaDesktop.ViewModel.Content
             subjects.Add(new Subject(3, "Történelem"));
 
             // Ősosztály
-            Add(subjects);
+            Insert(subjects);
         }
     }
 }

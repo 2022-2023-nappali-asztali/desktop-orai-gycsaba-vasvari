@@ -84,7 +84,7 @@
                     <DataGridTextColumn Header="Tantárgy név" Binding="{Binding SubjectName}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Command="{Binding DeleteCommand}"
+            <Button Command="{Binding RemoveCommand}"
                     CommandParameter="{Binding SelectedItem}"
                     Content="Törlés"></Button>
         </StackPanel>
