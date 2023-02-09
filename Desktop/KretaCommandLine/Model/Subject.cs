@@ -8,7 +8,7 @@ using KretaCommandLine.Model.Abstract;
 
 namespace KretaCommandLine.Model
 {
-    public class Subject : SubjectBase, IEquatable<object>, IComparable
+    public class Subject : SubjectBase, IEquatable<object>, IComparable, ICloneable
     {
         public Subject() : base()
         {
@@ -16,6 +16,15 @@ namespace KretaCommandLine.Model
 
         public Subject(long id, string subName) : base(id, subName)
         {
+        }
+
+        public override object Clone()
+        {
+            return new Subject
+            {
+                Id = Id,
+                SubjectName = SubjectName,
+            };
         }
 
         public int CompareTo(object obj)

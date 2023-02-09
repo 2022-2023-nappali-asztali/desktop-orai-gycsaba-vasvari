@@ -21,5 +21,10 @@ namespace KretaCommandLine.Model.Abstract
             get => base.SubjectName; 
             set => base.SubjectName = value; 
         }
+
+        public override object Clone()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -6,29 +6,34 @@ using System.Linq;
 using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
+using KretaCommandLine.Model.Abstract;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
     public class ListViewModelBase<TEntity> : ViewModelBase<TEntity,ObservableCollection<TEntity>>, IListViewModelBase<TEntity>
-        where TEntity : class, new()
+        where TEntity : ClassWithId, new()
     {
-        private TEntity selectedItem;
+        private TEntity _selectedItem;
         public TEntity SelectedItem 
         { 
-            get => selectedItem; 
+            get => _selectedItem; 
             set 
             {
-                SetValue(ref selectedItem, value);
+                SetValue(ref _selectedItem, value);
+                if (_selectedItem is object) // is object
+                {
+                    DisplaydItem = (TEntity) _selectedItem.Clone();
+                }
             }
         }
 
-        private TEntity displaydItem = new();
+        private TEntity _displaydItem = new();
         public TEntity DisplaydItem
         {
-            get => displaydItem;
+            get => _displaydItem;
             set
             {
-                SetValue(ref displaydItem, value);
+                SetValue(ref _displaydItem, value);
             }
         } 
         

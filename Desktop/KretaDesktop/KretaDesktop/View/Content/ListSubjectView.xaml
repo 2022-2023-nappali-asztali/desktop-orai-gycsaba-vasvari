@@ -37,9 +37,13 @@
                     <Button Content="Mégsem"></Button>
                 </StackPanel>
                 <Label Grid.Row="1" Grid.Column="0" Content="Azonosító:"></Label>
-                <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True"
+                         Text="{Binding DisplaydItem.Id}">
+                </TextBox>
                 <Label Grid.Row="2" Grid.Column="0" Content="Tantárgy név:"></Label>
-                <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
+                <TextBox Grid.Row="2" Grid.Column="1"
+                         Text="{Binding DisplaydItem.SubjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                </TextBox>
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
                     <Button Content="Mentés"></Button>
                     <Button Content="Törlés"></Button>
