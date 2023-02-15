@@ -15,5 +15,7 @@ namespace KretaDesktop.ViewModel.BaseClass
         public void Update(TEntity entity);
         public void Delete(TEntity entity);
         public void DeleteAll();
+
+        public int GetIndex(TEntity entity);
     }
 }

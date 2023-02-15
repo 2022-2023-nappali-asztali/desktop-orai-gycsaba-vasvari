@@ -47,7 +47,7 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
                     <Button Content="Mentés" 
                             Command="{Binding SaveAndRefreshCommand}"
-                            CommandParameter="{Binding DisplayedItem}">
+                            CommandParameter="{Binding DisplaydItem}">
                     </Button>
                     <Button Content="Törlés"></Button>
                 </StackPanel>
@@ -84,6 +84,7 @@
         <StackPanel Margin="14" Orientation="Horizontal" Grid.Row="3">
             <DataGrid ItemsSource="{Binding Items}"
                       SelectedItem="{Binding SelectedItem}"
+                      SelectedIndex="{Binding SelectedItemIndex}"
                       Style="{DynamicResource DataGridCrudStyle}"
                       ColumnHeaderStyle="{DynamicResource DataGridCRUDHeaderStyle}">
                 <DataGrid.Columns>

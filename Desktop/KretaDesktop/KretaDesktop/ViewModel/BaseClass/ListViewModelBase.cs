@@ -27,6 +27,17 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         }
 
+        private int _selectedItemIndex;
+        public int SelectedItemIndex 
+        {
+            get => _selectedItemIndex;
+            set
+            {
+                SetValue(ref _selectedItemIndex, value);
+            }
+        }
+
+
         private TEntity _displaydItem = new();
         public TEntity DisplaydItem
         {
@@ -46,6 +57,7 @@ namespace KretaDesktop.ViewModel.BaseClass
         {
             RemoveCommand = new RelayCommand(parameter => Remove(parameter));
             SaveAndRefreshCommand = new RelayCommand(parameter => SaveAndRefresh(parameter));
+            SelectFirstRow();
         }
 
         public void Remove(object parameter)
@@ -53,6 +65,10 @@ namespace KretaDesktop.ViewModel.BaseClass
             if (parameter is TEntity entity) 
             {
                 Delete(entity);
+                if (HasItems)
+                    SelectFirstRow();
+                else
+                    DisplaydItem = new TEntity();
             }
         }
 
@@ -66,11 +82,34 @@ namespace KretaDesktop.ViewModel.BaseClass
             if (parameter is TEntity entity)
             {
                 Update(entity);
+                SelectRowContains(entity);
             }
         }
 
         public void RemoveAll(object parameter)
         {
+        }
+
+        private void SelectFirstRow()
+        {
+            if (Items.Count > 0)
+                SelectedItemIndex = 0;
+        }
+
+        private void SelectRowContains(TEntity entity)
+        {
+            if (entity is not object)
+            {
+                SelectFirstRow();
+                return;
+            }
+            int index = GetIndex(entity);
+            if (index < 0)
+                SelectFirstRow();
+            else
+            {
+                SelectedItemIndex = index;
+            }
         }
     }
 }
