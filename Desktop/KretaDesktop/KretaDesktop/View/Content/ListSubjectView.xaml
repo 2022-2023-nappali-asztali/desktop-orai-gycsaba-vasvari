@@ -37,11 +37,18 @@
                     <Button Content="Mégsem"></Button>
                 </StackPanel>
                 <Label Grid.Row="1" Grid.Column="0" Content="Azonosító:"></Label>
-                <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True"
+                         Text="{Binding DisplaydItem.Id}">
+                </TextBox>
                 <Label Grid.Row="2" Grid.Column="0" Content="Tantárgy név:"></Label>
-                <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
+                <TextBox Grid.Row="2" Grid.Column="1"
+                         Text="{Binding DisplaydItem.SubjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                </TextBox>
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-                    <Button Content="Mentés"></Button>
+                    <Button Content="Mentés" 
+                            Command="{Binding SaveAndRefreshCommand}"
+                            CommandParameter="{Binding DisplaydItem}">
+                    </Button>
                     <Button Content="Törlés"></Button>
                 </StackPanel>
             </Grid>
@@ -77,6 +84,7 @@
         <StackPanel Margin="14" Orientation="Horizontal" Grid.Row="3">
             <DataGrid ItemsSource="{Binding Items}"
                       SelectedItem="{Binding SelectedItem}"
+                      SelectedIndex="{Binding SelectedItemIndex}"
                       Style="{DynamicResource DataGridCrudStyle}"
                       ColumnHeaderStyle="{DynamicResource DataGridCRUDHeaderStyle}">
                 <DataGrid.Columns>
@@ -84,7 +92,7 @@
                     <DataGridTextColumn Header="Tantárgy név" Binding="{Binding SubjectName}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Command="{Binding DeleteCommand}"
+            <Button Command="{Binding RemoveCommand}"
                     CommandParameter="{Binding SelectedItem}"
                     Content="Törlés"></Button>
         </StackPanel>

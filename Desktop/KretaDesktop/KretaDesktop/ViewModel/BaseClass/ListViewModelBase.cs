@@ -6,34 +6,109 @@ using System.Linq;
 using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
+using KretaCommandLine.Model.Abstract;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class ListViewModelBase<TEntity> : ViewModelBase<TEntity,ObservableCollection<TEntity>> 
-        where TEntity : class
+    public class ListViewModelBase<TEntity> : ViewModelBase<TEntity,ObservableCollection<TEntity>>, IListViewModelBase<TEntity>
+        where TEntity : ClassWithId, new()
     {
-        private TEntity selectedItem;
+        private TEntity _selectedItem;
         public TEntity SelectedItem 
         { 
-            get => selectedItem; 
+            get => _selectedItem; 
             set 
             {
-                SetValue(ref selectedItem, value);
+                SetValue(ref _selectedItem, value);
+                if (_selectedItem is object) // is object
+                {
+                    DisplaydItem = (TEntity) _selectedItem.Clone();
+                }
             }
         }
 
-        public RelayCommand DeleteCommand { get; set; }
+        private int _selectedItemIndex;
+        public int SelectedItemIndex 
+        {
+            get => _selectedItemIndex;
+            set
+            {
+                SetValue(ref _selectedItemIndex, value);
+            }
+        }
+
+
+        private TEntity _displaydItem = new();
+        public TEntity DisplaydItem
+        {
+            get => _displaydItem;
+            set
+            {
+                SetValue(ref _displaydItem, value);
+            }
+        } 
+        
+        public RelayCommand AddCommand { get; set; }
+        public RelayCommand RemoveCommand { get; set; }
+        public RelayCommand SaveAndRefreshCommand { get; set; }
+        public RelayCommand RemoveAllCommand { get; set; }
 
         public ListViewModelBase()
         {
-            DeleteCommand = new RelayCommand(parameter => Delete(parameter));
+            RemoveCommand = new RelayCommand(parameter => Remove(parameter));
+            SaveAndRefreshCommand = new RelayCommand(parameter => SaveAndRefresh(parameter));
+            SelectFirstRow();
         }
 
-        public void Delete(object parameter)
+        public void Remove(object parameter)
         {
             if (parameter is TEntity entity) 
             {
-                Remove(entity);
+                Delete(entity);
+                if (HasItems)
+                    SelectFirstRow();
+                else
+                    DisplaydItem = new TEntity();
+            }
+        }
+
+        public void Add(object parameter)
+        {     
+            
+        }
+
+        public void SaveAndRefresh(object parameter)
+        {
+            if (parameter is TEntity entity)
+            {
+                Update(entity);
+                SelectRowContains(entity);
+            }
+        }
+
+        public void RemoveAll(object parameter)
+        {
+        }
+
+        private void SelectFirstRow()
+        {
+            if (Items.Count > 0)
+                SelectedItemIndex = 0;
+        }
+
+        private void SelectRowContains(TEntity entity)
+        {
+            if (entity is not object)
+            {
+                SelectFirstRow();
+                return;
+            }
+            int index = GetIndex(entity);
+            if (index < 0)
+                SelectFirstRow();
+            else
+            {
+                SelectedItemIndex = index;
             }
         }
     }
