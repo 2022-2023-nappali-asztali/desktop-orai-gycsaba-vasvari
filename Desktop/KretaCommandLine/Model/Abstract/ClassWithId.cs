@@ -11,6 +11,8 @@ namespace KretaCommandLine.Model.Abstract
     {
         public long Id { get; set; }
 
+        public string DisplayedId => Id > 0 ? Id.ToString() : string.Empty; 
+
         public abstract object Clone();            
     }
 }

@@ -48,7 +48,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         } 
         
-        public RelayCommand AddCommand { get; set; }
+        public RelayCommand NewCommand { get; set; }
         public RelayCommand RemoveCommand { get; set; }
         public RelayCommand SaveAndRefreshCommand { get; set; }
         public RelayCommand RemoveAllCommand { get; set; }
@@ -57,6 +57,7 @@ namespace KretaDesktop.ViewModel.BaseClass
         {
             RemoveCommand = new RelayCommand(parameter => Remove(parameter));
             SaveAndRefreshCommand = new RelayCommand(parameter => SaveAndRefresh(parameter));
+            NewCommand = new RelayCommand(execute => New());
             SelectFirstRow();
         }
 
@@ -72,9 +73,10 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         }
 
-        public void Add(object parameter)
-        {     
-            
+        public void New()
+        {
+            DisplaydItem = new TEntity();
+            SelectedItemIndex = -1;
         }
 
         public void SaveAndRefresh(object parameter)

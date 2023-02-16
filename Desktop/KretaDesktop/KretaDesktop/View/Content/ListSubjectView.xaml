@@ -33,12 +33,12 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
-                    <Button Content="Új"></Button>
+                    <Button Content="Új" Command="{Binding NewCommand}"></Button>
                     <Button Content="Mégsem"></Button>
                 </StackPanel>
                 <Label Grid.Row="1" Grid.Column="0" Content="Azonosító:"></Label>
                 <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True"
-                         Text="{Binding DisplaydItem.Id}">
+                         Text="{Binding DisplaydItem.DisplayedId, Mode=OneWay}">
                 </TextBox>
                 <Label Grid.Row="2" Grid.Column="0" Content="Tantárgy név:"></Label>
                 <TextBox Grid.Row="2" Grid.Column="1"
