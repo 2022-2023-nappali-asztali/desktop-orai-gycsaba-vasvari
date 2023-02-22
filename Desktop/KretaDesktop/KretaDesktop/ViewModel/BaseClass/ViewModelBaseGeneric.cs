@@ -19,8 +19,11 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public bool HasItems => Items.Any();  //Items.Count > 0;
 
+        public long NextId => Items.Select(entity => entity.Id).Max() + 1;
+
         public void Insert(TEntity entiy)
         {
+            entiy.Id = NextId;
             Items.Add(entiy);
         }
 
@@ -50,8 +53,12 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public int GetIndex(TEntity entity)
         {
-            int index = Items.IndexOf(Items.FirstOrDefault(e => e.Id == entity.Id));
-            return index;
+            return Items.IndexOf(Items.FirstOrDefault(e => e.Id == entity.Id));
+        }
+
+        public int GetIndex(long id)
+        {
+            return Items.IndexOf(Items.FirstOrDefault(e => e.Id == id));
         }
     }
 }

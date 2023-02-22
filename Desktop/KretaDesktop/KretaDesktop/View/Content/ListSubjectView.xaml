@@ -3,9 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converter="clr-namespace:KretaDesktop.Converter"
              xmlns:local="clr-namespace:KretaDesktop.View.Content"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converter:BoolToVisibilityConverter x:Key="boolToVisibilityConverter"></converter:BoolToVisibilityConverter>
+    </UserControl.Resources>
     <Grid Background="{DynamicResource ContentBackgroundColor}"          
           Style="{DynamicResource ContentGridStyle}"
           Margin="0,5,0,-5">
@@ -34,11 +38,12 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
                     <Button Content="Új" Command="{Binding NewCommand}"></Button>
-                    <Button Content="Mégsem"></Button>
+                    <Button Content="Mégsem" Command="{Binding CancelCommand}"></Button>
                 </StackPanel>
                 <Label Grid.Row="1" Grid.Column="0" Content="Azonosító:"></Label>
                 <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True"
-                         Text="{Binding DisplaydItem.DisplayedId, Mode=OneWay}">
+                         Text="{Binding DisplaydItem.DisplayedId, Mode=OneWay}"
+                         Visibility="{Binding IsIdVisible, Converter={StaticResource boolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
                 </TextBox>
                 <Label Grid.Row="2" Grid.Column="0" Content="Tantárgy név:"></Label>
                 <TextBox Grid.Row="2" Grid.Column="1"
@@ -49,11 +54,16 @@
                             Command="{Binding SaveAndRefreshCommand}"
                             CommandParameter="{Binding DisplaydItem}">
                     </Button>
-                    <Button Content="Törlés"></Button>
+                    <Button Content="Törlés"
+                            Command="{Binding ClearFormCommand}"
+                            Visibility="{Binding IsNewMode, Converter={StaticResource boolToVisibilityConverter}}"
+                            >
+                    </Button>
                 </StackPanel>
             </Grid>
         </Expander>
-        <Grid Grid.Row="2" Margin="14">
+        <Grid Grid.Row="2" Margin="14"
+              Visibility="{Binding IsHeaderVisible, Converter={StaticResource boolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -81,7 +91,8 @@
                 <ComboBox></ComboBox>
             </StackPanel>
         </Grid>
-        <StackPanel Margin="14" Orientation="Horizontal" Grid.Row="3">
+        <StackPanel  Margin="14" Orientation="Horizontal" Grid.Row="3"
+                     Visibility="{Binding IsTableVisible, Converter={StaticResource boolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid ItemsSource="{Binding Items}"
                       SelectedItem="{Binding SelectedItem}"
                       SelectedIndex="{Binding SelectedItemIndex}"
@@ -96,7 +107,8 @@
                     CommandParameter="{Binding SelectedItem}"
                     Content="Törlés"></Button>
         </StackPanel>
-        <StackPanel Margin="14" Orientation="Horizontal" Grid.Row="4">
+        <StackPanel Margin="14" Orientation="Horizontal" Grid.Row="4"
+                    Visibility="{Binding IsPageableVisible, Converter={StaticResource boolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">
             <Button Content="&lt;&lt;"></Button>
             <Button Content="&lt;"></Button>
             <Label Content="Oldal"></Label>
