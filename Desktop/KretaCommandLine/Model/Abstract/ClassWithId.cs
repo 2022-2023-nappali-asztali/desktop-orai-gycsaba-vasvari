@@ -9,7 +9,11 @@ namespace KretaCommandLine.Model.Abstract
 {
     public abstract class ClassWithId : ICloneable
     {
-        public long Id { get; set; }
+        public long Id { get; set; } = -1;
+
+        public bool HasId => Id > 0;
+
+        public string DisplayedId => Id > 0 ? Id.ToString() : string.Empty; 
 
         public abstract object Clone();            
     }

@@ -10,25 +10,25 @@ using KretaCommandLine.Model.Abstract;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class ListViewModelBase<TEntity> : ViewModelBase<TEntity,ObservableCollection<TEntity>>, IListViewModelBase<TEntity>
+    public class ListViewModelBase<TEntity> : ViewModelBase<TEntity, ObservableCollection<TEntity>>, IListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
         private TEntity _selectedItem;
-        public TEntity SelectedItem 
-        { 
-            get => _selectedItem; 
-            set 
+        public TEntity SelectedItem
+        {
+            get => _selectedItem;
+            set
             {
                 SetValue(ref _selectedItem, value);
                 if (_selectedItem is object) // is object
                 {
-                    DisplaydItem = (TEntity) _selectedItem.Clone();
+                    DisplaydItem = (TEntity)_selectedItem.Clone();
                 }
             }
         }
 
         private int _selectedItemIndex;
-        public int SelectedItemIndex 
+        public int SelectedItemIndex
         {
             get => _selectedItemIndex;
             set
@@ -46,17 +46,54 @@ namespace KretaDesktop.ViewModel.BaseClass
             {
                 SetValue(ref _displaydItem, value);
             }
-        } 
-        
-        public RelayCommand AddCommand { get; set; }
+        }
+
+        private long _selectedItemId = -1;
+        public long SelectedItemId 
+        {
+            get
+            {
+                if (DisplaydItem.Id > 0)
+                    return DisplaydItem.Id;
+                else if (_selectedItemId > 0)
+                    return _selectedItemId;
+                else
+                    return -1;
+            }
+        }
+
+        private bool _isNewMode = false;
+        public bool IsNewMode {
+            get => _isNewMode;
+            set 
+            {
+                SetValue(ref _isNewMode, value);
+                OnPropertyChanged(nameof(IsIdVisible));
+                OnPropertyChanged(nameof(IsTableVisible));
+                OnPropertyChanged(nameof(IsPageableVisible));
+                OnPropertyChanged(nameof(IsHeaderVisible));
+            }
+        }
+
+        public bool IsIdVisible => !_isNewMode;
+        public bool IsTableVisible => !_isNewMode;
+        public bool IsPageableVisible => !_isNewMode; 
+        public bool IsHeaderVisible => !_isNewMode;
+
+        public RelayCommand NewCommand { get; set; }
         public RelayCommand RemoveCommand { get; set; }
         public RelayCommand SaveAndRefreshCommand { get; set; }
+        public RelayCommand ClearFormCommand { get; set; }
+        public RelayCommand CancelCommand { get; set; }
         public RelayCommand RemoveAllCommand { get; set; }
 
         public ListViewModelBase()
         {
             RemoveCommand = new RelayCommand(parameter => Remove(parameter));
             SaveAndRefreshCommand = new RelayCommand(parameter => SaveAndRefresh(parameter));
+            NewCommand = new RelayCommand(execute => New());
+            CancelCommand = new RelayCommand(execute => Cancel());
+            ClearFormCommand = new RelayCommand(execute => Clear());
             SelectFirstRow();
         }
 
@@ -72,18 +109,42 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         }
 
-        public void Add(object parameter)
-        {     
-            
+        public void New()
+        {
+            _selectedItemId=DisplaydItem.Id;
+            DisplaydItem = new TEntity();
+            IsNewMode = true;
         }
 
         public void SaveAndRefresh(object parameter)
         {
             if (parameter is TEntity entity)
             {
-                Update(entity);
+                if (entity.HasId)
+                {
+                    // Mivel van id-je akkor menthet
+                    Update(entity);                    
+                }
+                else
+                { 
+                    // Új adat felvitel
+                    Insert(entity);
+                    IsNewMode = false;
+                }
                 SelectRowContains(entity);
-            }
+            }            
+        }
+
+        public void Cancel()
+        {
+            IsNewMode = false;
+            SelectedItemIndex = -1;
+            SelectRowContains(SelectedItemId);            
+        }
+
+        public void Clear()
+        {
+            DisplaydItem = new TEntity();
         }
 
         public void RemoveAll(object parameter)
@@ -99,17 +160,31 @@ namespace KretaDesktop.ViewModel.BaseClass
         private void SelectRowContains(TEntity entity)
         {
             if (entity is not object)
-            {
-                SelectFirstRow();
-                return;
-            }
-            int index = GetIndex(entity);
-            if (index < 0)
                 SelectFirstRow();
             else
             {
-                SelectedItemIndex = index;
+                int index = GetIndex(entity);
+                if (index < 0)
+                    SelectFirstRow();
+                else
+                    SelectedItemIndex = index;
             }
         }
+
+        private void SelectRowContains(long id)
+        {
+            if (id <= 0)
+                SelectFirstRow();
+            else
+            {
+                int index = GetIndex(id);
+                if (index < 0)
+                    SelectFirstRow();
+                else                 
+                    SelectedItemIndex = index;
+            }
+        }
+
+
     }
 }
