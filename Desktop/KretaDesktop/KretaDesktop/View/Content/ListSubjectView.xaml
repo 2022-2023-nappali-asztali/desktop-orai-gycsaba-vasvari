@@ -4,11 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converter="clr-namespace:KretaDesktop.Converter"
+             xmlns:validation="clr-namespace:KretaDesktop.Validation"
              xmlns:local="clr-namespace:KretaDesktop.View.Content"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <converter:BoolToVisibilityConverter x:Key="boolToVisibilityConverter"></converter:BoolToVisibilityConverter>
+        <converter:InverseAndBooleansToBooleanConverter x:Key="inverseAndBooleansToBooleanConverter"></converter:InverseAndBooleansToBooleanConverter>
     </UserControl.Resources>
     <Grid Background="{DynamicResource ContentBackgroundColor}"          
           Style="{DynamicResource ContentGridStyle}"
@@ -46,13 +48,31 @@
                          Visibility="{Binding IsIdVisible, Converter={StaticResource boolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
                 </TextBox>
                 <Label Grid.Row="2" Grid.Column="0" Content="Tantárgy név:"></Label>
-                <TextBox Grid.Row="2" Grid.Column="1"
-                         Text="{Binding DisplaydItem.SubjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox Grid.Row="2" 
+                         Grid.Column="1"
+                         x:Name="txtSubjectName"
+                         Validation.ErrorTemplate="{StaticResource ValidationTemplate3}">
+                    <TextBox.Text>
+                        <Binding Path="DisplaydItem.SubjectName" 
+                                 Mode="TwoWay" 
+                                 UpdateSourceTrigger="PropertyChanged"
+                                 ValidatesOnDataErrors="True">
+                            <Binding.ValidationRules>
+                                <validation:NameValidation/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
                 </TextBox>
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
                     <Button Content="Mentés" 
                             Command="{Binding SaveAndRefreshCommand}"
                             CommandParameter="{Binding DisplaydItem}">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource inverseAndBooleansToBooleanConverter}" 
+                                          UpdateSourceTrigger="PropertyChanged">
+                                <Binding ElementName="txtSubjectName" Path="(Validation.HasError)"/>
+                            </MultiBinding>
+                        </Button.IsEnabled>
                     </Button>
                     <Button Content="Törlés"
                             Command="{Binding ClearFormCommand}"

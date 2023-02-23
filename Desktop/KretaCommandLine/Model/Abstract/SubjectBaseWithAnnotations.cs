@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KretaCommandLine.Model.Abstract
 {
-    class SubjectBaseWithAnnotations : SubjectBase
+    public class SubjectBaseWithAnnotations : SubjectBase
     {
         [Column("name")]
         [Display(Name = "Subject name:")]
