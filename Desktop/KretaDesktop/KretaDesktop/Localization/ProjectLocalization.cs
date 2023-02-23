@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,6 +61,20 @@ namespace KretaDesktop.Localization
             {
                 return langDictId;
             }
+        }
+
+        public string GetStringResource(string stringResourceName)
+        {
+
+            string url = GetLocXAMLFilePath(CultureInfo.CurrentCulture.Name);
+
+
+            string result = string.Empty;
+            ResourceDictionary res = Application.LoadComponent(new Uri(url, UriKind.Relative)) as ResourceDictionary;
+            if ((res != null) && (res.Contains(stringResourceName)))
+                result = res[stringResourceName].ToString();
+            return result;
+
         }
     }
 }

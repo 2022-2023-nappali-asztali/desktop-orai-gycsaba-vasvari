@@ -14,4 +14,10 @@
         <!-- Localization view -->
     <system:String x:Key="contentLocalizationCurrentLanguage">Current language:</system:String>
     <system:String x:Key="contentLocalizationSelectLanguage">Select language</system:String>
+        <!-- Name validation -->
+    <system:String x:Key="validationNameIsShort">The name is required! The name must be at least 3 characters long!</system:String>
+    <system:String x:Key="validationNameIsLong">The name cannot be longer than 30 characters!</system:String>
+    <system:String x:Key="validationNameFirstLetterNotUppercase">A név nem nagybetűvel kezdődik!</system:String>
+    <system:String x:Key="validationOtherLetterNotLowercase">First letter must be uppercase, other lowercase!</system:String>
+    <system:String x:Key="validationNameOnlyLetters">First letter must be uppercase, other lowercase!</system:String>
 </ResourceDictionary>

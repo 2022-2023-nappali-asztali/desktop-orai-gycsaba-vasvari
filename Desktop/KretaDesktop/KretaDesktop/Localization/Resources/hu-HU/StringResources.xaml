@@ -9,11 +9,16 @@
         <!-- Almenüpont -->
             <!-- Konfiguráció -->
     <system:String x:Key="headerConfigurationChooseLanguage">Nyelv választás</system:String>
-            <!-- Adatkezelés -->
+        <!-- Adatkezelés -->
     <system:String x:Key="headDataManagmentSubject">Tantárgyak kezelése</system:String>
     <system:String x:Key="headDataManagmentStudent">Tanulók kezelése</system:String>
         <!-- Localization view -->
     <system:String x:Key="contentLocalizationCurrentLanguage">Aktuális nyelv:</system:String>
     <system:String x:Key="contentLocalizationSelectLanguage">Nyelv választás</system:String>
+        <!-- Name validation -->
+    <system:String x:Key="validationNameIsShort">A név nem elég hosszú!</system:String>
+    <system:String x:Key="validationNameFirstLetterNotUppercase">A név nem nagybetűvel kezdődik!</system:String>
+    <system:String x:Key="validationOtherLetterNotLowercase">A kezdőbetűk után kisbetűket írjon!</system:String>
+    <system:String x:Key="validationNameOnlyLetters">A névben csak batűk lehetnek!</system:String>
 
 </ResourceDictionary>
