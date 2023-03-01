@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using KretaCommandLine.Model;
 using KretaCommandLine.Model.Abstract;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class ViewModelBase<TEntity, TCollection> :ViewModelBase, IViewModelBase<TEntity, TCollection>
+    public class ViewModelBase<TEntity, TCollection> :PagedListViewModelBase<TEntity>, IViewModelBase<TEntity, TCollection>
         where TEntity : ClassWithId, new()
         where TCollection : Collection<TEntity>, new()
     {
