@@ -7,12 +7,16 @@ namespace KretaDesktop.ViewModel.BaseClass
         where TEntity : ClassWithId,new()
     {
         protected PagedList<TEntity> PagedList { get; set; }
+        protected QueryStringParameters QueryStringParameters { get; set; }
 
         // API műveletek -> lekérjük a backendről pl. az első oldalt
 
-        public PagedList<TEntity> GetPage(QueryStringParameters queryStringParameters)
+        protected void GetPage()
         {
-            return null;
+            if (QueryStringParameters.CurrentPage<QueryStringParameters.NumberOfPage)
+            {
+               // A backendről lekérjük az oldal adatit
+            }
         }
 
 

@@ -12,6 +12,14 @@ namespace KretaCommandLine.APIModel
             set { _queryParameters = value; } 
         }
 
+        public PagedList()
+        {
+            _queryParameters.CurrentPage = 0;
+            _queryParameters.NumberOfPage = int.MaxValue;
+            _queryParameters.PageSize = 10;
+            _queryParameters.NumberOfItems = 0;
+        }
+
         public PagedList(List<T> items,int numberOfPage, int pageSize)
         {
             // Amikor lekérjük az első oldalt akkor megadjuk az aktuálissan megjelenítésre kerül oldalt

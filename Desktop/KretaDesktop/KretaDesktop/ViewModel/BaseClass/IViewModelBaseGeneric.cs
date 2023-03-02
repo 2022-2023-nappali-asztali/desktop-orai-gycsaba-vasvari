@@ -10,12 +10,5 @@ namespace KretaDesktop.ViewModel.BaseClass
     {
         public TCollection Items { get; set; }
 
-        public void Insert(TEntity entiy);
-        public void Insert(IList<TEntity> collection);
-        public void Update(TEntity entity);
-        public void Delete(TEntity entity);
-        public void DeleteAll();
-
-        public int GetIndex(TEntity entity);
-    }
+   }
 }
