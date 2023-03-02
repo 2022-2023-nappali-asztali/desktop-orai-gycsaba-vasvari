@@ -151,6 +151,11 @@ namespace KretaDesktop.ViewModel.BaseClass
         {
         }
 
+        protected void InitializePage()
+        {
+            InitializePagedPage();
+        }
+
         private void SelectFirstRow()
         {
             if (Items.Count > 0)
