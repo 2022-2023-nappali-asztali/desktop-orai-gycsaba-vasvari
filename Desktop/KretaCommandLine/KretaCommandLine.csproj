@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="APIMod\" />
+    <Compile Remove="APIMod\**" />
+    <EmbeddedResource Remove="APIMod\**" />
+    <None Remove="APIMod\**" />
   </ItemGroup>
 
 </Project>

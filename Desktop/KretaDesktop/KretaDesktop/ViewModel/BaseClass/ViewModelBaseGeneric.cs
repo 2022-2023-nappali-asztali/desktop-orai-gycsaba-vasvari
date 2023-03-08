@@ -15,15 +15,15 @@ namespace KretaDesktop.ViewModel.BaseClass
         public bool HasItems => Items.Any();  //Items.Count > 0;
         public long NextId => HasItems ? Items.Select(entity => entity.Id).Max() + 1 : 1;
 
-        protected void InitializePagedPage()
+        protected async void InitializePagedPage()
         {
             // első oldalt kérjük
             QueryStringParameters.CurrentPage = 0;
             // egy oldalon 10 itemet kérünk
             QueryStringParameters.PageSize = 10;
             QueryStringParameters.NumberOfPage = int.MaxValue;
-            GetPage();
-            if (!Items.Any())
+            await GetPageAsync();
+            if (Items.Any())
             {
                 Insert(PagedList);
             }

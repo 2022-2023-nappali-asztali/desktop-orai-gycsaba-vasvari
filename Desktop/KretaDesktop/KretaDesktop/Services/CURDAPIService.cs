@@ -15,17 +15,16 @@ namespace KretaDesktop.Services
                 return new PagedList<TEntity>();
             HttpClient client = new HttpClient();
             client.BaseAddress=GetHttpClientUri();
-            if (client!=null)
+            if (client != null)
             {
+                string jsonParamter = JsonConvert.SerializeObject(queryString);
+                HttpContent content = new StringContent(jsonParamter, Encoding.UTF8, "application/json");
 
-                string jsonParamter=JsonConvert.SerializeObject(queryString);
-                HttpContent content = new StringContent(jsonParamter,Encoding.UTF8, "application/json");
-
-                HttpResponseMessage response=await client.PostAsync($"/api/{nameof(TEntity)}/getpaged",content);
-                if (response!=null && response.IsSuccessStatusCode)
+                HttpResponseMessage response = await client.PostAsync($"/api/{typeof(TEntity).Name}/getpaged", content);
+                if (response != null && response.IsSuccessStatusCode)
                 {
                     var resultContent = await response.Content.ReadAsStringAsync();
-                    PagedList<TEntity>  result= JsonConvert.DeserializeObject<PagedList<TEntity>>(resultContent);
+                    PagedList<TEntity> result = JsonConvert.DeserializeObject<PagedList<TEntity>>(resultContent);
                     return result;
                 }
             }

@@ -1,5 +1,7 @@
 ﻿using KretaCommandLine.APIModel;
 using KretaCommandLine.Model.Abstract;
+using KretaDesktop.Services;
+using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
@@ -7,15 +9,15 @@ namespace KretaDesktop.ViewModel.BaseClass
         where TEntity : ClassWithId,new()
     {
         protected PagedList<TEntity> PagedList { get; set; }
-        protected QueryStringParameters QueryStringParameters { get; set; }
+        protected QueryStringParameters QueryStringParameters { get; set; } = new QueryStringParameters();
 
-        // API műveletek -> lekérjük a backendről pl. az első oldalt
+        CURDAPIService service = new CURDAPIService();
 
-        protected void GetPage()
+        protected async Task GetPageAsync()
         {
             if (QueryStringParameters.CurrentPage<QueryStringParameters.NumberOfPage)
             {
-               // A backendről lekérjük az oldal adatit
+                PagedList = await service.GetPageAsync<TEntity>(QueryStringParameters);
             }
         }
 
