@@ -23,9 +23,9 @@ namespace KretaDesktop.ViewModel.BaseClass
             QueryStringParameters.PageSize = 10;
             QueryStringParameters.NumberOfPage = int.MaxValue;
             await GetPageAsync();
-            if (Items.Any())
+            if (PagedList.Items.Any())
             {
-                Insert(PagedList);
+                Insert(PagedList.Items);
             }
 
         }

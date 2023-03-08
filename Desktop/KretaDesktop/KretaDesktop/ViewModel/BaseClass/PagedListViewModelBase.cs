@@ -18,9 +18,8 @@ namespace KretaDesktop.ViewModel.BaseClass
             if (QueryStringParameters.CurrentPage<QueryStringParameters.NumberOfPage)
             {
                 PagedList = await service.GetPageAsync<TEntity>(QueryStringParameters);
+                
             }
         }
-
-
     }
 }

@@ -16,4 +16,8 @@ namespace KretaCommandLine.APIModel
         public bool HasPreviousPage => CurrentPage > 0;
         public bool HasNextPage => CurrentPage < NumberOfPage;
     }
+
+    /*
+
+    */
 }

@@ -3,31 +3,34 @@ using System.Collections.ObjectModel;
 
 namespace KretaCommandLine.APIModel
 {
-    public class PagedList<T> : Collection<T>
+    public class PagedList<T>
     {
-        private QueryStringParameters _queryParameters;
-        public QueryStringParameters QueryParameters 
-        { 
-            get { return _queryParameters; } 
-            set { _queryParameters = value; } 
-        }
+        public Collection<T> Items { get; set; }
+
+        public int NumberOfPage { get; set; }
+        public int NumberOfItems { get; set; }
+        public int CurrentPage { get; set; }
+        public int PageSize { get; set; }
 
         public PagedList()
         {
-            _queryParameters= new QueryStringParameters();
-            _queryParameters.CurrentPage = 0;
-            _queryParameters.NumberOfPage = int.MaxValue;
-            _queryParameters.PageSize = 10;
-            _queryParameters.NumberOfItems = 0;
+            CurrentPage = 0;
+            NumberOfPage = int.MaxValue;
+            PageSize = 10;
+            NumberOfItems = 0;
         }
 
-        public PagedList(List<T> items,int numberOfPage, int pageSize)
+        public PagedList(Collection<T>? items,int numberOfPage, int pageSize)
         {
             // Amikor lekérjük az első oldalt akkor megadjuk az aktuálissan megjelenítésre kerül oldalt
             // és hogy egy oldalon hány items lehet
-            _queryParameters.CurrentPage= numberOfPage;
-            _queryParameters.PageSize = pageSize;
+            CurrentPage= numberOfPage;
+            PageSize = pageSize;
             // Ha máv van elemünk eltároljuk őket            
+            if (items!=null)
+                Items = items;
+            else
+                Items = new Collection<T>();
         }
 
     }
