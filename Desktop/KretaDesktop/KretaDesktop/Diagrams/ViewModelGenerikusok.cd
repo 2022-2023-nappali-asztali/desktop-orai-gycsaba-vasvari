@@ -9,18 +9,26 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="KretaDesktop.ViewModel.BaseClass.ViewModelBase&lt;TEntity, TCollection&gt;" Collapsed="true">
-    <Position X="3.75" Y="2" Width="3.25" />
+    <Position X="3.75" Y="3" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAQAAEAAAAAAGAAwAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQAAEAAAEAAGAAwAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModel\BaseClass\ViewModelBaseGeneric.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="KretaDesktop.ViewModel.BaseClass.ListViewModelBase&lt;TEntity&gt;" Collapsed="true">
-    <Position X="3.75" Y="3.5" Width="3.25" />
+    <Position X="3.75" Y="4.25" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>SECAgAIAQAGABiAAACAABQBAAQAAAIAMKBQIAABAACA=</HashCode>
+      <HashCode>SECAgAIAQAGABiAAACAABQBAAQAAEIAMKBQIAABAACA=</HashCode>
       <FileName>ViewModel\BaseClass\ListViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KretaDesktop.ViewModel.BaseClass.PagedListViewModelBase&lt;TEntity&gt;" Collapsed="true">
+    <Position X="3.75" Y="1.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAQBAAAEAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\BaseClass\PagedListViewModelBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>

@@ -17,17 +17,21 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected async void InitializePagedPage()
         {
-            // első oldalt kérjük
-            QueryStringParameters.CurrentPage = 0;
-            // egy oldalon 10 itemet kérünk
-            QueryStringParameters.PageSize = 10;
-            QueryStringParameters.NumberOfPage = int.MaxValue;
+            SetPagedList(); // Van-e page vagy nincs, konfigurálhatósághoz
             await GetPageAsync();
             if (PagedList.Items.Any())
             {
                 Insert(PagedList.Items);
             }
+        }
 
+        protected override void RefreshPagedItems()
+        {
+            if (PagedList!=null && PagedList.Items!=null && PagedList.Items.Any())
+            {
+                DeleteAll();
+                Insert(PagedList.Items);
+            }
         }
 
         protected void Insert(TEntity entiy)
@@ -58,6 +62,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected void DeleteAll()
         {
+            Items.Clear();
         }
 
         protected int GetIndex(TEntity entity)

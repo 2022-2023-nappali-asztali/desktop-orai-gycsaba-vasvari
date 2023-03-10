@@ -18,6 +18,7 @@ namespace KretaCommandLine.APIModel
             NumberOfPage = int.MaxValue;
             PageSize = 10;
             NumberOfItems = 0;
+            Items= new Collection<T>();
         }
 
         public PagedList(Collection<T>? items,int numberOfPage, int pageSize)
@@ -32,6 +33,5 @@ namespace KretaCommandLine.APIModel
             else
                 Items = new Collection<T>();
         }
-
     }
 }
