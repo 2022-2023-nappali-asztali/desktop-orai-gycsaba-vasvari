@@ -98,11 +98,11 @@ namespace KretaDesktop.ViewModel.BaseClass
             SelectFirstRow();
         }
 
-        public void Remove(object parameter)
+        public async void Remove(object parameter)
         {
             if (parameter is TEntity entity) 
             {
-                Delete(entity);
+                await Delete(entity);
                 if (HasItems)
                     SelectFirstRow();
                 else

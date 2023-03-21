@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using KretaCommandLine.Model.Abstract;
 using KretaDesktop.Services;
 
@@ -30,8 +31,9 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         }
 
-        protected override void RefreshPagedItems()
+        protected async override void RefreshPagedItems()
         {
+            await GetPageAsync();
             if (PagedList!=null && PagedList.Items!=null && PagedList.Items.Any())
             {
                 DeleteAll();
@@ -45,10 +47,11 @@ namespace KretaDesktop.ViewModel.BaseClass
             Items.Add(entiy);
         }
 
-        protected void Delete(TEntity entity)
+        protected async Task Delete(TEntity entity)
         {
+            await _service.Delete<TEntity>(entity);
+            RefreshPagedItems();
             //Items.Remove(entity);
-
         }
 
         protected void Insert(IList<TEntity> collection)

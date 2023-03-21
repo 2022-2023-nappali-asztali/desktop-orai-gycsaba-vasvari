@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using KretaCommandLine.Model.Abstract;
 
 namespace KretaDesktop.Services
 {
@@ -31,6 +32,16 @@ namespace KretaDesktop.Services
             return new PagedList<TEntity>();
         }
 
+        public async Task Delete<TEntity>(ClassWithId entity)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = GetHttpClientUri();
+            if (client != null)
+            {
+                var result=await client.DeleteAsync($"/api/{typeof(TEntity).Name}/{entity.Id}");
+            }
+        }
+
         private Uri GetHttpClientUri()
         {
             UriBuilder uri = new UriBuilder();
@@ -45,5 +56,7 @@ namespace KretaDesktop.Services
             uri.Port = 8888;
             return uri;
         }
+
+
     }
 }
