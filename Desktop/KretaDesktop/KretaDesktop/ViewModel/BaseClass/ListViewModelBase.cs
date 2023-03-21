@@ -7,6 +7,7 @@ using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using KretaCommandLine.Model.Abstract;
+using KretaDesktop.Services;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
@@ -87,7 +88,7 @@ namespace KretaDesktop.ViewModel.BaseClass
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand RemoveAllCommand { get; set; }
 
-        public ListViewModelBase()
+        public ListViewModelBase(ICRUDAPIService service) : base(service)
         {
             RemoveCommand = new RelayCommand(parameter => Remove(parameter));
             SaveAndRefreshCommand = new RelayCommand(parameter => SaveAndRefresh(parameter));

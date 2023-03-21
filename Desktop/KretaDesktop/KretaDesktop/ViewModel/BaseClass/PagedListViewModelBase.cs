@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public abstract class PagedListViewModelBase<TEntity> : ViewModelBase, IPagedListViewModelBase<TEntity>
+    public abstract class PagedListViewModelBase<TEntity> : ServiceViewModelBase<TEntity>, IPagedListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
-        public PagedListViewModelBase()
+        public PagedListViewModelBase(ICRUDAPIService service) : base(service)
         {
             FirstPageCommand = new RelayCommand(execute => GoToFirstPage());
             PreviousPageCommand = new RelayCommand(execute => GoToPreviousPage());
@@ -23,14 +23,12 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected PagedList<TEntity> PagedList { get; set; }
         protected QueryStringParameters QueryStringParameters { get; set; } = new QueryStringParameters();
-
-        CURDAPIService service = new CURDAPIService();
-
+        
         protected async Task GetPageAsync()
         {
             if (QueryStringParameters.IsCorrect)
             {
-                PagedList = await service.GetPageAsync<TEntity>(QueryStringParameters);
+                PagedList = await _service.GetPageAsync<TEntity>(QueryStringParameters);
                 QueryStringParameters.Populate(PagedList);
             }
             else 

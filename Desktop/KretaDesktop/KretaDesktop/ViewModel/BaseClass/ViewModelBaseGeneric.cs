@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using KretaCommandLine.Model.Abstract;
+using KretaDesktop.Services;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
@@ -14,6 +15,10 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public bool HasItems => Items.Any();  //Items.Count > 0;
         public long NextId => HasItems ? Items.Select(entity => entity.Id).Max() + 1 : 1;
+
+        public ViewModelBase(ICRUDAPIService service) : base(service)
+        {
+        }
 
         protected async void InitializePagedPage()
         {
@@ -42,7 +47,8 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected void Delete(TEntity entity)
         {
-            Items.Remove(entity);
+            //Items.Remove(entity);
+
         }
 
         protected void Insert(IList<TEntity> collection)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KretaDesktop.Services
 {
-    public class CURDAPIService
+    public class CRUDAPIService : ICRUDAPIService
     {
         public async Task<PagedList<TEntity>> GetPageAsync<TEntity>(QueryStringParameters queryString)
         {
