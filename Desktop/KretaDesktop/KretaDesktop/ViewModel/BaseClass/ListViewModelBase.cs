@@ -117,7 +117,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             IsNewMode = true;
         }
 
-        public void SaveAndRefresh(object parameter)
+        public async void SaveAndRefresh(object parameter)
         {
             if (parameter is TEntity entity)
             {
@@ -129,7 +129,7 @@ namespace KretaDesktop.ViewModel.BaseClass
                 else
                 { 
                     // Új adat felvitel
-                    Insert(entity);
+                    await Insert(entity);
                     IsNewMode = false;
                 }
                 SelectRowContains(entity);

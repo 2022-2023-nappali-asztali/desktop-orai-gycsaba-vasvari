@@ -6,7 +6,8 @@ namespace KretaDesktop.Services
 {
     public interface ICRUDAPIService
     {
-        Task Delete<TEntity>(ClassWithId entity);
+        public Task Delete<TEntity>(ClassWithId entity);
         public Task<PagedList<TEntity>> GetPageAsync<TEntity>(QueryStringParameters queryString);
+        public Task Insert<TEntity>(ClassWithId entity);
     }
 }

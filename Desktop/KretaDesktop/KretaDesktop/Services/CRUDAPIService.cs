@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using KretaCommandLine.Model.Abstract;
+using KretaCommandLine.Model;
+using System.Text.Json;
 
 namespace KretaDesktop.Services
 {
@@ -15,7 +17,7 @@ namespace KretaDesktop.Services
             if (queryString == null)
                 return new PagedList<TEntity>();
             HttpClient client = new HttpClient();
-            client.BaseAddress=GetHttpClientUri();
+            client.BaseAddress = GetHttpClientUri();
             if (client != null)
             {
                 string jsonParamter = JsonConvert.SerializeObject(queryString);
@@ -38,7 +40,19 @@ namespace KretaDesktop.Services
             client.BaseAddress = GetHttpClientUri();
             if (client != null)
             {
-                var result=await client.DeleteAsync($"/api/{typeof(TEntity).Name}/{entity.Id}");
+                var result = await client.DeleteAsync($"/api/{typeof(TEntity).Name}/{entity.Id}");
+            }
+        }
+
+        public async Task Insert<TEntity>(ClassWithId entity)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = GetHttpClientUri();
+            if (client != null)
+            {
+                String jsonString = JsonConvert.SerializeObject(entity);
+                StringContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync($"/api/{typeof(TEntity).Name}", httpContent);
             }
         }
 

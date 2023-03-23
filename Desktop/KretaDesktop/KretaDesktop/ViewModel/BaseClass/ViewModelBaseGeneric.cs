@@ -41,10 +41,12 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         }
 
-        protected void Insert(TEntity entiy)
+        protected async Task Insert(TEntity entity)
         {
-            entiy.Id = NextId;
-            Items.Add(entiy);
+            //entiy.Id = NextId;
+            //Items.Add(entiy);
+            await _service.Insert<TEntity>(entity);
+            RefreshPagedItems();
         }
 
         protected async Task Delete(TEntity entity)
