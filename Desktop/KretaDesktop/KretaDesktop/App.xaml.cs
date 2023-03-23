@@ -20,6 +20,7 @@ using KretaDesktop.View.Configuration;
 using KretaDesktop.Localization;
 using KretaDesktop.ViewModel.Content;
 using KretaDesktop.View.Content;
+using KretaDesktop.Services;
 
 namespace KretaDesktop
 {
@@ -86,6 +87,7 @@ namespace KretaDesktop
                             DataContext=s.GetRequiredService<ListStudentView>()
                         }
                     );
+                    services.AddSingleton<ICRUDAPIService, CRUDAPIService>();
                 })
                 .Build();
             Log.Logger.Information("Build megtörtént...");

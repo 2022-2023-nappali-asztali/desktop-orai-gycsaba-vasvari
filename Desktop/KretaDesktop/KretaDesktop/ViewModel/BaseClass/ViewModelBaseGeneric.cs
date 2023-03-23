@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using KretaCommandLine.Model.Abstract;
+using KretaDesktop.Services;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
@@ -15,6 +17,10 @@ namespace KretaDesktop.ViewModel.BaseClass
         public bool HasItems => Items.Any();  //Items.Count > 0;
         public long NextId => HasItems ? Items.Select(entity => entity.Id).Max() + 1 : 1;
 
+        public ViewModelBase(ICRUDAPIService service) : base(service)
+        {
+        }
+
         protected async void InitializePagedPage()
         {
             SetPagedList(); // Van-e page vagy nincs, konfigurálhatósághoz
@@ -25,8 +31,9 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         }
 
-        protected override void RefreshPagedItems()
+        protected async override void RefreshPagedItems()
         {
+            await GetPageAsync();
             if (PagedList!=null && PagedList.Items!=null && PagedList.Items.Any())
             {
                 DeleteAll();
@@ -34,15 +41,19 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         }
 
-        protected void Insert(TEntity entiy)
+        protected async Task Insert(TEntity entity)
         {
-            entiy.Id = NextId;
-            Items.Add(entiy);
+            //entiy.Id = NextId;
+            //Items.Add(entiy);
+            await _service.Insert<TEntity>(entity);
+            RefreshPagedItems();
         }
 
-        protected void Delete(TEntity entity)
+        protected async Task Delete(TEntity entity)
         {
-            Items.Remove(entity);
+            await _service.Delete<TEntity>(entity);
+            RefreshPagedItems();
+            //Items.Remove(entity);
         }
 
         protected void Insert(IList<TEntity> collection)

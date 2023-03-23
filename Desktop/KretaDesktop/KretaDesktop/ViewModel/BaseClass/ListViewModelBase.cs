@@ -7,6 +7,7 @@ using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using KretaCommandLine.Model.Abstract;
+using KretaDesktop.Services;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
@@ -87,7 +88,7 @@ namespace KretaDesktop.ViewModel.BaseClass
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand RemoveAllCommand { get; set; }
 
-        public ListViewModelBase()
+        public ListViewModelBase(ICRUDAPIService service) : base(service)
         {
             RemoveCommand = new RelayCommand(parameter => Remove(parameter));
             SaveAndRefreshCommand = new RelayCommand(parameter => SaveAndRefresh(parameter));
@@ -97,11 +98,11 @@ namespace KretaDesktop.ViewModel.BaseClass
             SelectFirstRow();
         }
 
-        public void Remove(object parameter)
+        public async void Remove(object parameter)
         {
             if (parameter is TEntity entity) 
             {
-                Delete(entity);
+                await Delete(entity);
                 if (HasItems)
                     SelectFirstRow();
                 else
@@ -116,7 +117,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             IsNewMode = true;
         }
 
-        public void SaveAndRefresh(object parameter)
+        public async void SaveAndRefresh(object parameter)
         {
             if (parameter is TEntity entity)
             {
@@ -128,7 +129,7 @@ namespace KretaDesktop.ViewModel.BaseClass
                 else
                 { 
                     // Új adat felvitel
-                    Insert(entity);
+                    await Insert(entity);
                     IsNewMode = false;
                 }
                 SelectRowContains(entity);
