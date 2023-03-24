@@ -1,18 +1,18 @@
 ﻿using KretaCommandLine.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace EF.Context
+namespace EF.Contexts
 {
     public class InMemoryContext : DbContext
     {
-        public DbSet<Subject> Subjects { get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<Student> Students { get; set; }
-        public DbSet<SchoolClass> SchoolClasses { get; set; }
-        public DbSet<TypeOfSubject> TypeOfSubjects { get; set; }
-        public DbSet<TeachTeacherSubject> TeachTeaherSubjects { get; set; }
-        public DbSet<TeachTeacherSchoolClass> TeachTeacherSchoolClasses { get; set; }
+        public DbSet<Subject>? Subjects { get; set; }
+        public DbSet<Teacher>? Teachers { get; set; }
+        public DbSet<Address>? Addresses { get; set; }
+        public DbSet<Student>? Students { get; set; }
+        public DbSet<SchoolClass>? SchoolClasses { get; set; }
+        public DbSet<TypeOfSubject>? TypeOfSubjects { get; set; }
+        public DbSet<TeachTeacherSubject>? TeachTeaherSubjects { get; set; }
+        public DbSet<TeachTeacherSchoolClass>? TeachTeacherSchoolClasses { get; set; }
 
         public InMemoryContext(DbContextOptions<InMemoryContext> options)
           : base(options)

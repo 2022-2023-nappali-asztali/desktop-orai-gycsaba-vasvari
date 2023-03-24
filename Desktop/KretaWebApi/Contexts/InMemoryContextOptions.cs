@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace EF.Context
+namespace EF.Contexts
 {
     public static class InMemoryContextOptions
     {
