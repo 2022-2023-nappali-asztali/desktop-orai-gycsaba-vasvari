@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KretaWebApi.Context
 {
-    public class MysqlContext : DbContext
+    public class MySqlContext : DbContext
     {
         public DbSet<Subject>? Subjects { get; set; }
         public DbSet<Teacher>? Teachers { get; set; }
@@ -14,7 +14,7 @@ namespace KretaWebApi.Context
         public DbSet<TeachTeacherSubject>? TeachTeaherSubjects { get; set; }
         public DbSet<TeachTeacherSchoolClass>? TeachTeacherSchoolClasses { get; set; }
 
-        public MysqlContext(DbContextOptions<MysqlContext> options) : base(options)
+        public MySqlContext(DbContextOptions<MySqlContext> options) : base(options)
         {
         }
 

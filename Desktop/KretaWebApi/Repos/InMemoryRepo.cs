@@ -1,19 +1,20 @@
-﻿using KretaCommandLine.Model.Abstract;
+﻿using EF.Contexts;
+using KretaCommandLine.Model.Abstract;
 using KretaWebApi.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace KretaWebApi.Repos
 {
-    public class MySqlRepo<TEntity> where TEntity : ClassWithId
+    public class InMemoryRepo<TEntity> where TEntity : ClassWithId
     {
         private bool _disposed = false;
 
-        protected MySqlContext  Context  { get; private set; }
+        protected InMemoryContext  Context  { get; private set; }
         protected DbSet<TEntity> DatabaseSet => Context.Set<TEntity>();
 
 
-        public MySqlRepo(MySqlContext dbContext)
+        public InMemoryRepo(MySqlContext dbContext)
         {
             Context = dbContext;
         }
