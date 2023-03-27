@@ -1,146 +1,121 @@
 ﻿using APIHelpersLibrary.Paged;
 using EF.Contexts;
+using KretaCommandLine.API;
 using KretaCommandLine.Model.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace KretaWebApi.Repos
 {
-    public class RepoBase<TEntity> where TEntity : ClassWithId
+    public class RepoBase<TDbContext> : IRepoBase where TDbContext : DbContext
     {
-        private bool _disposed = false;
+        private IDbContextFactory<TDbContext> _dbContextFactory;
 
-        protected DbContext Context { get; private set; }
-        protected DbSet<TEntity> DatabaseSet => Context.Set<TEntity>();
-
-
-        public RepoBase(DbContext dbContext)
+        public RepoBase(IConfiguration configuration, IDbContextFactory<TDbContext> dbContextFactory)
         {
-            Context = dbContext;
+            _dbContextFactory = dbContextFactory;
         }
 
-        public IQueryable<TEntity>? GetAll()
+        public async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>() where TEntity : ClassWithId, new()
         {
-
-            if (DatabaseSet is null)
-                return null;
-            else
-                return DatabaseSet.AsNoTracking();
+            var dbContext = _dbContextFactory.CreateDbContext();
+            return await dbContext.GetDbSet<TEntity>()
+                                    .AsNoTracking<TEntity>()
+                                    .ToListAsync<TEntity>() ?? new List<TEntity>();
         }
 
-        public IQueryable<TEntity>? FindByCondition(Expression<Func<TEntity, bool>> condition)
+        public async ValueTask<TEntity> GetBy<TEntity>(long id) where TEntity : ClassWithId, new()
         {
 
-            if (DatabaseSet is null)
-                return null;
-            else
-                return DatabaseSet.Where(condition).AsNoTracking();
+            var dbContext = _dbContextFactory.CreateDbContext();
+            var dbSet = dbContext.GetDbSet<TEntity>();
+            var result = await dbSet.FirstOrDefaultAsync(entity => entity.Id == id) ?? new TEntity();
+
+            return result;
         }
 
-        public TEntity? FindById(long guid)
+        public async ValueTask<APICallState> Save<TEntity>(TEntity itemToSave) where TEntity : ClassWithId, new()
         {
-            foreach (var entity in DatabaseSet)
+
+            if (((ClassWithId)itemToSave).HasId)
             {
-                if (entity.Id == guid) return entity;
-            }
-            return null;
-        }
-
-        public async Task<TEntity?> Get(long guid)
-        {
-            if (guid == 0)
-            {
-                return null;
-            }
-
-            if (DatabaseSet is null)
-            {
-                return null;
+                return await UpdateItem<TEntity>(itemToSave);
             }
             else
             {
-                var founded = FindByCondition(entity => entity.Id == guid);
-                if (founded is object)
+                return await AddNewItem<TEntity>(itemToSave);
+            }
+        }
+
+        public async ValueTask<APICallState> Delete<TEntity>(long id) where TEntity : ClassWithId, new()
+        {
+
+            var dbContext = _dbContextFactory.CreateDbContext();
+            var dbSet = dbContext.GetDbSet<TEntity>();
+            TEntity entityToDelete = await GetBy<TEntity>(id);
+            if (entityToDelete != null && entityToDelete != default)
+            {
+                try
                 {
-                    return await founded.FirstOrDefaultAsync();
+                    dbContext.ChangeTracker.Clear();
+                    dbContext.Entry(entityToDelete).State = EntityState.Deleted;
+                    await dbContext.SaveChangesAsync();
                 }
-                else
-                    return null;
-            }
-        }
-
-        public async Task<PagedList<TEntity>> GetPaged(ItemParameters parameters)
-        {
-            IQueryable<TEntity>? query= GetAll();
-            List<TEntity> items = new List<TEntity>();
-            if (query is object)  
-                items = await query.ToListAsync();
-            return PagedList<TEntity>.ToPagedList(items, parameters.PageNumber, parameters.PageSize);
-        }
-
-        public async Task Save(TEntity entity)
-        {
-            if (entity.HasId)
-            {
-                await Update(entity);
-            }
-            else
-            {
-                await Insert(entity);
-            }
-        }
-
-        public async Task Insert(TEntity entity)
-        {
-            if (DatabaseSet is object)
-            {
-                DatabaseSet.Add(entity);
-
-                await Context.SaveChangesAsync();
-
-            }
-        }
-
-        public async Task Update(TEntity entity)
-        {
-            if (DatabaseSet is object && entity is object)
-            {
-                TEntity? entityToBeModifyd = FindById(entity.Id);
-
-                if (entityToBeModifyd is object)
+                catch (Exception)
                 {
-                    Context.Entry(entity).State = EntityState.Modified;
-                    await Context.SaveChangesAsync();
+                    return await ValueTask.FromResult(APICallState.DeleteFail);
                 }
+                return await ValueTask.FromResult(APICallState.Success);
             }
+            return await ValueTask.FromResult(APICallState.DeleteFail);
         }
 
-        public void Delete(TEntity entity)
+        private async ValueTask<APICallState> UpdateItem<TEntity>(TEntity itemToSave) where TEntity : ClassWithId, new()
         {
-            if (DatabaseSet is object)
+            var dbContext = _dbContextFactory.CreateDbContext();
+            var dbSet = dbContext.GetDbSet<TEntity>();
+
+            dbContext.ChangeTracker.Clear();
+            dbContext.Entry(itemToSave).State = EntityState.Modified;
+            try
             {
-                DatabaseSet.Remove(entity);
-                Context.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
-
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
+            catch (Exception e)
             {
-                if (disposing)
-                {
-                    Context.Dispose();
-                }
+                return await ValueTask.FromResult(APICallState.SaveFaild);
             }
-            _disposed = true;
+            return await ValueTask.FromResult(APICallState.Success);
         }
 
-        public void Dispose()
+        private async ValueTask<APICallState> AddNewItem<TEntity>(TEntity itemToSave) where TEntity : ClassWithId, new()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            var dbContext = _dbContextFactory.CreateDbContext();
+            var dbSet = dbContext.GetDbSet<TEntity>();
+
+            itemToSave.Id = GetNextId<TEntity>();
+
+            dbSet.Add(itemToSave);
+            try
+            {
+                await dbContext.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                return await ValueTask.FromResult(APICallState.SaveFaild);
+            }
+            return await ValueTask.FromResult(APICallState.Success);
+        }
+
+        private long GetNextId<TEntity>() where TEntity : ClassWithId, new()
+        {
+            var dbContext = _dbContextFactory.CreateDbContext();
+            var dbSet = dbContext.GetDbSet<TEntity>();
+
+            long maxId = dbSet.Select(entity => entity.Id).Max();
+            if (maxId < 0)
+                maxId = 0;
+            return maxId + 1;
         }
     }
 }
