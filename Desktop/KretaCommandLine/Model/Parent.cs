@@ -1,9 +1,9 @@
 ﻿using KretaCommandLine.Model;
 using KretaCommandLine.Model.Abstract;
 
-namespace KretaCommandLine
+namespace KretaCommandLine.Model
 {
-    class Parent : ClassWithId
+    public class Parent : ClassWithId
     {
         public string Name { get ; set ; }
         public bool IsWoman { get ; set ; }

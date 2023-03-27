@@ -15,8 +15,10 @@ namespace KretaWebApi.Contexts
 
         public DbSet<Subject>? Subject { get; set; }
         public DbSet<Teacher>? Teacher { get; set; }
-        public DbSet<Address>? Addresse { get; set; }
-        public DbSet<SchoolClass>? SchoolClasses { get; set; }
+        public DbSet<Student>? Student { get; set; }
+        public DbSet<Address>? Address { get; set; }
+        public DbSet<SchoolClass>? SchoolClass { get; set; }
+        public DbSet<Parent> Parent { get; set; }
         public DbSet<TypeOfSubject>? TypeOfSubject { get; set; }
         public DbSet<TeachTeacherSubject>? TeachTeaherSubject { get; set; }
         public DbSet<TeachTeacherSchoolClass>? TeachTeacherSchoolClass { get; set; }
