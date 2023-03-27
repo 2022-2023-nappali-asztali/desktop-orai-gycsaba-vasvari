@@ -1,4 +1,5 @@
-﻿using EF.Contexts;
+﻿using APIHelpersLibrary.Paged;
+using EF.Contexts;
 using KretaCommandLine.Model.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -66,6 +67,15 @@ namespace KretaWebApi.Repos
                 else
                     return null;
             }
+        }
+
+        public async Task<PagedList<TEntity>> GetPaged(ItemParameters parameters)
+        {
+            IQueryable<TEntity>? query= GetAll();
+            List<TEntity> items = new List<TEntity>();
+            if (query is object)  
+                items = await query.ToListAsync();
+            return PagedList<TEntity>.ToPagedList(items, parameters.PageNumber, parameters.PageSize);
         }
 
         public async Task Save(TEntity entity)

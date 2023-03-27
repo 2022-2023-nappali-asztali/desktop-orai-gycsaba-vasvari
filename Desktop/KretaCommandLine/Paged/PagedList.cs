@@ -1,4 +1,8 @@
-﻿namespace APIHelpersLibrary.Paged
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace APIHelpersLibrary.Paged
 {
     public class PagedList<T> : List<T> where T : class
     {
