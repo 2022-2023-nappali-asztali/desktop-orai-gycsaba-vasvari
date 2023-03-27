@@ -1,6 +1,5 @@
 ﻿using EF.Contexts;
 using KretaCommandLine.Model.Abstract;
-using KretaWebApi.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -14,7 +13,7 @@ namespace KretaWebApi.Repos
         protected DbSet<TEntity> DatabaseSet => Context.Set<TEntity>();
 
 
-        public InMemoryRepo(MySqlContext dbContext)
+        public InMemoryRepo(InMemoryContext dbContext)
         {
             Context = dbContext;
         }
