@@ -8,14 +8,32 @@ using KretaCommandLine.Model.Abstract;
 
 namespace KretaCommandLine.Model
 {
-    public class Subject : SubjectBase, IEquatable<object>, IComparable, ICloneable
+    public class Subject : ClassWithId, IEquatable<object>, IComparable, ICloneable
     {
-        public Subject() : base()
+        public virtual string SubjectName { get; set; }
+
+        public long SubjectTypeId { get; set; }
+        public virtual TypeOfSubject TypeOfSubject { get; set; }
+
+        public Subject(long id, string subName, long subjectTypeId) : base(id)
         {
+            this.Id = id;
+            this.SubjectName = subName;
+            SubjectTypeId = subjectTypeId;
         }
 
-        public Subject(long id, string subName) : base(id, subName)
+        public Subject(long id, string subName) : base(id)
         {
+            this.Id = id;
+            this.SubjectName = subName;
+            SubjectTypeId = -1;
+        }
+
+        public Subject() : base(-1)
+        {
+            this.Id = -1;
+            SubjectTypeId = -1;
+            this.SubjectName = String.Empty;
         }
 
         public override object Clone()

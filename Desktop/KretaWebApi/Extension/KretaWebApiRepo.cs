@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KretaWebApi.Extension
 {
-    public class KretaWebApiRepo : RepoBase<KretaContext>
+    public class KretaWebApiRepo : RepoBase<InMemoryContext>
     {
-        public KretaWebApiRepo(IConfiguration configuration, IDbContextFactory<KretaContext> dbContextFactory) : base(configuration, dbContextFactory)
+        public KretaWebApiRepo(IConfiguration configuration, IDbContextFactory<InMemoryContext> dbContextFactory) : base(configuration, dbContextFactory)
         {
         }
     }

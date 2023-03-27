@@ -1,5 +1,6 @@
 ﻿using KretaCommandLine.Model;
 using Microsoft.EntityFrameworkCore;
+using KretaWebApi.Extension;
 
 namespace KretaWebApi.Contexts
 {
@@ -28,6 +29,12 @@ namespace KretaWebApi.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // one - one relationship
+            modelBuilder.Entity<Subject>()
+                .HasOne<TypeOfSubject>(subject => subject.TypeOfSubject)
+                .WithOne()
+                .HasForeignKey<TypeOfSubject>(type => type.Id);
+
+
             modelBuilder.Entity<Teacher>()
                  .HasOne<Address>(teacher => teacher.TeacherAddress)
                  .WithOne()
