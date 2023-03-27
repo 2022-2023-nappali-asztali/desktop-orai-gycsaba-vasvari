@@ -3,8 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EF.Contexts
 {
+    public static class MemoryContextOptionsSettings
+    {
+        private static DbContextOptions<InMemoryContext> MemoryContextOptions = new DbContextOptionsBuilder<InMemoryContext>()
+           .UseInMemoryDatabase(databaseName: "KretaTest" + Guid.NewGuid().ToString())
+           .Options;
+    }
     public class InMemoryContext : DbContext
     {
+
         public DbSet<Subject>? Subjects { get; set; }
         public DbSet<Teacher>? Teachers { get; set; }
         public DbSet<Address>? Addresses { get; set; }
