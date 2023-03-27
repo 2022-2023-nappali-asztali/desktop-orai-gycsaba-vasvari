@@ -12,14 +12,13 @@ namespace KretaWebApi.Contexts
     public class KretaContext : DbContext
     {
 
-        public DbSet<Subject>? Subjects { get; set; }
-        public DbSet<Teacher>? Teachers { get; set; }
-        public DbSet<Address>? Addresses { get; set; }
-        public DbSet<Student>? Students { get; set; }
+        public DbSet<Subject>? Subject { get; set; }
+        public DbSet<Teacher>? Teacher { get; set; }
+        public DbSet<Address>? Addresse { get; set; }
         public DbSet<SchoolClass>? SchoolClasses { get; set; }
-        public DbSet<TypeOfSubject>? TypeOfSubjects { get; set; }
-        public DbSet<TeachTeacherSubject>? TeachTeaherSubjects { get; set; }
-        public DbSet<TeachTeacherSchoolClass>? TeachTeacherSchoolClasses { get; set; }
+        public DbSet<TypeOfSubject>? TypeOfSubject { get; set; }
+        public DbSet<TeachTeacherSubject>? TeachTeaherSubject { get; set; }
+        public DbSet<TeachTeacherSchoolClass>? TeachTeacherSchoolClass { get; set; }
 
         public KretaContext(DbContextOptions<KretaContext> options)
           : base(options)
