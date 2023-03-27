@@ -1,10 +1,17 @@
 ﻿using KretaCommandLine.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace KretaWebApi.Context
+namespace KretaWebApi.Contexts
 {
-    public class MySqlContext : DbContext
+   /* public static class MemoryContextOptionsSettings
     {
+        private static DbContextOptions<InMemoryContext> MemoryContextOptions = new DbContextOptionsBuilder<InMemoryContext>()
+           .UseInMemoryDatabase(databaseName: "KretaTest" + Guid.NewGuid().ToString())
+           .Options;
+    }*/
+    public class KretaContext : DbContext
+    {
+
         public DbSet<Subject>? Subjects { get; set; }
         public DbSet<Teacher>? Teachers { get; set; }
         public DbSet<Address>? Addresses { get; set; }
@@ -14,7 +21,8 @@ namespace KretaWebApi.Context
         public DbSet<TeachTeacherSubject>? TeachTeaherSubjects { get; set; }
         public DbSet<TeachTeacherSchoolClass>? TeachTeacherSchoolClasses { get; set; }
 
-        public MySqlContext(DbContextOptions<MySqlContext> options) : base(options)
+        public KretaContext(DbContextOptions<KretaContext> options)
+          : base(options)
         {
         }
 
@@ -42,7 +50,7 @@ namespace KretaWebApi.Context
             modelBuilder.Entity<TeachTeacherSubject>()
                 .HasKey(tts => new { tts.SubjectId, tts.TeacherId });
             modelBuilder.Entity<TeachTeacherSchoolClass>()
-                .HasKey(tts => new { tts.TeacherId, tts.SchoolClassId });
+                .HasKey(tts => new { tts.TeacherId, tts.SchoolClassId});       
 
 
             modelBuilder.Entity<TeachTeacherSubject>()

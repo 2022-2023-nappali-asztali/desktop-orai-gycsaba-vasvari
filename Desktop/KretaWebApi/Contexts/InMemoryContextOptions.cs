@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace EF.Contexts
+namespace KretaWebApi.Contexts
 {
     public static class InMemoryContextOptions
     {
-        public static DbContextOptions<InMemoryContext> contextOptions = new DbContextOptionsBuilder<InMemoryContext>()
+        public static DbContextOptions<KretaContext> contextOptions = new DbContextOptionsBuilder<KretaContext>()
             .UseInMemoryDatabase(databaseName: "KretaTest" + Guid.NewGuid().ToString())
             .Options;
     }

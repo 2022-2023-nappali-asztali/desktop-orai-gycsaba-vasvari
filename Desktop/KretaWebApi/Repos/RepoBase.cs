@@ -1,9 +1,6 @@
-﻿using APIHelpersLibrary.Paged;
-using EF.Contexts;
-using KretaCommandLine.API;
+﻿using KretaCommandLine.API;
 using KretaCommandLine.Model.Abstract;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace KretaWebApi.Repos
 {

@@ -10,9 +10,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureInMemoryContext();
-builder.Services.ConfigureMySqlContext(builder.Configuration);
+//builder.Services.ConfigureMySqlContext(builder.Configuration);
 
-
+builder.Services.ConfigureRepo();
 
 var app = builder.Build();
 

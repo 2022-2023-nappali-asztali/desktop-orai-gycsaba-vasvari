@@ -1,4 +1,5 @@
-﻿using KretaWebApi.Context;
+﻿
+using KretaWebApi.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace KretaWebApi.Extension
@@ -12,7 +13,7 @@ namespace KretaWebApi.Extension
             if (IsSectionExsist(config, connectionStringSection))
             {
                 var connectionString = config[connectionStringSection];
-                services.AddDbContextFactory<MySqlContext>(
+                services.AddDbContextFactory<KretaContext>(
                     o => o.UseMySql(connectionString,
                     ServerVersion.AutoDetect(connectionString),
                     options => options.EnableRetryOnFailure(

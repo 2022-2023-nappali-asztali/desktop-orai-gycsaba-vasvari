@@ -1,4 +1,6 @@
-﻿namespace APIHelpersLibrary.Paged
+﻿using System.Collections.Generic;
+
+namespace APIHelpersLibrary.Paged
 {
     public class PagingResponse<T> 
     {
