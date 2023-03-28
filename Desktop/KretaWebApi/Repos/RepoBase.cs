@@ -1,4 +1,5 @@
-﻿using KretaCommandLine.API;
+﻿using APIHelpersLibrary.Paged;
+using KretaCommandLine.API;
 using KretaCommandLine.Model.Abstract;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,12 @@ namespace KretaWebApi.Repos
             return await dbContext.GetDbSet<TEntity>()
                                     .AsNoTracking<TEntity>()
                                     .ToListAsync<TEntity>() ?? new List<TEntity>();
+        }
+
+        public async Task<PagedList<TEntity>> GetPaged<TEntity>(ItemParameters parameters) where TEntity : ClassWithId, new()
+        {
+            List<TEntity> items = await SelectAllRecordAsync<TEntity>();
+            return PagedList<TEntity>.ToPagedList(items, parameters.PageNumber, parameters.PageSize);
         }
 
         public async ValueTask<TEntity> GetBy<TEntity>(long id) where TEntity : ClassWithId, new()
