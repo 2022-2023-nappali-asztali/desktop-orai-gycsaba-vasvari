@@ -14,7 +14,7 @@ namespace KretaDesktop.Services
 {
     public class APIService : IAPIService
     {
-        public async Task<PagingResponse<TEntity>> GetPageAsync<TEntity>(ItemParameters parameters) where TEntity : ClassWithId, new()
+        public async ValueTask<PagingResponse<TEntity>> GetPageAsync<TEntity>(ItemParameters parameters) where TEntity : ClassWithId, new()
         {
            
             HttpClient client = new HttpClient();
