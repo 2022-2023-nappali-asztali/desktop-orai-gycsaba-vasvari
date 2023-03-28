@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using KretaCommandLine.Model.Abstract;
@@ -7,9 +6,9 @@ using KretaDesktop.Services;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class ViewModelBase<TEntity, TCollection> :PagedListViewModelBase<TEntity>, IViewModelBase<TEntity, TCollection>
+    public class ViewModelBase<TEntity, TCollection> : ServiceViewModelBase<TEntity>, IViewModelBase<TEntity, TCollection>
         where TEntity : ClassWithId, new()
-        where TCollection : Collection<TEntity>, new()
+        where TCollection : ICollection<TEntity>, new()
     {
 
         public TCollection Items { get; set; } = new();
@@ -19,26 +18,21 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public ViewModelBase(IAPIService service) : base(service)
         {
+            Items = new();
         }
 
-        protected async void InitializePagedPage()
+        protected virtual async void InitializePagedPage()
         {
-            SetPagedList(); // Van-e page vagy nincs, konfigurálhatósághoz
-            await GetPageAsync();
-            if (PagedList.Items.Any())
-            {
-                Insert(PagedList.Items);
-            }
+            var result = await SelectAllRecordAsync();
+            Insert(result);            
         }
 
-        protected async override void RefreshPagedItems()
+        protected virtual async void RefreshPagedItems()
         {
-            await GetPageAsync();
-            if (PagedList!=null && PagedList.Items!=null && PagedList.Items.Any())
-            {
-                DeleteAll();
-                Insert(PagedList.Items);
-            }
+            var result = await SelectAllRecordAsync();
+            DeleteAll();
+            Insert(result);
+            
         }
 
         protected async Task Insert(TEntity entity)

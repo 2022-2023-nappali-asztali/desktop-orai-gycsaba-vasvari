@@ -12,7 +12,7 @@ namespace KretaDesktop.ViewModel.Content
 {
     public class ListSubjectViewModel : ListViewModelBase<Subject>
     {
-        public ListSubjectViewModel(IAPIService service) : base(service)
+        public ListSubjectViewModel(APIService service) : base(service)
         {
             InitializePage();
         }

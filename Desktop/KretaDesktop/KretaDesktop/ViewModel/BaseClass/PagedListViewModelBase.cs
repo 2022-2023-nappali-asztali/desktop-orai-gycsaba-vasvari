@@ -1,10 +1,11 @@
 ﻿using KretaCommandLine.Model.Abstract;
 using KretaDesktop.Services;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public abstract class PagedListViewModelBase<TEntity> : ServiceViewModelBase<TEntity>, IPagedListViewModelBase<TEntity>
+    public abstract class PagedListViewModelBase<TEntity> : ViewModelBase<TEntity, List<TEntity>>, IPagedListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
         public PagedListViewModelBase(IAPIService service) : base(service)
@@ -20,8 +21,6 @@ namespace KretaDesktop.ViewModel.BaseClass
         public RelayCommand NextPageCommand { get; private set; }
         public RelayCommand LastPageCommand { get; private set; }
 
-        protected PagedList<TEntity> PagedList { get; set; }
-        protected QueryStringParameters QueryStringParameters { get; set; } = new QueryStringParameters();
         
         protected async Task GetPageAsync()
         {
@@ -38,7 +37,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected void SetPagedList()
         {
-            QueryStringParameters.PageSize = 5;
+            
         }
 
         protected virtual void RefreshPagedItems()

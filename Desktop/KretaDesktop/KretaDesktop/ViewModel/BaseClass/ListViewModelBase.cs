@@ -11,7 +11,7 @@ using KretaDesktop.Services;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class ListViewModelBase<TEntity> : ViewModelBase<TEntity, ObservableCollection<TEntity>>, IListViewModelBase<TEntity>
+    public class ListViewModelBase<TEntity> : PagedListViewModelBase<TEntity>, IListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
         private TEntity _selectedItem;
