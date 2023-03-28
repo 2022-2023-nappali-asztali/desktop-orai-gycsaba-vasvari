@@ -8,7 +8,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 {
     public class ViewModelBase<TEntity, TCollection> : ServiceViewModelBase<TEntity>, IViewModelBase<TEntity, TCollection>
         where TEntity : ClassWithId, new()
-        where TCollection : ICollection<TEntity>, new()
+        where TCollection : IList<TEntity>, new()
     {
 
         public TCollection Items { get; set; } = new();
@@ -21,32 +21,30 @@ namespace KretaDesktop.ViewModel.BaseClass
             Items = new();
         }
 
-        protected virtual async void InitializePagedPage()
+        protected virtual async void InitializePage()
         {
             var result = await SelectAllRecordAsync();
             Insert(result);            
         }
 
-        protected virtual async void RefreshPagedItems()
+        protected virtual async void RefreshItems()
         {
             var result = await SelectAllRecordAsync();
             DeleteAll();
-            Insert(result);
-            
+            Insert(result);            
         }
 
-        protected async Task Insert(TEntity entity)
+        protected async Task SaveRecord(TEntity entity)
         {
-            await _service.Insert<TEntity>(entity);
-            RefreshPagedItems();
+            await _service.Save<TEntity>(entity);
+            RefreshItems();
         }
 
-        protected async Task Delete(TEntity entity)
+        protected async Task DeleteRecord(TEntity entity)
         {
-            await _service.Delete<TEntity>(entity);
-            RefreshPagedItems();
+            await _service.Delete<TEntity>(entity.Id);
+            RefreshItems();
         }
-
 
         protected void Insert(IList<TEntity> collection)
         {
@@ -54,13 +52,6 @@ namespace KretaDesktop.ViewModel.BaseClass
             {
                 Items.Add(item);
             }
-        }
-
-        protected void Update(TEntity entity)
-        {
-            int index = GetIndex(entity);
-            if (index != -1)
-                Items[index] = (TEntity) entity.Clone();
         }
 
         protected void DeleteAll()

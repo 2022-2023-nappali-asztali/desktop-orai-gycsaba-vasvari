@@ -50,10 +50,11 @@ namespace KretaDesktop.Services
         public async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>() where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();
-            string relativUrl = RelativeUrlExtension.SetRelativeUrl<TEntity>();
+            client.BaseAddress = GetHttpClientUri<TEntity>();            
             if (client is object)
-            { 
-                List<TEntity>? result = await client.GetFromJsonAsync<List<TEntity>>(relativUrl);
+            {
+                string path = RelativeUrlExtension.SetRelativeUrl<TEntity>();
+                List<TEntity>? result = await client.GetFromJsonAsync<List<TEntity>>(path);
                 if (result is object)
                     return result;
                 else
@@ -114,11 +115,30 @@ namespace KretaDesktop.Services
             return APICallState.DeleteFail;
         }
 
+
+        private Uri GetHttpClientUri<TEntity>() where TEntity : ClassWithId, new()
+        {
+            UriBuilder uri = new UriBuilder();
+            uri = GetAPIUri<TEntity>(uri);
+            return uri.Uri;
+        }
+
+        private UriBuilder GetAPIUri<TEntity>(UriBuilder uri) where TEntity : ClassWithId, new()
+        {
+            //string path = RelativeUrlExtension.SetRelativeUrl<TEntity>();
+
+            uri.Scheme = "https";
+            uri.Host = "localhost";
+            uri.Port = 7555;
+            //uri.Path = $"{path}";
+            return uri;
+        }
+
         public static class RelativeUrlExtension
         {
             public static string SetRelativeUrl<TEntity>() where TEntity : ClassWithId, new()
             {
-                return $"/{typeof(TEntity).Name}/api";
+                return $"{typeof(TEntity).Name}/api";
             }
         }
     }

@@ -11,7 +11,7 @@ using KretaDesktop.Services;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class ListViewModelBase<TEntity> : PagedListViewModelBase<TEntity>, IListViewModelBase<TEntity>
+    public class ListViewModelBase<TEntity> : ViewModelBase<TEntity, List<TEntity>>, IListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
         private TEntity _selectedItem;
@@ -102,7 +102,7 @@ namespace KretaDesktop.ViewModel.BaseClass
         {
             if (parameter is TEntity entity) 
             {
-                await Delete(entity);
+                await DeleteRecord(entity);
                 if (HasItems)
                     SelectFirstRow();
                 else
@@ -121,18 +121,8 @@ namespace KretaDesktop.ViewModel.BaseClass
         {
             if (parameter is TEntity entity)
             {
-                if (entity.HasId)
-                {
-                    // Mivel van id-je akkor menthet
-                    Update(entity);                    
-                }
-                else
-                { 
-                    // Új adat felvitel
-                    await Insert(entity);
-                    IsNewMode = false;
-                }
-                SelectRowContains(entity);
+                 await SaveRecord(entity);                    
+                 SelectRowContains(entity);
             }            
         }
 
@@ -146,15 +136,6 @@ namespace KretaDesktop.ViewModel.BaseClass
         public void Clear()
         {
             DisplaydItem = new TEntity();
-        }
-
-        public void RemoveAll(object parameter)
-        {
-        }
-
-        protected void InitializePage()
-        {
-            InitializePagedPage();
         }
 
         private void SelectFirstRow()
@@ -190,7 +171,5 @@ namespace KretaDesktop.ViewModel.BaseClass
                     SelectedItemIndex = index;
             }
         }
-
-
     }
 }

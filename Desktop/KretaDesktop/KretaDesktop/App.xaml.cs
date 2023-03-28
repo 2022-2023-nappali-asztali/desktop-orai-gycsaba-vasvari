@@ -46,7 +46,9 @@ namespace KretaDesktop
                 .UseSerilog()
                 .ConfigureServices(services =>
                 {
+                    services.AddSingleton<IAPIService, APIService>();
                     services.AddSingleton<MainWindowViewModel>();
+                   
                     services.AddSingleton<MainWindow>(s => new MainWindow()
                     {
                         DataContext = s.GetRequiredService<MainWindowViewModel>()

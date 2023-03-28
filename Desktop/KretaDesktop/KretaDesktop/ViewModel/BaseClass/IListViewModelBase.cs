@@ -21,7 +21,5 @@ namespace KretaDesktop.ViewModel.BaseClass
         public void Clear();
         public void Remove(object parameter);
         public void SaveAndRefresh(object parameter);
-        public void RemoveAll(object parameter);
-
     }
 }
