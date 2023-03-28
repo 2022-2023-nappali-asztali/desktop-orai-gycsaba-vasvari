@@ -5,9 +5,9 @@ namespace KretaDesktop.ViewModel.BaseClass
 {
     public class ServiceViewModelBase<TEntity> : ViewModelBase where TEntity : ClassWithId, new()
     {
-        protected ICRUDAPIService _service;
+        protected IAPIService _service;
 
-        public ServiceViewModelBase(ICRUDAPIService service)
+        public ServiceViewModelBase(IAPIService service)
         {
             _service = service;
         }

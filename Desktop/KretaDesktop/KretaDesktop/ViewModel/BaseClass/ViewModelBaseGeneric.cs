@@ -17,7 +17,7 @@ namespace KretaDesktop.ViewModel.BaseClass
         public bool HasItems => Items.Any();  //Items.Count > 0;
         public long NextId => HasItems ? Items.Select(entity => entity.Id).Max() + 1 : 1;
 
-        public ViewModelBase(ICRUDAPIService service) : base(service)
+        public ViewModelBase(IAPIService service) : base(service)
         {
         }
 

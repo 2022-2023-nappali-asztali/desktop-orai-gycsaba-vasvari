@@ -1,5 +1,4 @@
-﻿using KretaCommandLine.APIModel;
-using KretaCommandLine.Model.Abstract;
+﻿using KretaCommandLine.Model.Abstract;
 using KretaDesktop.Services;
 using System.Threading.Tasks;
 
@@ -8,7 +7,7 @@ namespace KretaDesktop.ViewModel.BaseClass
     public abstract class PagedListViewModelBase<TEntity> : ServiceViewModelBase<TEntity>, IPagedListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
-        public PagedListViewModelBase(ICRUDAPIService service) : base(service)
+        public PagedListViewModelBase(IAPIService service) : base(service)
         {
             FirstPageCommand = new RelayCommand(execute => GoToFirstPage());
             PreviousPageCommand = new RelayCommand(execute => GoToPreviousPage());

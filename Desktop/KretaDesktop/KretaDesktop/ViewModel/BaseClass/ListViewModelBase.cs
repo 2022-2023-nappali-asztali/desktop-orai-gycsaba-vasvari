@@ -88,7 +88,7 @@ namespace KretaDesktop.ViewModel.BaseClass
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand RemoveAllCommand { get; set; }
 
-        public ListViewModelBase(ICRUDAPIService service) : base(service)
+        public ListViewModelBase(IAPIService service) : base(service)
         {
             RemoveCommand = new RelayCommand(parameter => Remove(parameter));
             SaveAndRefreshCommand = new RelayCommand(parameter => SaveAndRefresh(parameter));

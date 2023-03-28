@@ -87,7 +87,7 @@ namespace KretaDesktop
                             DataContext=s.GetRequiredService<ListStudentView>()
                         }
                     );
-                    services.AddSingleton<ICRUDAPIService, CRUDAPIService>();
+                    services.AddSingleton<IAPIService, APIService>();
                 })
                 .Build();
             Log.Logger.Information("Build megtörtént...");
