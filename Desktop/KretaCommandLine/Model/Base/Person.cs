@@ -36,8 +36,8 @@ namespace KretaCommandLine.Model.Base
             LastName = string.Empty;
             Wooman = false;
             DataOfBirth = DateTime.MinValue;
-            this.address = new Address();
-            this.account = new Account();
+            //this.address = new Address();
+            //this.account = new Account();
         }
 
         public bool Equals(Person other)

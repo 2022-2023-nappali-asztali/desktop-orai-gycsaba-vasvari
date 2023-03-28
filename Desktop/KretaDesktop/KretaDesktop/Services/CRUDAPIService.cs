@@ -1,5 +1,4 @@
-﻿using KretaCommandLine.APIModel;
-using System;
+﻿using System;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
@@ -14,7 +13,7 @@ namespace KretaDesktop.Services
     {
         public async Task<PagedList<TEntity>> GetPageAsync<TEntity>(QueryStringParameters queryString)
         {
-            if (queryString == null)
+         /*   if (queryString == null)
                 return new PagedList<TEntity>();
             HttpClient client = new HttpClient();
             client.BaseAddress = GetHttpClientUri();
@@ -30,7 +29,7 @@ namespace KretaDesktop.Services
                     PagedList<TEntity> result = JsonConvert.DeserializeObject<PagedList<TEntity>>(resultContent);
                     return result;
                 }
-            }
+            }*/
             return new PagedList<TEntity>();
         }
 
