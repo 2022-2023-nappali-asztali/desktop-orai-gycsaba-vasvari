@@ -37,8 +37,6 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected async Task Insert(TEntity entity)
         {
-            //entiy.Id = NextId;
-            //Items.Add(entiy);
             await _service.Insert<TEntity>(entity);
             RefreshPagedItems();
         }
@@ -47,8 +45,8 @@ namespace KretaDesktop.ViewModel.BaseClass
         {
             await _service.Delete<TEntity>(entity);
             RefreshPagedItems();
-            //Items.Remove(entity);
         }
+
 
         protected void Insert(IList<TEntity> collection)
         {
