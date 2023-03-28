@@ -22,7 +22,7 @@ namespace KretaWebApi.Repos
                                     .ToListAsync<TEntity>() ?? new List<TEntity>();
         }
 
-        public async Task<PagedList<TEntity>> GetPaged<TEntity>(ItemParameters parameters) where TEntity : ClassWithId, new()
+        public async ValueTask<PagedList<TEntity>> GetPaged<TEntity>(ItemParameters parameters) where TEntity : ClassWithId, new()
         {
             List<TEntity> items = await SelectAllRecordAsync<TEntity>();
             return PagedList<TEntity>.ToPagedList(items, parameters.PageNumber, parameters.PageSize);

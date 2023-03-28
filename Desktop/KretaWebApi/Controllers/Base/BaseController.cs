@@ -1,7 +1,9 @@
-﻿using KretaCommandLine.API;
+﻿using APIHelpersLibrary.Paged;
+using KretaCommandLine.API;
 using KretaCommandLine.Model.Abstract;
 using KretaWebApi.Repos;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace KretaWebApi.Controllers.Base
 {
@@ -28,6 +30,14 @@ namespace KretaWebApi.Controllers.Base
                 return BadRequest("Az adatbázis nem elérhető.");
             }
             return Ok(users);
+        }
+
+        [HttpGet("getpaged")]
+        public async Task<IActionResult> GetPaged([FromQuery] ItemParameters parameters)
+        {
+            PagedList<TEntity> pagedList = await _service.GetPaged<TEntity>(parameters);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(pagedList.MetaData));
+            return Ok(pagedList);
         }
 
         [HttpGet("{id}")]
