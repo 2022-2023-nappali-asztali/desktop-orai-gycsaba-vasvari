@@ -1,6 +1,7 @@
 ﻿using APIHelpersLibrary.Paged;
 using KretaCommandLine.Model.Abstract;
 using KretaDesktop.Services;
+using KretaDesktop.ViewModel.Command;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

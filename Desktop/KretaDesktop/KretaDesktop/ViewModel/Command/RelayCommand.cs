@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace KretaDesktop.ViewModel.BaseClass
+namespace KretaDesktop.ViewModel.Command
 {
     public class RelayCommand : ICommand
     {

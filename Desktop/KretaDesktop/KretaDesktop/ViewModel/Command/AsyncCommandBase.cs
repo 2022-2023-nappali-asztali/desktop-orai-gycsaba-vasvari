@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using System;
 
-namespace KretaDesktop.ViewModel.BaseClass
+namespace KretaDesktop.ViewModel.Command
 {
     public abstract class AsyncCommandBase : ICommand
     {

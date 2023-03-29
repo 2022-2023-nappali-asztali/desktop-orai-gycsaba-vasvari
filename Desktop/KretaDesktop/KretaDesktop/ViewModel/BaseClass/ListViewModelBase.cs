@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using KretaCommandLine.Model.Abstract;
 using KretaDesktop.Services;
+using KretaDesktop.ViewModel.Command;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {

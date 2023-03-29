@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace KretaDesktop.ViewModel.BaseClass
+namespace KretaDesktop.ViewModel.Command
 {
     public class AsyncRelayCommand : AsyncCommandBase
     {
@@ -23,9 +20,9 @@ namespace KretaDesktop.ViewModel.BaseClass
 
     public class AsyncRelayCommandWithParameter : AsyncCommandBase
     {
-        private readonly Func<object,Task> _callback;
+        private readonly Func<object, Task> _callback;
 
-        public AsyncRelayCommandWithParameter(Func<object,Task> callback, Action<Exception> onException) : base(onException)
+        public AsyncRelayCommandWithParameter(Func<object, Task> callback, Action<Exception> onException) : base(onException)
         {
             _callback = callback;
         }

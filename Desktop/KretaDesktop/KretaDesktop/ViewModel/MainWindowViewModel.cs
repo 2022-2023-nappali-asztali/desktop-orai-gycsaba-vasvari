@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using KretaDesktop.ViewModel.BaseClass;
+using KretaDesktop.ViewModel.Command;
 using KretaDesktop.ViewModel.Header;
 using Microsoft.Extensions.Logging;
 
