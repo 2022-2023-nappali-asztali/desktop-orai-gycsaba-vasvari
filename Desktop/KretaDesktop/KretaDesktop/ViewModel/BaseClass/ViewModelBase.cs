@@ -25,7 +25,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             OnPropertyChanged(propertyName);
         }
 
-        public virtual void Dispose() 
+        protected virtual void Dispose() 
         {
         }
     }

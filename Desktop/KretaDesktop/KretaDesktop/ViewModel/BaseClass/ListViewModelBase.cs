@@ -33,7 +33,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 
 
         private TEntity _displaydItem = new();
-        protected TEntity DisplaydItem
+        public TEntity DisplaydItem
         {
             get => _displaydItem;
             set
@@ -91,7 +91,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             SelectFirstRow();
         }
 
-        public async void Remove(object parameter)
+        protected async void Remove(object parameter)
         {
             if (parameter is TEntity entity) 
             {
@@ -103,14 +103,14 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         }
 
-        public void New()
+        protected void New()
         {
             _selectedItemId=DisplaydItem.Id;
             DisplaydItem = new TEntity();
             IsNewMode = true;
         }
 
-        public async void SaveAndRefresh(object parameter)
+        protected async void SaveAndRefresh(object parameter)
         {
             if (parameter is TEntity entity)
             {
@@ -119,14 +119,14 @@ namespace KretaDesktop.ViewModel.BaseClass
             }            
         }
 
-        public void Cancel()
+        protected void Cancel()
         {
             IsNewMode = false;
             SelectedItemIndex = -1;
             SelectRowContains(SelectedItemId);            
         }
 
-        public void Clear()
+        protected void Clear()
         {
             DisplaydItem = new TEntity();
         }

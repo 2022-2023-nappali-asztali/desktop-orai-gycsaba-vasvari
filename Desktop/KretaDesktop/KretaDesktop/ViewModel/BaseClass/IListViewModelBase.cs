@@ -15,11 +15,5 @@ namespace KretaDesktop.ViewModel.BaseClass
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand ClearFormCommand { get; set; }
         public RelayCommand RemoveAllCommand { get; set; }
-
-        public void New();
-        public void Cancel();
-        public void Clear();
-        public void Remove(object parameter);
-        public void SaveAndRefresh(object parameter);
     }
 }

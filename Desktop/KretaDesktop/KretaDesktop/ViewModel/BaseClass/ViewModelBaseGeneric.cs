@@ -13,8 +13,8 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public TCollection Items { get; set; } = new();
 
-        public bool HasItems => Items.Any();  //Items.Count > 0;
-        public long NextId => HasItems ? Items.Select(entity => entity.Id).Max() + 1 : 1;
+        protected bool HasItems => Items.Any();  //Items.Count > 0;
+        protected long NextId => HasItems ? Items.Select(entity => entity.Id).Max() + 1 : 1;
 
         public ViewModelBase(IAPIService service) : base(service)
         {
@@ -37,13 +37,13 @@ namespace KretaDesktop.ViewModel.BaseClass
         protected async Task SaveRecord(TEntity entity)
         {
             await _service.Save<TEntity>(entity);
-            RefreshItems();
+            await RefreshItems();
         }
 
         protected async Task DeleteRecord(TEntity entity)
         {
             await _service.Delete<TEntity>(entity.Id);
-            RefreshItems();
+            await RefreshItems();
         }
 
         protected void Insert(IList<TEntity> collection)
