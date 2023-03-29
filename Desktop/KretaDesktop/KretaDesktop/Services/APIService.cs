@@ -16,9 +16,9 @@ namespace KretaDesktop.Services
     {
         public async ValueTask<PagingResponse<TEntity>> GetPageAsync<TEntity>(ItemParameters parameters) where TEntity : ClassWithId, new()
         {
-           
+
             HttpClient client = new HttpClient();
-            string relativUrl = RelativeUrlExtension.SetRelativeUrl<TEntity>();
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();
             if (client is object)
             {
                 Dictionary<string, string> queryParameters = new Dictionary<string, string>()
@@ -27,7 +27,8 @@ namespace KretaDesktop.Services
                     ["pageSize"] = parameters.PageSize.ToString()
                 };
 
-                var response = await client.GetAsync(QueryHelpers.AddQueryString($"{relativUrl}/getpaged", queryParameters));
+                string path = APIURLExtension.SetRelativeUrl<TEntity>();
+                var response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/getpaged", queryParameters));
                 var content = await response.Content.ReadAsStringAsync();
                 if (response is object && response.Headers is object && response.IsSuccessStatusCode)
                 {
@@ -50,10 +51,10 @@ namespace KretaDesktop.Services
         public async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>() where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = GetHttpClientUri<TEntity>();            
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();            
             if (client is object)
             {
-                string path = RelativeUrlExtension.SetRelativeUrl<TEntity>();
+                string path = APIURLExtension.SetRelativeUrl<TEntity>();
                 List<TEntity>? result = await client.GetFromJsonAsync<List<TEntity>>(path);
                 if (result is object)
                     return result;
@@ -68,10 +69,11 @@ namespace KretaDesktop.Services
         {
             TEntity? result = new TEntity();
             HttpClient client = new HttpClient();
-            string relativUrl = RelativeUrlExtension.SetRelativeUrl<TEntity>();
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();
             if (client is object)
             {
-                result = await client.GetFromJsonAsync<TEntity>($"{relativUrl}/{id}");
+                string path = APIURLExtension.SetRelativeUrl<TEntity>();
+                result = await client.GetFromJsonAsync<TEntity>($"{path}/{id}");
                 if (result is object)
                     return result;
                 else
@@ -83,18 +85,19 @@ namespace KretaDesktop.Services
         public async ValueTask<APICallState> Save<TEntity>(TEntity item) where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();
-            string relativUrl = RelativeUrlExtension.SetRelativeUrl<TEntity>();
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();             
             if (client is object)
-            { 
+            {
+                string path = APIURLExtension.SetRelativeUrl<TEntity>();
                 if (item.HasId)
                 {
-                    HttpResponseMessage response = await client.PutAsJsonAsync(relativUrl, item);
+                    HttpResponseMessage response = await client.PutAsJsonAsync(path, item);
                     if (response is object && response.IsSuccessStatusCode)
                         return APICallState.Success;
                 }
                 else
                 {
-                    HttpResponseMessage response = await client.PostAsJsonAsync(relativUrl, item);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(path, item);
                     if (response is object && response.IsSuccessStatusCode)
                         return APICallState.Success;
                 }
@@ -105,41 +108,15 @@ namespace KretaDesktop.Services
         public async ValueTask<APICallState> Delete<TEntity>(long id) where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();
-            string relativUrl = RelativeUrlExtension.SetRelativeUrl<TEntity>();
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();
             if (client is object)
-            { 
-                HttpResponseMessage response = await client.DeleteAsync($"{relativUrl}/{id}");
+            {
+                string path = APIURLExtension.SetRelativeUrl<TEntity>();
+                HttpResponseMessage response = await client.DeleteAsync($"{path}/{id}");
                 if (response is object && response.IsSuccessStatusCode)
                     return APICallState.Success;
             }
             return APICallState.DeleteFail;
-        }
-
-
-        private Uri GetHttpClientUri<TEntity>() where TEntity : ClassWithId, new()
-        {
-            UriBuilder uri = new UriBuilder();
-            uri = GetAPIUri<TEntity>(uri);
-            return uri.Uri;
-        }
-
-        private UriBuilder GetAPIUri<TEntity>(UriBuilder uri) where TEntity : ClassWithId, new()
-        {
-            //string path = RelativeUrlExtension.SetRelativeUrl<TEntity>();
-
-            uri.Scheme = "https";
-            uri.Host = "localhost";
-            uri.Port = 7555;
-            //uri.Path = $"{path}";
-            return uri;
-        }
-
-        public static class RelativeUrlExtension
-        {
-            public static string SetRelativeUrl<TEntity>() where TEntity : ClassWithId, new()
-            {
-                return $"{typeof(TEntity).Name}/api";
-            }
         }
     }
 }
