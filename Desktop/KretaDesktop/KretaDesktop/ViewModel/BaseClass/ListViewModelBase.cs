@@ -1,11 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Printing;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using KretaCommandLine.Model.Abstract;
 using KretaDesktop.Services;
 
@@ -40,7 +33,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 
 
         private TEntity _displaydItem = new();
-        public TEntity DisplaydItem
+        protected TEntity DisplaydItem
         {
             get => _displaydItem;
             set

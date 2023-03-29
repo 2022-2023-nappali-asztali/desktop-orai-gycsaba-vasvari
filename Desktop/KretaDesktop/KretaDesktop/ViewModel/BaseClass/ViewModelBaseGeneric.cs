@@ -21,13 +21,13 @@ namespace KretaDesktop.ViewModel.BaseClass
             Items = new();
         }
 
-        protected virtual async void InitializePage()
+        protected virtual async Task InitializePage()
         {
             var result = await SelectAllRecordAsync();
             Insert(result);            
         }
 
-        protected virtual async void RefreshItems()
+        protected virtual async Task RefreshItems()
         {
             var result = await SelectAllRecordAsync();
             DeleteAll();

@@ -23,8 +23,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             this.execute = execute;
         }
 
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute)
-    : this(execute)
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute) : this(execute)
         {
             this.execute = execute;
             this.canExecute = canExecute;

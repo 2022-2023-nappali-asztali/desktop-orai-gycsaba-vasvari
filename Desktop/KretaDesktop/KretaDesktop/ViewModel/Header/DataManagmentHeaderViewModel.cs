@@ -27,7 +27,7 @@ namespace KretaDesktop.ViewModel.Header
 			}
 		}
 
-		public RelayCommand UpdateViewCommand { get; set; }
+		public AsyncRelayCommandWithParameter UpdateViewCommand { get; set; }
 
 		public DataManagmentHeaderViewModel(ILogger<DataManagmentHeaderViewModel> logger, ListStudentViewModel studentViewModel, ListSubjectViewModel subjectViewModel )
 		{
@@ -35,19 +35,20 @@ namespace KretaDesktop.ViewModel.Header
 			_studentViewModel = studentViewModel;
 			_subjectViewModel = subjectViewModel;
 
-			UpdateViewCommand = new RelayCommand((parameter) => ChangeView(parameter));
+			UpdateViewCommand = new AsyncRelayCommandWithParameter((parameter) => ChangeView(parameter),(ex) =>OnException());
 		}
 
-		private void ChangeView(object parameter)
+		private async Task ChangeView(object parameter)
 		{
 			if (parameter != null &&  parameter is string)
 			{
 				_logger.LogInformation($"{nameof(DataManagmentHeaderViewModel)} -> Választott menüpont: {parameter}");
 				switch (parameter)
 				{
-					case "SubjectDataManagment":
+					case "SubjectDataManagment":						
 						SelectedView = _subjectViewModel;
-						break;
+                        await _subjectViewModel.OnInitialize();
+                        break;
 					case "StudentDateManagment":
 						SelectedView = _studentViewModel;
 						break;
@@ -56,6 +57,11 @@ namespace KretaDesktop.ViewModel.Header
 						break;
                 }
 			}
+		}
+
+		private void OnException()
+		{
+
 		}
 
 

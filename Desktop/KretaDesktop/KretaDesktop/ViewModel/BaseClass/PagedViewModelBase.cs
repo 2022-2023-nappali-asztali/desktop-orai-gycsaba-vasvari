@@ -14,24 +14,24 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public PagedViewModelBase(IAPIService service) : base(service)
         {
-            FirstPageCommand = new RelayCommand(execute => GoToFirstPage());
-            PreviousPageCommand = new RelayCommand(execute => GoToPreviousPage());
-            NextPageCommand = new RelayCommand(execute => GoToNextPage());
-            LastPageCommand = new RelayCommand(execute => GoToLastPage());
+            FirstPageCommand = new AsyncRelayCommand(GoToFirstPage, (ex) => OnException());
+            PreviousPageCommand = new AsyncRelayCommand(GoToPreviousPage, (ex) => OnException());
+            NextPageCommand = new AsyncRelayCommand(GoToNextPage, (ex) => OnException());
+            LastPageCommand = new AsyncRelayCommand(GoToLastPage, (ex) => OnException());
         }
 
-        public RelayCommand FirstPageCommand { get; private set; }
-        public RelayCommand PreviousPageCommand { get; private set; }
-        public RelayCommand NextPageCommand { get; private set; }
-        public RelayCommand LastPageCommand { get; private set; }
+        public AsyncRelayCommand FirstPageCommand { get; private set; }
+        public AsyncRelayCommand PreviousPageCommand { get; private set; }
+        public AsyncRelayCommand NextPageCommand { get; private set; }
+        public AsyncRelayCommand LastPageCommand { get; private set; }
 
 
-        protected override void InitializePage()
+        protected async override Task InitializePage()
         {
-            RefreshItems();
+            await RefreshItems();
         }
 
-        protected override async void RefreshItems()
+        protected async override Task RefreshItems()
         {
             PagingResponse<TEntity> result = await _service.GetPageAsync<TEntity>(_itemParameters);
             _metaData = result.MetaData;
@@ -39,33 +39,39 @@ namespace KretaDesktop.ViewModel.BaseClass
         }
 
 
-        private void GoToFirstPage() 
+        private async Task GoToFirstPage() 
         {
             _itemParameters.PageNumber = 1;
-            RefreshItems();            
+            await RefreshItems();            
         }
 
-        private  void GoToLastPage()
+        private  async Task GoToLastPage()
         {
             _itemParameters.PageNumber = _metaData.TotalPages;
+            await RefreshItems();
         }
 
-        private void GoToPreviousPage() 
+        private async Task GoToPreviousPage() 
         { 
             if (_metaData.HasPrevious)
             {
                 _itemParameters.PageNumber = _metaData.CurrentPage - 1;
-                RefreshItems();
+                await RefreshItems();
             }
         }
 
-        private void GoToNextPage() 
+        private async Task GoToNextPage() 
         {
             if (_metaData.HasNext)
             {
                 _itemParameters.PageNumber=_metaData.CurrentPage + 1;
-                RefreshItems();
+                await RefreshItems();
             }
         }        
+
+        private void OnException()
+        {
+
+        }
     }
 }
