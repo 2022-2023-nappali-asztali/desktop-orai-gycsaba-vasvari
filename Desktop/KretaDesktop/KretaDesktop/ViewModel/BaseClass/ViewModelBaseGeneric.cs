@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using KretaCommandLine.Model.Abstract;
@@ -8,7 +9,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 {
     public class ViewModelBase<TEntity, TCollection> : ServiceViewModelBase<TEntity>, IViewModelBase<TEntity, TCollection>
         where TEntity : ClassWithId, new()
-        where TCollection : IList<TEntity>, new()
+        where TCollection : ObservableCollection<TEntity>, new()
     {
 
         public TCollection Items { get; set; } = new();
@@ -23,15 +24,14 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected virtual async Task InitializePage()
         {
-            var result = await SelectAllRecordAsync();
-            Insert(result);            
+            await RefreshItems();
         }
 
         protected virtual async Task RefreshItems()
         {
             var result = await SelectAllRecordAsync();
-            DeleteAll();
-            Insert(result);            
+            DeleteAllItems();
+            AddToItems(result);            
         }
 
         protected async Task SaveRecord(TEntity entity)
@@ -46,7 +46,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             await RefreshItems();
         }
 
-        protected void Insert(IList<TEntity> collection)
+        protected void AddToItems(IList<TEntity> collection)
         {
             foreach (var item in collection)
             {
@@ -54,7 +54,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         }
 
-        protected void DeleteAll()
+        protected void DeleteAllItems()
         {
             Items.Clear();
         }

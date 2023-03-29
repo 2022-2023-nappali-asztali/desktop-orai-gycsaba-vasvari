@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KretaWebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]/api")]
+    [Route("/api/[controller]")]
     public class AddressController : BaseController<Address>
     {
         public AddressController(IRepoBase service) : base(service)

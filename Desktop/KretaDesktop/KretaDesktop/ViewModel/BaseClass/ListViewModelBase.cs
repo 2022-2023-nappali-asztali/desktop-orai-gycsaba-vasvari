@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using KretaCommandLine.Model.Abstract;
 using KretaDesktop.Services;
 using KretaDesktop.ViewModel.Command;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class ListViewModelBase<TEntity> : ViewModelBase<TEntity, List<TEntity>>, IListViewModelBase<TEntity>
+    public class ListViewModelBase<TEntity> : ViewModelBase<TEntity, ObservableCollection<TEntity>>, IListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
         private TEntity _selectedItem;
@@ -15,9 +15,9 @@ namespace KretaDesktop.ViewModel.BaseClass
             set
             {
                 SetValue(ref _selectedItem, value);
-                if (_selectedItem is object) // is object
+                if (_selectedItem is object) 
                 {
-                    DisplaydItem = (TEntity)_selectedItem.Clone();
+                    DisplaydItem = (TEntity) _selectedItem.Clone();
                 }
             }
         }
@@ -26,10 +26,7 @@ namespace KretaDesktop.ViewModel.BaseClass
         public int SelectedItemIndex
         {
             get => _selectedItemIndex;
-            set
-            {
-                SetValue(ref _selectedItemIndex, value);
-            }
+            set => SetValue(ref _selectedItemIndex, value);           
         }
 
 
@@ -37,10 +34,7 @@ namespace KretaDesktop.ViewModel.BaseClass
         public TEntity DisplaydItem
         {
             get => _displaydItem;
-            set
-            {
-                SetValue(ref _displaydItem, value);
-            }
+            set => SetValue(ref _displaydItem, value);
         }
 
         private long _selectedItemId = -1;
@@ -70,9 +64,16 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         }
 
+        private bool isPageableVisible;
+        public bool IsPageableVisible
+        {
+            get => isPageableVisible && !_isNewMode;
+            set => SetValue(ref isPageableVisible, value);
+        }
+            
+
         public bool IsIdVisible => !_isNewMode;
-        public bool IsTableVisible => !_isNewMode;
-        public bool IsPageableVisible => !_isNewMode; 
+        public bool IsTableVisible => !_isNewMode;        
         public bool IsHeaderVisible => !_isNewMode;
 
         public RelayCommand NewCommand { get; set; }

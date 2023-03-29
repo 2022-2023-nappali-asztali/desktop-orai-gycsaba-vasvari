@@ -2,12 +2,12 @@
 using KretaCommandLine.Model.Abstract;
 using KretaDesktop.Services;
 using KretaDesktop.ViewModel.Command;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public abstract class PagedViewModelBase<TEntity> : ViewModelBase<TEntity, List<TEntity>>, IPagedListViewModelBase<TEntity>
+    public abstract class PagedViewModelBase<TEntity> : ViewModelBase<TEntity, ObservableCollection<TEntity>>, IPagedListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
         private ItemParameters _itemParameters= new ItemParameters(5);
@@ -36,7 +36,8 @@ namespace KretaDesktop.ViewModel.BaseClass
         {
             PagingResponse<TEntity> result = await _service.GetPageAsync<TEntity>(_itemParameters);
             _metaData = result.MetaData;
-            Items = result.Items;            
+            DeleteAllItems();
+            AddToItems(result.Items);            
         }
 
 
