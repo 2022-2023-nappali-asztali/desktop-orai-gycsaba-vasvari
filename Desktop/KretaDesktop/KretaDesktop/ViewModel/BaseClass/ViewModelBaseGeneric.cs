@@ -60,9 +60,12 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected void AddToItems(IList<TEntity> collection)
         {
-            foreach (var item in collection)
+            if (collection is object)
             {
-                Items.Add(item);
+                foreach (var item in collection)
+                {
+                    Items.Add(item);
+                }
             }
         }
 

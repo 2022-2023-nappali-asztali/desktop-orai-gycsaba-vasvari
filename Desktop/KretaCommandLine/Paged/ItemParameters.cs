@@ -18,6 +18,12 @@ namespace APIHelpersLibrary.Paged
            
         }
 
+        public ItemParameters()
+        {
+            _pageSize = -1;
+            PageNumber= 1;
+        }
+
         public int PageSize { get => _pageSize; set => _pageSize = value > maxPageSize ? maxPageSize : value; }
         public int PageNumber { get; set; } = 1;
     }
