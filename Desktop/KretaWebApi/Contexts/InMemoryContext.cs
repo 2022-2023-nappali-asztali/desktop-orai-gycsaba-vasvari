@@ -7,14 +7,20 @@ namespace KretaWebApi.Contexts
     {
         public InMemoryContext(DbContextOptions<KretaContext> options) : base(options)
         {
-            Console.WriteLine("MakeTestData");
             MakteTestData();
         }
 
         private void MakteTestData()
         {
+            if (Settings.Count() > 0)
+                return;
+
             try
             {
+                if (Settings is object)
+                {
+                    Settings.Add(new Settings(1, 10));
+                }                
                 if (Address is object)
                 {
                     Address.Add(new Address(1, "Valami utca 1.", "Varos", 1000));

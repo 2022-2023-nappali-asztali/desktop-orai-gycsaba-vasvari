@@ -90,6 +90,8 @@ namespace KretaDesktop.ViewModel.BaseClass
             NewCommand = new RelayCommand(execute => New());
             CancelCommand = new RelayCommand(execute => Cancel());
             ClearFormCommand = new RelayCommand(execute => Clear());
+
+            IsPageableVisible = false;
             SelectFirstRow();
         }
 
@@ -107,7 +109,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected void New()
         {
-            _selectedItemId=DisplaydItem.Id;
+            //_selectedItemId=DisplaydItem.Id;
             DisplaydItem = new TEntity();
             IsNewMode = true;
         }
@@ -116,8 +118,9 @@ namespace KretaDesktop.ViewModel.BaseClass
         {
             if (parameter is TEntity entity)
             {
-                 await SaveRecord(entity);                    
-                 SelectRowContains(entity);
+                await SaveRecord(entity);
+                IsNewMode = false;
+                SelectRowContains(entity);
             }            
         }
 

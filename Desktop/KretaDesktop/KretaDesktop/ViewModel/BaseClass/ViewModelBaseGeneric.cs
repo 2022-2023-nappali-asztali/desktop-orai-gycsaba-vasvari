@@ -46,6 +46,18 @@ namespace KretaDesktop.ViewModel.BaseClass
             await RefreshItems();
         }
 
+        protected async Task InsertRecord(TEntity entity)
+        {
+            await _service.Save<TEntity>(entity);
+            await RefreshItems();
+        }
+
+        protected async Task UpdateRecord(TEntity entity)
+        {
+            await _service.Save<TEntity>(entity);
+            await RefreshItems();
+        }
+
         protected void AddToItems(IList<TEntity> collection)
         {
             foreach (var item in collection)

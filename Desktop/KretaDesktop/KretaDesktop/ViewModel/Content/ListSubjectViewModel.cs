@@ -8,8 +8,7 @@ namespace KretaDesktop.ViewModel.Content
     public class ListSubjectViewModel : ListViewModelBase<Subject>
     {
         public ListSubjectViewModel(IAPIService service) : base(service)
-        {
-            IsPageableVisible = false;
+        {            
         }
 
         public async Task OnInitialize()
