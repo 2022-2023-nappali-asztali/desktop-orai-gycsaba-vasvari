@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using KretaCommandLine.Model.Abstract;
 using KretaDesktop.Services;
 using KretaDesktop.ViewModel.BaseClass.Interface;
@@ -6,7 +7,7 @@ using KretaDesktop.ViewModel.Command;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class ListViewModelBase<TEntity> : ViewModelBase<TEntity, ObservableCollection<TEntity>>, IListViewModelBase<TEntity>
+    public class ListViewModel<TEntity> : ViewModelBase<TEntity, ObservableCollection<TEntity>>, IListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
         private TEntity _selectedItem;
@@ -77,7 +78,7 @@ namespace KretaDesktop.ViewModel.BaseClass
         public bool IsTableVisible => !_isNewMode;        
         public bool IsHeaderVisible => !_isNewMode;
       
-        public ListViewModelBase(IAPIService service) : base(service)
+        public ListViewModel(IAPIService service) : base(service)
         {         
             IsPageableVisible = false;
             SelectFirstRow();
@@ -115,6 +116,11 @@ namespace KretaDesktop.ViewModel.BaseClass
                 else                 
                     SelectedItemIndex = index;
             }
+        }
+
+        public override Task OnInitialize()
+        {
+            return Task.CompletedTask;
         }
     }
 }

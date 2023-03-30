@@ -5,11 +5,11 @@ using KretaDesktop.ViewModel.Command;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class CRUDListViewModelBase<TEntity> : ListViewModelBase<TEntity>, ICRUDListViewModelBase<TEntity>
+    public class CRUDListViewModel<TEntity> : ListViewModel<TEntity>, ICRUDListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
 
-        public CRUDListViewModelBase(IAPIService service) : base(service)
+        public CRUDListViewModel(IAPIService service) : base(service)
         {
             RemoveCommand = new RelayCommand(parameter => Remove(parameter));
             SaveAndRefreshCommand = new RelayCommand(parameter => SaveAndRefresh(parameter));

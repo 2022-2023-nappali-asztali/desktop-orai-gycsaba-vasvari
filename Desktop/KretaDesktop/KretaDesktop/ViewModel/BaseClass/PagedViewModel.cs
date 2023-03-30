@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public abstract class PagedViewModelBase<TEntity> : ViewModelBase<TEntity, ObservableCollection<TEntity>>, IPagedListViewModelBase<TEntity>
+    public abstract class PagedViewModel<TEntity> : ViewModelBase<TEntity, ObservableCollection<TEntity>>, IPagedListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
         private ItemParameters _itemParameters = new ItemParameters(5);
@@ -23,7 +23,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         }
 
-        public PagedViewModelBase(IAPIService service) : base(service)
+        public PagedViewModel(IAPIService service) : base(service)
         {
             FirstPageCommand = new AsyncRelayCommand(GoToFirstPage, (ex) => OnException());
             PreviousPageCommand = new AsyncRelayCommand(GoToPreviousPage, (ex) => OnException());

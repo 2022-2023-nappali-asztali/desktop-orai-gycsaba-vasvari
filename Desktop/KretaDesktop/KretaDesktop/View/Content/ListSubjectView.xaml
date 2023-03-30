@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" 
-               Content="Krétea - iskolai adminisztráció"
+               Content="Tantárgyak kezelése"
                Style="{DynamicResource ContentTitle}">
         </Label>
         <Expander Margin="4" Grid.Row="1" Header="Tantárgy adatai">

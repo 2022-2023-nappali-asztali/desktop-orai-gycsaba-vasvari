@@ -20,5 +20,7 @@
     <system:String x:Key="validationNameFirstLetterNotUppercase">A név nem nagybetűvel kezdődik!</system:String>
     <system:String x:Key="validationOtherLetterNotLowercase">A kezdőbetűk után kisbetűket írjon!</system:String>
     <system:String x:Key="validationNameOnlyLetters">A névben csak batűk lehetnek!</system:String>
+    <system:String x:Key="validationLowercaseLetterAfterSpace">A névben a szóköz után nagybetűt írjon!</system:String>
 
+    
 </ResourceDictionary>

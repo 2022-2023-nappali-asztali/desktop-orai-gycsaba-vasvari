@@ -10,7 +10,7 @@ using System.Windows.Markup;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class PagedCRUDListViewModelBase<TEntity> : CRUDListViewModelBase<TEntity>, IPagedListViewModelBase<TEntity> where TEntity : ClassWithId, new()
+    public class PagedCRUDListViewModel<TEntity> : CRUDListViewModel<TEntity>, IPagedListViewModelBase<TEntity> where TEntity : ClassWithId, new()
     {
         private ItemParameters _itemParameters = new ItemParameters(5);
         private MetaData _metaData = new MetaData();
@@ -24,7 +24,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         }
 
-        public PagedCRUDListViewModelBase(IAPIService service) : base(service)
+        public PagedCRUDListViewModel(IAPIService service) : base(service)
         {
             FirstPageCommand = new AsyncRelayCommand(GoToFirstPage, (ex) => OnException());
             PreviousPageCommand = new AsyncRelayCommand(GoToPreviousPage, (ex) => OnException());

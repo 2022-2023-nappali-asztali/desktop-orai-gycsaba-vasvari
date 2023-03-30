@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.Content
 {
-    public class ListSubjectViewModel : PagedCRUDListViewModelBase<Subject>
+    public class ListSubjectViewModel : PagedCRUDListViewModel<Subject>
     {
         public ListSubjectViewModel(IAPIService service) : base(service)
         {         
 
         }
 
-        public async Task OnInitialize()
+        public override async Task OnInitialize()
         {
             await InitializePage();
         }

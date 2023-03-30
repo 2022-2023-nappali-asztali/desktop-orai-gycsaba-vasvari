@@ -20,4 +20,5 @@
     <system:String x:Key="validationNameFirstLetterNotUppercase">A név nem nagybetűvel kezdődik!</system:String>
     <system:String x:Key="validationOtherLetterNotLowercase">First letter must be uppercase, other lowercase!</system:String>
     <system:String x:Key="validationNameOnlyLetters">First letter must be uppercase, other lowercase!</system:String>
+    <system:String x:Key="validationLowercaseLetterAfterSpace">Lowercase letter after space!</system:String>
 </ResourceDictionary>

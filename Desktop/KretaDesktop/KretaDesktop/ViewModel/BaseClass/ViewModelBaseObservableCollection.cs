@@ -8,7 +8,7 @@ using KretaDesktop.ViewModel.BaseClass.Interface;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class ViewModelBase<TEntity, TCollection> : ServiceViewModelBase<TEntity>, IViewModelBase<TEntity, TCollection>
+    public abstract class ViewModelBase<TEntity, TCollection> : ServiceViewModelBase<TEntity>, IViewModelBase<TEntity, TCollection>
         where TEntity : ClassWithId, new()
         where TCollection : ObservableCollection<TEntity>, new()
     {
@@ -22,6 +22,8 @@ namespace KretaDesktop.ViewModel.BaseClass
         {
             Items = new();
         }
+
+        public abstract Task OnInitialize();
 
         protected virtual async Task InitializePage()
         {
