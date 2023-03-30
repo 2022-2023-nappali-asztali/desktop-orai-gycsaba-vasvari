@@ -4,6 +4,7 @@ using KretaDesktop.Services;
 using KretaDesktop.ViewModel.BaseClass.Interface;
 using KretaDesktop.ViewModel.Command;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
@@ -14,7 +15,11 @@ namespace KretaDesktop.ViewModel.BaseClass
         public MetaData MetaData
         {
             get { return _metaData; }
-            set { SetValue(ref _metaData, value); }
+            set 
+            { 
+                SetValue(ref _metaData, value); 
+                OnPropertyChanged(nameof(PageInformation));
+            }
         }
 
         public PagedCRUDListViewModelBase(IAPIService service) : base(service)
@@ -31,6 +36,8 @@ namespace KretaDesktop.ViewModel.BaseClass
         public AsyncRelayCommand PreviousPageCommand { get; private set; }
         public AsyncRelayCommand NextPageCommand { get; private set; }
         public AsyncRelayCommand LastPageCommand { get; private set; }
+
+        public string PageInformation => $"Oldal: {MetaData.CurrentPage} / {MetaData.TotalPages}";
 
         protected async override Task InitializePage()
         {

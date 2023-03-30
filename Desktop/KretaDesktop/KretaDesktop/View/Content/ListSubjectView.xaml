@@ -137,8 +137,7 @@
                     Content="&lt;" 
                     IsEnabled="{Binding MetaData.HasPrevious , UpdateSourceTrigger=PropertyChanged}">
             </Button>
-            <Label Content="Oldal"></Label>
-            <Label Content=" / "></Label>
+            <Label Content="{Binding PageInformation, UpdateSourceTrigger=PropertyChanged}"></Label>
             <Button Command="{Binding NextPageCommand}" 
                     Content="&gt;" 
                     IsEnabled="{Binding MetaData.HasNext , UpdateSourceTrigger=PropertyChanged}">

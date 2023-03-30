@@ -8,5 +8,7 @@ namespace KretaDesktop.ViewModel.BaseClass.Interface
         public AsyncRelayCommand PreviousPageCommand { get;  }
         public AsyncRelayCommand NextPageCommand { get;  }
         public AsyncRelayCommand LastPageCommand { get; }
+
+        public string PageInformation { get; }
     }
 }
