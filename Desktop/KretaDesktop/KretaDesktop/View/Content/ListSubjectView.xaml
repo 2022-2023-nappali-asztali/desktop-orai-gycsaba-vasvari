@@ -129,12 +129,24 @@
         </StackPanel>
         <StackPanel Margin="14" Orientation="Horizontal" Grid.Row="4"
                     Visibility="{Binding IsPageableVisible, Converter={StaticResource boolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">
-            <Button Command="{Binding FirstPageCommand}"  Content="&lt;&lt;"></Button>
-            <Button Command="{Binding PreviousPageCommand}" Content="&lt;"></Button>
+            <Button Command="{Binding FirstPageCommand}"  
+                    Content="&lt;&lt;"
+                    IsEnabled="{Binding MetaData.HasFirst , UpdateSourceTrigger=PropertyChanged}">
+            </Button>
+            <Button Command="{Binding PreviousPageCommand}" 
+                    Content="&lt;" 
+                    IsEnabled="{Binding MetaData.HasPrevious , UpdateSourceTrigger=PropertyChanged}">
+            </Button>
             <Label Content="Oldal"></Label>
             <Label Content=" / "></Label>
-            <Button Command="{Binding NextPageCommand}" Content="&gt;"></Button>
-            <Button Command="{Binding LastPageCommand}" Content="&gt;&gt;"></Button>
+            <Button Command="{Binding NextPageCommand}" 
+                    Content="&gt;" 
+                    IsEnabled="{Binding MetaData.HasNext , UpdateSourceTrigger=PropertyChanged}">
+            </Button>
+            <Button Command="{Binding LastPageCommand}" 
+                    Content="&gt;&gt;" 
+                    IsEnabled="{Binding MetaData.HasLast, UpdateSourceTrigger=PropertyChanged}">
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

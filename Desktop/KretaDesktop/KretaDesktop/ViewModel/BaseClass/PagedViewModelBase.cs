@@ -10,8 +10,17 @@ namespace KretaDesktop.ViewModel.BaseClass
     public abstract class PagedViewModelBase<TEntity> : ViewModelBase<TEntity, ObservableCollection<TEntity>>, IPagedListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
-        private ItemParameters _itemParameters= new ItemParameters(5);
+        private ItemParameters _itemParameters = new ItemParameters(5);
         private MetaData _metaData = new MetaData();
+        public MetaData MetaData
+        {
+            get { return _metaData; }
+            set
+            {
+                SetValue(ref _metaData, value);
+            }
+        }
+
 
         public PagedViewModelBase(IAPIService service) : base(service)
         {
@@ -19,7 +28,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             PreviousPageCommand = new AsyncRelayCommand(GoToPreviousPage, (ex) => OnException());
             NextPageCommand = new AsyncRelayCommand(GoToNextPage, (ex) => OnException());
             LastPageCommand = new AsyncRelayCommand(GoToLastPage, (ex) => OnException());
-        }
+        }        
 
         public AsyncRelayCommand FirstPageCommand { get; private set; }
         public AsyncRelayCommand PreviousPageCommand { get; private set; }
@@ -35,7 +44,7 @@ namespace KretaDesktop.ViewModel.BaseClass
         protected async override Task RefreshItems()
         {
             PagingResponse<TEntity> result = await _service.GetPageAsync<TEntity>(_itemParameters);
-            _metaData = result.MetaData;
+            MetaData = result.MetaData;
             DeleteAllItems();
             AddToItems(result.Items);            
         }
