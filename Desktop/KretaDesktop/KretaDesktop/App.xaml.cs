@@ -46,7 +46,9 @@ namespace KretaDesktop
                 .UseSerilog()
                 .ConfigureServices(services =>
                 {
+                    services.AddSingleton<IAPIService, APIService>();
                     services.AddSingleton<MainWindowViewModel>();
+                   
                     services.AddSingleton<MainWindow>(s => new MainWindow()
                     {
                         DataContext = s.GetRequiredService<MainWindowViewModel>()
@@ -87,7 +89,7 @@ namespace KretaDesktop
                             DataContext=s.GetRequiredService<ListStudentView>()
                         }
                     );
-                    services.AddSingleton<ICRUDAPIService, CRUDAPIService>();
+                    services.AddSingleton<IAPIService, APIService>();
                 })
                 .Build();
             Log.Logger.Information("Build megtörtént...");

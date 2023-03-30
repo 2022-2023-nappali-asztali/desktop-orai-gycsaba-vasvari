@@ -31,7 +31,6 @@ namespace KretaCommandLine.Model
 
         public Subject() : base(-1)
         {
-            this.Id = -1;
             SubjectTypeId = -1;
             this.SubjectName = String.Empty;
         }

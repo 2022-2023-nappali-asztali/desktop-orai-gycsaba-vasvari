@@ -22,6 +22,7 @@ namespace KretaWebApi.Contexts
         public DbSet<TypeOfSubject>? TypeOfSubject { get; set; }
         public DbSet<TeachTeacherSubject>? TeachTeaherSubject { get; set; }
         public DbSet<TeachTeacherSchoolClass>? TeachTeacherSchoolClass { get; set; }
+        public DbSet<Settings> Settings { get; set; }
 
         public KretaContext(DbContextOptions<KretaContext> options)
           : base(options)

@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KretaCommandLine.Model;
+﻿using KretaCommandLine.Model;
 using KretaDesktop.Services;
 using KretaDesktop.ViewModel.BaseClass;
+using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.Content
 {
-    public class ListSubjectViewModel : ListViewModelBase<Subject>
+    public class ListSubjectViewModel : PagedCRUDListViewModelBase<Subject>
     {
-        public ListSubjectViewModel(ICRUDAPIService service) : base(service)
+        public ListSubjectViewModel(IAPIService service) : base(service)
+        {         
+
+        }
+
+        public async Task OnInitialize()
         {
-            InitializePage();
+            await InitializePage();
         }
     }
 }

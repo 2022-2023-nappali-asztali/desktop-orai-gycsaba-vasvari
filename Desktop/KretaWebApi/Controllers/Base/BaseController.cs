@@ -75,7 +75,7 @@ namespace KretaWebApi.Controllers.Base
             return await Save(item);
         }
 
-        [HttpDelete()]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
             try
