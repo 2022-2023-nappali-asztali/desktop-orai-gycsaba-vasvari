@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using KretaCommandLine.Model.Abstract;
 using KretaDesktop.Services;
+using KretaDesktop.ViewModel.BaseClass.Interface;
 using KretaDesktop.ViewModel.Command;
 
 namespace KretaDesktop.ViewModel.BaseClass
@@ -75,74 +76,20 @@ namespace KretaDesktop.ViewModel.BaseClass
         public bool IsIdVisible => !_isNewMode;
         public bool IsTableVisible => !_isNewMode;        
         public bool IsHeaderVisible => !_isNewMode;
-
-        public RelayCommand NewCommand { get; set; }
-        public RelayCommand RemoveCommand { get; set; }
-        public RelayCommand SaveAndRefreshCommand { get; set; }
-        public RelayCommand ClearFormCommand { get; set; }
-        public RelayCommand CancelCommand { get; set; }
-        public RelayCommand RemoveAllCommand { get; set; }
-
+      
         public ListViewModelBase(IAPIService service) : base(service)
-        {
-            RemoveCommand = new RelayCommand(parameter => Remove(parameter));
-            SaveAndRefreshCommand = new RelayCommand(parameter => SaveAndRefresh(parameter));
-            NewCommand = new RelayCommand(execute => New());
-            CancelCommand = new RelayCommand(execute => Cancel());
-            ClearFormCommand = new RelayCommand(execute => Clear());
-
+        {         
             IsPageableVisible = false;
             SelectFirstRow();
         }
 
-        protected async void Remove(object parameter)
-        {
-            if (parameter is TEntity entity) 
-            {
-                await DeleteRecord(entity);
-                if (HasItems)
-                    SelectFirstRow();
-                else
-                    DisplaydItem = new TEntity();
-            }
-        }
-
-        protected void New()
-        {
-            //_selectedItemId=DisplaydItem.Id;
-            DisplaydItem = new TEntity();
-            IsNewMode = true;
-        }
-
-        protected async void SaveAndRefresh(object parameter)
-        {
-            if (parameter is TEntity entity)
-            {
-                await SaveRecord(entity);
-                IsNewMode = false;
-                SelectRowContains(entity);
-            }            
-        }
-
-        protected void Cancel()
-        {
-            IsNewMode = false;
-            SelectedItemIndex = -1;
-            SelectRowContains(SelectedItemId);            
-        }
-
-        protected void Clear()
-        {
-            DisplaydItem = new TEntity();
-        }
-
-        private void SelectFirstRow()
+        protected void SelectFirstRow()
         {
             if (Items.Count > 0)
                 SelectedItemIndex = 0;
         }
 
-        private void SelectRowContains(TEntity entity)
+        protected void SelectRowContains(TEntity entity)
         {
             if (entity is not object)
                 SelectFirstRow();
@@ -156,7 +103,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         }
 
-        private void SelectRowContains(long id)
+        protected void SelectRowContains(long id)
         {
             if (id <= 0)
                 SelectFirstRow();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using KretaCommandLine.Model.Abstract;
 using KretaDesktop.Services;
+using KretaDesktop.ViewModel.BaseClass.Interface;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {

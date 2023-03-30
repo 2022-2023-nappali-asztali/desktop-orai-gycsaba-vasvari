@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.Content
 {
-    public class ListSubjectViewModel : PagedViewModelBase<Subject>
+    public class ListSubjectViewModel : PagedCRUDListViewModelBase<Subject>
     {
         public ListSubjectViewModel(IAPIService service) : base(service)
-        {            
+        {         
+
         }
 
         public async Task OnInitialize()

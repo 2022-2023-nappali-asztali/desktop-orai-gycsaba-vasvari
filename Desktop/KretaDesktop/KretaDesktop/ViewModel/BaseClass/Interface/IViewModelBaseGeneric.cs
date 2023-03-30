@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KretaDesktop.ViewModel.BaseClass
+namespace KretaDesktop.ViewModel.BaseClass.Interface
 {
     public interface IViewModelBase<TEntity, TCollection>
     {
         public TCollection Items { get; set; }
 
-   }
+    }
 }
