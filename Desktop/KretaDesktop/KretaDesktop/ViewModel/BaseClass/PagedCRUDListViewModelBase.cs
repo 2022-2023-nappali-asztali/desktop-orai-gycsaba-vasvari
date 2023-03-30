@@ -6,6 +6,8 @@ using KretaDesktop.ViewModel.Command;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 
+// https://www.youtube.com/watch?v=CoZpzMJF4WQ
+
 namespace KretaDesktop.ViewModel.BaseClass
 {
     public class PagedCRUDListViewModelBase<TEntity> : CRUDListViewModelBase<TEntity>, IPagedListViewModelBase<TEntity> where TEntity : ClassWithId, new()
