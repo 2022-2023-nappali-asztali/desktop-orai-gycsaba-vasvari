@@ -1,5 +1,5 @@
 ﻿using KretaCommandLine.Model;
-using KretaWebApi.Repos;
+using KretaWebApi.Repos.Base;
 
 namespace KretaWebApi.Extension
 {

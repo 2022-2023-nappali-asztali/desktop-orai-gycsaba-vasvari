@@ -41,5 +41,10 @@ namespace KretaCommandLine.Model
                 ClassType = this.ClassType,
             };
         }
+
+        public override string ToString()
+        {
+            return $"{SchoolYear}.{ClassType}";
+        }
     }
 }

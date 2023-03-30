@@ -3,23 +3,29 @@ using KretaCommandLine.API;
 using KretaCommandLine.Model.Abstract;
 using Microsoft.EntityFrameworkCore;
 
-namespace KretaWebApi.Repos
+namespace KretaWebApi.Repos.Base
 {
     public class RepoBase<TDbContext> : IRepoBase where TDbContext : DbContext
     {
         private IDbContextFactory<TDbContext> _dbContextFactory;
 
-        public RepoBase(IConfiguration configuration, IDbContextFactory<TDbContext> dbContextFactory)
+        public RepoBase(IDbContextFactory<TDbContext> dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
         }
 
-        public async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>() where TEntity : ClassWithId, new()
+        public DbSet<TEntity> DbSet<TEntity>() where TEntity : class, new()
+        {
+            var dbContext = _dbContextFactory.CreateDbContext();
+            return dbContext.GetDbSet<TEntity>();
+        }
+
+        public virtual async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>() where TEntity : ClassWithId, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
             return await dbContext.GetDbSet<TEntity>()
-                                    .AsNoTracking<TEntity>()
-                                    .ToListAsync<TEntity>() ?? new List<TEntity>();
+                                    .AsNoTracking()
+                                    .ToListAsync() ?? new List<TEntity>();
         }
 
         public async ValueTask<PagedList<TEntity>> GetPaged<TEntity>(ItemParameters parameters) where TEntity : ClassWithId, new()
@@ -41,13 +47,13 @@ namespace KretaWebApi.Repos
         public async ValueTask<APICallState> Save<TEntity>(TEntity itemToSave) where TEntity : ClassWithId, new()
         {
 
-            if (((ClassWithId)itemToSave).HasId)
+            if (itemToSave.HasId)
             {
-                return await UpdateItem<TEntity>(itemToSave);
+                return await UpdateItem(itemToSave);
             }
             else
             {
-                return await AddNewItem<TEntity>(itemToSave);
+                return await AddNewItem(itemToSave);
             }
         }
 

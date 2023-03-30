@@ -1,23 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="KretaDesktop.ViewModel.BaseClass.ListViewModelBase&lt;TEntity&gt;" Collapsed="true">
-    <Position X="5.5" Y="0.5" Width="4.5" />
-    <TypeIdentifier>
-      <HashCode>SECAgAIAQAGABiAAACAABQBAAQAAEIAMKBQIAABAACA=</HashCode>
-      <FileName>ViewModel\BaseClass\ListViewModelBase.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="KretaDesktop.ViewModel.BaseClass.PagedListViewModelBase&lt;TEntity&gt;" Collapsed="true">
-    <Position X="5.75" Y="1.75" Width="4" />
-    <TypeIdentifier>
-      <HashCode>AAABAAAAQBAAAQAAAAAAAAAAAAEBQBIAAgAAAgAAAAA=</HashCode>
-      <FileName>ViewModel\BaseClass\PagedListViewModelBase.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="KretaDesktop.ViewModel.BaseClass.ServiceViewModelBase&lt;TEntity&gt;">
-    <Position X="6" Y="4.5" Width="3.5" />
+    <Position X="6" Y="5.5" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAAAAAAQAAAAAAAAAAEIAAAAAAEAAAAAAQA=</HashCode>
       <FileName>ViewModel\BaseClass\ServiceViewModelBase.cs</FileName>
@@ -27,7 +11,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="KretaDesktop.ViewModel.BaseClass.ViewModelBase" Collapsed="true">
-    <Position X="5.75" Y="7.25" Width="4" />
+    <Position X="5.75" Y="8" Width="4" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAgAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModel\BaseClass\ViewModelBase.cs</FileName>
@@ -35,23 +19,55 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="KretaDesktop.ViewModel.BaseClass.ViewModelBase&lt;TEntity, TCollection&gt;" Collapsed="true">
-    <Position X="5.75" Y="3" Width="4" />
+    <Position X="5.75" Y="4.25" Width="4" />
     <TypeIdentifier>
-      <HashCode>AAQAAEAAAEAAGAAwAAAAAAAAAAEAAAAAAgAAAAAAAAA=</HashCode>
-      <FileName>ViewModel\BaseClass\ViewModelBaseGeneric.cs</FileName>
+      <HashCode>QAAAABAAAgAAGAQQQAAAAAAACAECEAABAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\BaseClass\ViewModelBaseObservableCollection.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="KretaDesktop.Services.APIService" Collapsed="true">
-    <Position X="1.75" Y="5.75" Width="2" />
+    <Position X="1.75" Y="7.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAEIABAAAAEAAAAAAAA=</HashCode>
       <FileName>Services\APIService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
+  <Class Name="KretaDesktop.ViewModel.BaseClass.ListViewModel&lt;TEntity&gt;" Collapsed="true">
+    <Position X="6" Y="3" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>CACAgAIAAAEAAAAAACAAAQBAAQACAIAECBQIAAgAACA=</HashCode>
+      <FileName>ViewModel\BaseClass\ListViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KretaDesktop.ViewModel.BaseClass.CRUDListViewModel&lt;TEntity&gt;" Collapsed="true">
+    <Position X="6" Y="2" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>QEAAAAAAQACABiAAAAAABAAAAAAAAAAICAAAAABAAAA=</HashCode>
+      <FileName>ViewModel\BaseClass\CRUDListViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KretaDesktop.ViewModel.BaseClass.PagedViewModel&lt;TEntity&gt;" Collapsed="true">
+    <Position X="1" Y="2" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AQABAAAARBAAAQAAAAAAAAAACAABUEIAAAAAAgAAQAA=</HashCode>
+      <FileName>ViewModel\BaseClass\PagedViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KretaDesktop.ViewModel.BaseClass.PagedCRUDListViewModel&lt;TEntity&gt;" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AQABAAAARBAAAQAAAAAAAAAACAABUEIAAAAAAgAAQAA=</HashCode>
+      <FileName>ViewModel\BaseClass\PagedCRUDListViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
   <Interface Name="KretaDesktop.Services.IAPIService" Collapsed="true">
-    <Position X="1.75" Y="4" Width="1.5" />
+    <Position X="1.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAEIABAAAAEAAAAAAAA=</HashCode>
       <FileName>Services\IAPIService.cs</FileName>

@@ -1,7 +1,7 @@
 ﻿using APIHelpersLibrary.Paged;
 using KretaCommandLine.API;
 using KretaCommandLine.Model.Abstract;
-using KretaWebApi.Repos;
+using KretaWebApi.Repos.Base;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 

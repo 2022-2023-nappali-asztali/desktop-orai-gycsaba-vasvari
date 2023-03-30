@@ -25,16 +25,23 @@ namespace KretaDesktop.Validation.ValidationRules
 
         public bool IsOnlyLetters => _nameToValidate.Any(charachter => char.IsLetter(charachter)) ? true : false;
 
-        public bool UppercaseLetterAfterSpace => ! HaveLowercaseLetterAfterSpace(_nameToValidate);
+        public bool UppercaseLetterAfterSpace => !HaveLowercaseLetterAfterSpaceOrUpperAfterFirsUpper(_nameToValidate);
 
-        private  bool HaveLowercaseLetterAfterSpace(string name)
+        private  bool HaveLowercaseLetterAfterSpaceOrUpperAfterFirsUpper(string name)
         {
             List<char> letters = new List<char>(name);
             for(int i=0;i<letters.Count;i++)
             {
                 if (char.IsWhiteSpace(letters.ElementAt(i)))
+                {
                     if ((i < letters.Count - 1) && (char.IsLower(letters.ElementAt(i + 1))))
                         return true;
+                }
+                if (char.IsUpper(letters.ElementAt(i)))
+                {
+                    if ((i>0) && (!char.IsWhiteSpace(letters.ElementAt(i-1))))
+                        return true;
+                }
             }
             return false;
         }

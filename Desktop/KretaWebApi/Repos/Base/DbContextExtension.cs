@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace KretaWebApi.Repos
+namespace KretaWebApi.Repos.Base
 {
     public static class DbContextExtension
     {
-        public static DbSet<TEntity> GetDbSet<TEntity>(this DbContext context) where TEntity : ClassWithId, new() 
+        public static DbSet<TEntity> GetDbSet<TEntity>(this DbContext context) where TEntity : class, new()
         {
             string dbSetName = new TEntity().GetType().Name;
             PropertyInfo? propertyInfo = context.GetType().GetProperty(dbSetName);

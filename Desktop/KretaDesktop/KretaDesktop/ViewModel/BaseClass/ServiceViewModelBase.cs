@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class ServiceViewModelBase<TEntity> : ViewModelBase where TEntity : ClassWithId, new()
+    public abstract class ServiceViewModelBase<TEntity> : ViewModelBase where TEntity : ClassWithId, new()
     {
         protected IAPIService _service;
 

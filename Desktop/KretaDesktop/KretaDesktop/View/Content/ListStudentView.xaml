@@ -120,6 +120,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="50" Header="Azon." Binding="{Binding Id}"></DataGridTextColumn>
                     <DataGridTextColumn Width="250" Header="Diák név" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Width="150" Header="Osztály" Binding="{Binding SchoolClassOfStudent}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <Button Command="{Binding RemoveCommand}"

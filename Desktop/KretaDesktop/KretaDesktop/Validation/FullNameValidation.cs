@@ -19,8 +19,6 @@ namespace KretaDesktop.Validation
                     return new ValidationResult(false, localization.GetStringResource("validationNameIsShort"));
                 if (!rules.IsFirstLetterUppercase)
                     return new ValidationResult(false, localization.GetStringResource("validationNameFirstLetterNotUppercase"));
-                if (!rules.IsOtherLetterLowercase)
-                    return new ValidationResult(false, localization.GetStringResource("validationOtherLetterNotLowercase"));
                 if (!rules.UppercaseLetterAfterSpace)
                     return new ValidationResult(false, localization.GetStringResource("validationLowercaseLetterAfterSpace"));
             }

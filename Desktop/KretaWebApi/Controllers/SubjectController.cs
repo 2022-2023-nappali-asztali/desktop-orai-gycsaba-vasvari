@@ -1,6 +1,6 @@
 ﻿using KretaCommandLine.Model;
 using KretaWebApi.Controllers.Base;
-using KretaWebApi.Repos;
+using KretaWebApi.Repos.Base;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KretaWebApi.Controllers
