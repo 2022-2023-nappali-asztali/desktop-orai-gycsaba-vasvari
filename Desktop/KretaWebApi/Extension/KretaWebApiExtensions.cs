@@ -1,4 +1,6 @@
 ﻿using KretaCommandLine.Model;
+using KretaWebApi.Contexts;
+using KretaWebApi.Repos;
 using KretaWebApi.Repos.Base;
 
 namespace KretaWebApi.Extension
@@ -7,7 +9,8 @@ namespace KretaWebApi.Extension
     {
         public static void ConfigureRepo(this IServiceCollection services)
         {
-            services.AddScoped<IRepoBase, KretaWebApiRepo>();
+            services.AddScoped<IRepoBase, KretaInMemoryRepo>();
+            services.AddScoped<IStudentRepoBase, StudentInMemoryRepo>();
         }
     }
 }

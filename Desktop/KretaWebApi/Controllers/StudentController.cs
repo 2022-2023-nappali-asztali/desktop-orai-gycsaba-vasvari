@@ -9,8 +9,27 @@ namespace KretaWebApi.Controllers
     [Route("/api/[controller]")]
     public class StudentController : BaseController<Student>
     {
-        public StudentController(IRepoBase service) : base(service)
+        private IStudentRepoBase _service;
+
+        public StudentController(IStudentRepoBase service) : base(service)
         {
+            _service= service;
+        }
+
+        [HttpGet("included")]
+        public async Task<IActionResult> SelectAllIncludedRecordAsync()
+        {
+            List<Student>? users = null;
+            try
+            {
+                users = await _service.SelectAllIncludedRecordAsync<Student>();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Az adatbázis nem elérhető.");
+            }
+            return Ok(users);
         }
     }
 }
