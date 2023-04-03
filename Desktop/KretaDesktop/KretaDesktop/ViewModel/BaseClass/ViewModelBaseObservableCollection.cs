@@ -12,6 +12,7 @@ namespace KretaDesktop.ViewModel.BaseClass
         where TEntity : ClassWithId, new()
         where TCollection : ObservableCollection<TEntity>, new()
     {
+        private bool _withIncludedData = false;
 
         public TCollection Items { get; set; } = new();
 
@@ -30,11 +31,28 @@ namespace KretaDesktop.ViewModel.BaseClass
             await RefreshItems();
         }
 
+        protected virtual async Task InitializePageWithIncludedData()
+        {
+            _withIncludedData= true;
+            await RefreshItems();
+        }
+
         protected virtual async Task RefreshItems()
         {
-            var result = await SelectAllRecordAsync();
-            DeleteAllItems();
-            AddToItems(result);            
+            List<TEntity> result = null;
+            if (_withIncludedData)
+            {
+                result=await SelectAllIncludedRecordAsync();
+            }
+            else
+            {
+                result = await SelectAllRecordAsync();
+            }
+            if (result != null)
+            {
+                DeleteAllItems();
+                AddToItems(result);
+            }
         }
 
         protected async Task SaveRecord(TEntity entity)

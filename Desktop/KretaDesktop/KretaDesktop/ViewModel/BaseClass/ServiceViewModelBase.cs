@@ -26,6 +26,11 @@ namespace KretaDesktop.ViewModel.BaseClass
             return await _service.SelectAllRecordAsync<TEntity>();
         }
 
+        protected async ValueTask<List<TEntity>> SelectAllIncludedRecordAsync()
+        {
+            return await _service.SelectAllIncludedRecordAsync<TEntity>();
+        }
+
         protected async ValueTask<TEntity> GetBy(long id)
         {
             return await _service.GetBy<TEntity>(id);

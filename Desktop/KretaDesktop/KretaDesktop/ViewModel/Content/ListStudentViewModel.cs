@@ -13,7 +13,7 @@ namespace KretaDesktop.ViewModel.Content
 
         public override async Task OnInitialize()
         {
-            await InitializePage();
+            await InitializePageWithIncludedData();
         }
     }
 }

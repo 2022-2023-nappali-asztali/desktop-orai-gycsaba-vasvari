@@ -54,7 +54,6 @@ namespace KretaDesktop.ViewModel.BaseClass
             AddToItems(result.Items);
         }
 
-
         private async Task GoToFirstPage()
         {
             _itemParameters.PageNumber = 1;

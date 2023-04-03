@@ -64,6 +64,23 @@ namespace KretaDesktop.Services
                 return new List<TEntity>();
         }
 
+        public async ValueTask<List<TEntity>> SelectAllIncludedRecordAsync<TEntity>() where TEntity : ClassWithId, new()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();
+            if (client is object)
+            {
+                string path = APIURLExtension.SetRelativeUrl<TEntity>();
+                List<TEntity>? result = await client.GetFromJsonAsync<List<TEntity>>($"{path}/included");
+                if (result is object)
+                    return result;
+                else
+                    return new List<TEntity>();
+            }
+            else
+                return new List<TEntity>();
+        }
+
         public async ValueTask<TEntity> GetBy<TEntity>(long id) where TEntity : ClassWithId, new()
         {
             TEntity? result = new TEntity();
