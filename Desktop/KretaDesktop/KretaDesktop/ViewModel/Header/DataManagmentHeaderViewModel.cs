@@ -57,7 +57,7 @@ namespace KretaDesktop.ViewModel.Header
                         await _studentViewModel.OnInitialize();
                         break;
 					case "StudentPerClass":
-						SelectedView = _studentPerClassViewModel;
+						SelectedView = _studentPerClassViewModel;						
                         await _studentViewModel.OnInitialize();
                         break;
                     default:
