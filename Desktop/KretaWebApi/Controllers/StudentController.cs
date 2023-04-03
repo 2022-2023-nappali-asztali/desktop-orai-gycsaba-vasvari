@@ -17,7 +17,7 @@ namespace KretaWebApi.Controllers
         }
 
         [HttpGet("included")]
-        public async Task<IActionResult> SelectAllIncludedRecordAsync()
+        public async Task<ActionResult<List<Student>>> SelectAllIncludedRecordAsync()
         {
             List<Student>? users = null;
             try
