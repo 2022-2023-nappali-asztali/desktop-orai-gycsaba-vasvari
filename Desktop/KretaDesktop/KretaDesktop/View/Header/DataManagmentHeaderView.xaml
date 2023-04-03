@@ -31,6 +31,13 @@
                     Command="{Binding UpdateViewCommand}"
                     CommandParameter="StudentDateManagment"
             />
+            <Button HorizontalAlignment="Left"
+                    Width="150"
+                    Margin="12 0 0 0"
+                    Content="{DynamicResource headDataManagmentStudentPerClass}"
+                    Command="{Binding UpdateViewCommand}"
+                    CommandParameter="StudentPerClass"
+            />
         </StackPanel>
         <ContentControl Grid.Row="2"
                         Content="{Binding SelectedView}" 

@@ -86,7 +86,15 @@ namespace KretaDesktop
                     services.AddSingleton<ListStudentView>(
                         s => new ListStudentView()
                         {
-                            DataContext=s.GetRequiredService<ListStudentView>()
+                            DataContext=s.GetRequiredService<ListStudentViewModel>()
+                        }
+                    );
+
+                    services.AddSingleton<StudentPerClassViewModel>();
+                    services.AddSingleton<StudentPerClassView>(
+                        s => new StudentPerClassView()
+                        {
+                            DataContext = s.GetRequiredService<StudentPerClassViewModel>()
                         }
                     );
                     services.AddSingleton<IAPIService, APIService>();

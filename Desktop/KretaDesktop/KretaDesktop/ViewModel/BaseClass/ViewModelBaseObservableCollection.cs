@@ -24,7 +24,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             Items = new();
         }
 
-        public abstract Task OnInitialize();
+        
 
         protected virtual async Task InitializeItems()
         {
