@@ -36,6 +36,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             LastPageCommand = new AsyncRelayCommand(GoToLastPage, (ex) => OnException());
 
             IsPageableVisible = true;
+            IsCRUDVisible = true;
         }
 
         public AsyncRelayCommand FirstPageCommand { get; private set; }
@@ -45,12 +46,12 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public string PageInformation => $"Oldal: {MetaData.CurrentPage} / {MetaData.TotalPages}";
 
-        protected async override Task InitializePage()
+        protected async override Task InitializeItems()
         {
             await RefreshItems();
         }
 
-        protected async Task InitializeInludedDataPage()
+        protected async Task InitializePageWithIncludedData()
         {
             _inculdedAndPaged = true;
             await RefreshItems();

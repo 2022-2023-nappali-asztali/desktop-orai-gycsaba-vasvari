@@ -40,7 +40,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public string PageInformation => $"Oldal: {MetaData.CurrentPage} / {MetaData.TotalPages}";
 
-        protected async override Task InitializePage()
+        protected async override Task InitializeItems()
         {
             await RefreshItems();
         }

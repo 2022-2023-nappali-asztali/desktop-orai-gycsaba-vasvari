@@ -66,13 +66,26 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         }
 
-        private bool isPageableVisible;
+        private bool _isPageableVisible;
         public bool IsPageableVisible
         {
-            get => isPageableVisible && !_isNewMode;
-            set => SetValue(ref isPageableVisible, value);
+            get => _isPageableVisible && !_isNewMode;
+            set => SetValue(ref _isPageableVisible, value);
         }
-            
+
+        private bool _isCRUDVisible=false;
+        public bool IsCRUDVisible
+        {
+            get => _isCRUDVisible;
+            set => SetValue(ref _isCRUDVisible, value);
+        }
+
+        private bool _isSearchAndSortVisible = true;
+        public bool IsSearchAndSortVisible
+        {
+            get => _isSearchAndSortVisible;
+            set => SetValue(ref _isSearchAndSortVisible, value);
+        }
 
         public bool IsIdVisible => !_isNewMode;
         public bool IsTableVisible => !_isNewMode;        

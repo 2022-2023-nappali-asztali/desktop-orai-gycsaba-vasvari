@@ -16,6 +16,8 @@ namespace KretaDesktop.ViewModel.BaseClass
             NewCommand = new RelayCommand(execute => New());
             CancelCommand = new RelayCommand(execute => Cancel());
             ClearFormCommand = new RelayCommand(execute => Clear());
+
+            IsCRUDVisible = true;
         }
 
         public RelayCommand NewCommand { get; set; }

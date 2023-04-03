@@ -26,7 +26,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public abstract Task OnInitialize();
 
-        protected virtual async Task InitializePage()
+        protected virtual async Task InitializeItems()
         {
             await RefreshItems();
         }

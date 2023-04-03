@@ -26,7 +26,8 @@
                Content="Tantárgyak kezelése"
                Style="{DynamicResource ContentTitle}">
         </Label>
-        <Expander Margin="4" Grid.Row="1" Header="Tantárgy adatai">
+        <Expander Margin="4" Grid.Row="1" Header="Tantárgy adatai"
+                  Visibility="{Binding IsSearchAndSortVisible, Converter={StaticResource boolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -125,7 +126,9 @@
             </DataGrid>
             <Button Command="{Binding RemoveCommand}"
                     CommandParameter="{Binding SelectedItem}"
-                    Content="Törlés"></Button>
+                    Content="Törlés"
+                    Visibility="{Binding IsCRUDVisible, Converter={StaticResource boolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+            </Button>
         </StackPanel>
         <StackPanel Margin="14" Orientation="Horizontal" Grid.Row="4"
                     Visibility="{Binding IsPageableVisible, Converter={StaticResource boolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">
