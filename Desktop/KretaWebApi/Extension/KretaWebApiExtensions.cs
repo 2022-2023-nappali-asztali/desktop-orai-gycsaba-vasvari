@@ -12,5 +12,19 @@ namespace KretaWebApi.Extension
             services.AddScoped<IRepoBase, KretaInMemoryRepo>();
             services.AddScoped<IStudentRepoBase, StudentInMemoryRepo>();
         }
+
+        public static void ConfigureCors(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithExposedHeaders("X-Pagination")
+                    );
+            });
+        }
     }
 }
