@@ -3,6 +3,7 @@ using KretaCommandLine.Model.Abstract;
 using KretaDesktop.Services;
 using KretaDesktop.ViewModel.BaseClass.Interface;
 using KretaDesktop.ViewModel.Command;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 
@@ -10,10 +11,13 @@ using System.Windows.Markup;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class PagedCRUDListViewModel<TEntity> : CRUDListViewModel<TEntity>, IPagedListViewModelBase<TEntity> where TEntity : ClassWithId, new()
+    public class PagedCRUDListViewModel<TEntity> : CRUDListViewModel<TEntity>, IPaged<TEntity> where TEntity : ClassWithId, new()
     {
+
+        protected bool _inculdedAndPaged = false;
+        
         private ItemParameters _itemParameters = new ItemParameters(5);
-        private MetaData _metaData = new MetaData();
+        private MetaData _metaData = new();
         public MetaData MetaData
         {
             get { return _metaData; }
@@ -46,11 +50,26 @@ namespace KretaDesktop.ViewModel.BaseClass
             await RefreshItems();
         }
 
+        protected async Task InitializeInludedDataPage()
+        {
+            _inculdedAndPaged = true;
+            await RefreshItems();
+        }
+
         protected async override Task RefreshItems()
         {
-            PagingResponse<TEntity> result = await _service.GetPageAsync<TEntity>(_itemParameters);
-            MetaData = result.MetaData;
+            PagingResponse<TEntity> result = null;
+            if (_inculdedAndPaged)
+                result = await _service.SelectAllIncludedRecordPagedAsync<TEntity>(_itemParameters);
+            else
+                result = await _service.GetPageAsync<TEntity>(_itemParameters);
+            InitizlizeData(result);
+        }
+
+        private void InitizlizeData(PagingResponse<TEntity> result)
+        {
             DeleteAllItems();
+            MetaData = result.MetaData;
             AddToItems(result.Items);
         }
 

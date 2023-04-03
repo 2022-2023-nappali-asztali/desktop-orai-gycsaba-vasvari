@@ -12,7 +12,7 @@ namespace KretaDesktop.ViewModel.BaseClass
         where TEntity : ClassWithId, new()
         where TCollection : ObservableCollection<TEntity>, new()
     {
-        private bool _withIncludedData = false;
+        protected bool _withIncludedData = false;
 
         public TCollection Items { get; set; } = new();
 
@@ -31,7 +31,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             await RefreshItems();
         }
 
-        protected virtual async Task InitializePageWithIncludedData()
+        protected virtual async Task InitializeWithIncludedData()
         {
             _withIncludedData= true;
             await RefreshItems();

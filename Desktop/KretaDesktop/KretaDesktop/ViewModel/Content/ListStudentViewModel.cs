@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.Content
 {
-    public class ListStudentViewModel : CRUDListViewModel<Student>
+    public class ListStudentViewModel : PagedCRUDListViewModel<Student>
     {
         public ListStudentViewModel(IAPIService service) : base(service)
         {
@@ -13,7 +13,7 @@ namespace KretaDesktop.ViewModel.Content
 
         public override async Task OnInitialize()
         {
-            await InitializePageWithIncludedData();
+            await InitializeInludedDataPage();
         }
     }
 }

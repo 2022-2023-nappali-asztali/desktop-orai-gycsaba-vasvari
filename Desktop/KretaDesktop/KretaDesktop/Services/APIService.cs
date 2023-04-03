@@ -47,6 +47,39 @@ namespace KretaDesktop.Services
             return new PagingResponse<TEntity>();
         }
 
+        public async ValueTask<PagingResponse<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(ItemParameters parameters) where TEntity : ClassWithId, new()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();
+            if (client is object)
+            {
+                Dictionary<string, string> queryParameters = new Dictionary<string, string>()
+                {
+                    ["pageNumber"] = parameters.PageNumber.ToString(),
+                    ["pageSize"] = parameters.PageSize.ToString()
+                };
+
+                string path = APIURLExtension.SetRelativeUrl<TEntity>();
+                var response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/includedandpaged", queryParameters));
+                var content = await response.Content.ReadAsStringAsync();
+                if (response is object && response.Headers is object && response.IsSuccessStatusCode)
+                {
+                    var headerValues = response.Headers.GetValues("X-Pagination").First<string>();
+                    MetaData? medaData = JsonConvert.DeserializeObject<MetaData>(headerValues);
+                    if (medaData is object)
+                    {
+                        PagingResponse<TEntity> pagingResponse = new PagingResponse<TEntity>
+                        {
+                            Items = JsonConvert.DeserializeObject<List<TEntity>>(content),
+                            MetaData = medaData
+                        };
+                        return pagingResponse;
+                    }
+                }
+            }
+            return new PagingResponse<TEntity>();
+        }
+
         public async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>() where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();

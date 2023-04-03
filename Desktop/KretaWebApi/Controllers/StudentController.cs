@@ -1,7 +1,9 @@
-﻿using KretaCommandLine.Model;
+﻿using APIHelpersLibrary.Paged;
+using KretaCommandLine.Model;
 using KretaWebApi.Controllers.Base;
 using KretaWebApi.Repos.Base;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace KretaWebApi.Controllers
 {
@@ -19,17 +21,25 @@ namespace KretaWebApi.Controllers
         [HttpGet("included")]
         public async Task<ActionResult<List<Student>>> SelectAllIncludedRecordAsync()
         {
-            List<Student>? users = null;
+            List<Student>? students = null;
             try
             {
-                users = await _service.SelectAllIncludedRecordAsync<Student>();
+                students = await _service.SelectAllIncludedRecordAsync<Student>();
 
             }
             catch (Exception ex)
             {
                 return BadRequest("Az adatbázis nem elérhető.");
             }
-            return Ok(users);
+            return Ok(students);
+        }
+
+        [HttpGet("includedandpaged")]
+        public async Task<ActionResult<List<Student>>> SelectAllIncludedRecordPagedAsync([FromQuery] ItemParameters parameters)
+        {
+            PagedList<Student> pagedList = await _service.SelectAllIncludedRecordPagedAsync<Student>(parameters);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(pagedList.MetaData));
+            return Ok(pagedList);
         }
     }
 }

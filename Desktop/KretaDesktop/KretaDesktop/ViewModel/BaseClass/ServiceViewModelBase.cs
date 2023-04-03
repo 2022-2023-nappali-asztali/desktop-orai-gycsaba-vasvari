@@ -21,10 +21,16 @@ namespace KretaDesktop.ViewModel.BaseClass
             return await _service.GetPageAsync<TEntity>(parameters);
         }
 
+        public async ValueTask<PagingResponse<TEntity>> SelectAllIncludedRecordPagedAsync(ItemParameters parameters)
+        {
+            return await _service.SelectAllIncludedRecordPagedAsync<TEntity>(parameters);
+        }
+
         protected async ValueTask<List<TEntity>> SelectAllRecordAsync()
         {
             return await _service.SelectAllRecordAsync<TEntity>();
         }
+
 
         protected async ValueTask<List<TEntity>> SelectAllIncludedRecordAsync()
         {

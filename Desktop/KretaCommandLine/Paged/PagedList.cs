@@ -7,6 +7,11 @@ namespace APIHelpersLibrary.Paged
     public class PagedList<T> : List<T> where T : class
     {
         public MetaData MetaData { get; set; }
+        public PagedList()
+        {
+            MetaData = new MetaData();
+        }
+
         public PagedList(ICollection<T> items, int count, int pageNumber, int pageSize)
         {
             MetaData = new MetaData()
