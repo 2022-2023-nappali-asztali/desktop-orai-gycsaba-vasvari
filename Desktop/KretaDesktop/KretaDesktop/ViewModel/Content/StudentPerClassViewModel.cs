@@ -1,15 +1,27 @@
-﻿using KretaDesktop.ViewModel.BaseClass;
+﻿using KretaCommandLine.Model;
+using KretaDesktop.Services;
+using KretaDesktop.ViewModel.BaseClass;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.Content
 {
-    public class StudentPerClassViewModel : InitializedViewModelBase
+    public class StudentPerClassViewModel : ServiceViewModelBase<SchoolClass>
     {
-        public ObservableCollection<Student>
+        public ObservableCollection<SchoolClass> SchoolClasses;
+        
 
-        public override Task OnInitialize()
+        public StudentPerClassViewModel(IAPIService service) : base(service)
         {
-            return Task.CompletedTask;
+        }
+
+        public override async Task OnInitialize()
+        {
+            SchoolClasses.Clear();
+            List<SchoolClass> schoolClasses = await _service.SelectAllRecordAsync<SchoolClass>();
+            SchoolClasses = new ObservableCollection<SchoolClass>(schoolClasses);
+            return; 
         }
     }
 }
