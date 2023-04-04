@@ -15,5 +15,10 @@ namespace KretaDesktop.ViewModel.Content
         {
             await InitializePageWithIncludedData();
         }
+
+        public async Task OnInitialize(SchoolClass schoolClass)
+        {
+            
+        }
     }
 }

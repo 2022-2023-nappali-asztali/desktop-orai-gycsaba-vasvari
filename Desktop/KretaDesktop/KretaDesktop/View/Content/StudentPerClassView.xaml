@@ -27,6 +27,6 @@
 
             </ComboBox>
         </StackPanel>
-        <local:ListStudentView></local:ListStudentView>
+        <local:ListStudentView DataContext="{Binding StudentViewModel}"></local:ListStudentView>
     </StackPanel>
 </UserControl>

@@ -50,5 +50,23 @@ namespace KretaWebApi.Repos.Base
                 return PagedList<TEntity>.ToPagedList(students, parameters.PageNumber, parameters.PageSize); ;
             }
         }
+
+        public async ValueTask<List<TEntity>> SelectStudentOfClass<TEntity>(long schoolClassId) where TEntity : Student, new()
+        {
+            var dbContext = _dbContextFactory.CreateDbContext();
+
+            DbSet<TEntity> entities = DbSet<TEntity>();
+
+            if (entities is not object)
+                return new List<TEntity>();
+            else
+            {
+                var result=entities.SearchById<TEntity>("SchoolClassId", schoolClassId);
+                if (result is object)
+                    return await result.ToListAsync<TEntity>();
+                else
+                    return new List<TEntity>();
+            }
+        }
     }
 }

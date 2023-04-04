@@ -20,12 +20,19 @@ namespace KretaDesktop.ViewModel.Content
         public SchoolClass SelectedSchoolClass
         {
             get => _selectedSchoolClass;
-            set => SetValue(ref _selectedSchoolClass, value);
+            set
+            {
+                SetValue(ref _selectedSchoolClass, value);
+                StudentViewModel.OnInitialize(SelectedSchoolClass);
+            }
         }
 
-        public StudentPerClassViewModel(IAPIService service) : base(service)
+        public ListStudentViewModel StudentViewModel { get; set; }
+
+        public StudentPerClassViewModel(IAPIService service, ListStudentViewModel studentViewModel) : base(service)
         {
             SchoolClasses = new ObservableCollection<SchoolClass>();
+            StudentViewModel = studentViewModel;
         }
 
         public override async Task OnInitialize()
@@ -33,7 +40,6 @@ namespace KretaDesktop.ViewModel.Content
             SchoolClasses.Clear();
             List<SchoolClass> schoolClasses = await _service.SelectAllRecordAsync<SchoolClass>();
             SchoolClasses = new ObservableCollection<SchoolClass>(schoolClasses);
-            return; 
         }
     }
 }
