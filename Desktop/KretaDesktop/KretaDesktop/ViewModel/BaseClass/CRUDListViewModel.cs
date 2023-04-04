@@ -12,7 +12,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public CRUDListViewModel(IAPIService service) : base(service)
         {
-            RemoveCommand = new RelayCommand(parameter => Remove(parameter));
+            RemoveCommand = new AsyncRelayCommandWithParameter(parameter => Remove(parameter), (ex) => OnException());
             SaveAndRefreshCommand = new AsyncRelayCommandWithParameter(parameter => SaveAndRefresh(parameter), (ex) => OnException());
             NewCommand = new RelayCommand(execute => New());
             CancelCommand = new RelayCommand(execute => Cancel());
@@ -22,13 +22,13 @@ namespace KretaDesktop.ViewModel.BaseClass
         }
 
         public RelayCommand NewCommand { get; set; }
-        public RelayCommand RemoveCommand { get; set; }
+        public AsyncRelayCommandWithParameter RemoveCommand { get; set; }
         public AsyncRelayCommandWithParameter SaveAndRefreshCommand { get; set; }
         public RelayCommand ClearFormCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand RemoveAllCommand { get; set; }
 
-        protected async void Remove(object parameter)
+        protected async Task Remove(object parameter)
         {
             if (parameter is TEntity entity)
             {
