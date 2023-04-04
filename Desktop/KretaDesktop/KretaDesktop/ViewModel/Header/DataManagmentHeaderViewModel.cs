@@ -58,7 +58,7 @@ namespace KretaDesktop.ViewModel.Header
                         break;
 					case "StudentPerClass":
 						SelectedView = _studentPerClassViewModel;						
-                        await _studentViewModel.OnInitialize();
+                        await _studentPerClassViewModel.OnInitialize();
                         break;
                     default:
 						_logger.LogError($"A menüpont választás nem sikerült");

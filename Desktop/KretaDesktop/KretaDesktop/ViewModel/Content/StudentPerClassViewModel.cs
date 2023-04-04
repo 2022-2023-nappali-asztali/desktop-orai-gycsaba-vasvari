@@ -9,11 +9,23 @@ namespace KretaDesktop.ViewModel.Content
 {
     public class StudentPerClassViewModel : ServiceViewModelBase<SchoolClass>
     {
-        public ObservableCollection<SchoolClass> SchoolClasses;
-        
+        private ObservableCollection<SchoolClass> _schoolClasses;
+        public ObservableCollection<SchoolClass> SchoolClasses
+        {
+            get => _schoolClasses;
+            set => SetValue(ref _schoolClasses, value);
+        }
+
+        private SchoolClass _selectedSchoolClass;
+        public SchoolClass SelectedSchoolClass
+        {
+            get => _selectedSchoolClass;
+            set => SetValue(ref _selectedSchoolClass, value);
+        }
 
         public StudentPerClassViewModel(IAPIService service) : base(service)
         {
+            SchoolClasses = new ObservableCollection<SchoolClass>();
         }
 
         public override async Task OnInitialize()
