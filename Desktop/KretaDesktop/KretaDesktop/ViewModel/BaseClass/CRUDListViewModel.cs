@@ -27,6 +27,7 @@ namespace KretaDesktop.ViewModel.BaseClass
         public RelayCommand ClearFormCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand RemoveAllCommand { get; set; }
+        public AsyncRelayCommandWithParameter FilterItemsCommand { get; set; }
 
         protected async Task Remove(object parameter)
         {
