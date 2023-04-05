@@ -98,6 +98,7 @@ namespace KretaDesktop
                         }
                     );
                     services.AddSingleton<IAPIService, APIService>();
+                    services.AddSingleton<IStudentAPIService, StudentAPIService>();
                 })
                 .Build();
             Log.Logger.Information("Build megtörtént...");

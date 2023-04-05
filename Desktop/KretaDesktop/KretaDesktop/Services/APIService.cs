@@ -125,8 +125,6 @@ namespace KretaDesktop.Services
                 result = await client.GetFromJsonAsync<TEntity>($"{path}/{id}");
                 if (result is object)
                     return result;
-                else
-                    result = new TEntity();
             }
             return result;
         }
