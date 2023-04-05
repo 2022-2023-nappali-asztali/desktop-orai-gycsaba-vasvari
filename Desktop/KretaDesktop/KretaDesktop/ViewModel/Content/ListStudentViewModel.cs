@@ -16,19 +16,5 @@ namespace KretaDesktop.ViewModel.Content
         {
             await InitializeWithIncludedData();
         }
-
-        public async Task OnInitialize(SchoolClass schoolClass)
-        {
-            IStudentAPIService studentAPIService = new StudentAPIService();
-            List<Student> students = await studentAPIService.SelectStudentOfClass<Student>(schoolClass.Id);
-            //Items = _service;
-            await RefreshItems();
-
-        }
-
-        protected override Task RefreshItems()
-        {
-            return base.RefreshItems();
-        }
     }
 }

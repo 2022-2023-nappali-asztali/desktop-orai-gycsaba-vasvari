@@ -28,8 +28,8 @@
         <contentviews:ListStudentView></contentviews:ListStudentView>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type contentviewmodels:StudentPerClassViewModel}">
-        <contentviews:StudentPerClassView></contentviews:StudentPerClassView>
+    <DataTemplate DataType="{x:Type contentviewmodels:StudentByClassViewModel}">
+        <contentviews:StudentByClassView></contentviews:StudentByClassView>
     </DataTemplate>
 
 

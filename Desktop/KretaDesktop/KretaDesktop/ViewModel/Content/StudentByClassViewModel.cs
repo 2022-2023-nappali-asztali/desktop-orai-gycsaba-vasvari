@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.Content
 {
-    public class StudentPerClassViewModel : ServiceViewModelBase<SchoolClass>
+    public class StudentByClassViewModel : ServiceViewModelBase<SchoolClass>
     {
         private ObservableCollection<SchoolClass> _schoolClasses;
         public ObservableCollection<SchoolClass> SchoolClasses
@@ -27,9 +27,9 @@ namespace KretaDesktop.ViewModel.Content
             }
         }
 
-        public ListStudentViewModel StudentViewModel { get; set; }
+        public IListStudentByClassViewModel StudentViewModel { get; set; }
 
-        public StudentPerClassViewModel(IAPIService service, ListStudentViewModel studentViewModel) : base(service)
+        public StudentByClassViewModel(IAPIService service, IListStudentByClassViewModel studentViewModel) : base(service)
         {
             SchoolClasses = new ObservableCollection<SchoolClass>();
             StudentViewModel = studentViewModel;

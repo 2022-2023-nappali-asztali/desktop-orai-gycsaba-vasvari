@@ -16,7 +16,7 @@ namespace KretaDesktop.ViewModel.Header
 		private readonly ILogger<DataManagmentHeaderViewModel> _logger;
 		private ListStudentViewModel _studentViewModel;
 		private ListSubjectViewModel _subjectViewModel;
-		private StudentPerClassViewModel _studentPerClassViewModel;
+		private StudentByClassViewModel _studentPerClassViewModel;
 
         private InitializedViewModelBase selectedView;
 		public InitializedViewModelBase SelectedView
@@ -31,7 +31,7 @@ namespace KretaDesktop.ViewModel.Header
 
 		public AsyncRelayCommandWithParameter UpdateViewCommand { get; set; }
 
-		public DataManagmentHeaderViewModel(ILogger<DataManagmentHeaderViewModel> logger, ListStudentViewModel studentViewModel, ListSubjectViewModel subjectViewModel, StudentPerClassViewModel studentPerClassViewModel)
+		public DataManagmentHeaderViewModel(ILogger<DataManagmentHeaderViewModel> logger, ListStudentViewModel studentViewModel, ListSubjectViewModel subjectViewModel, StudentByClassViewModel studentPerClassViewModel)
 		{
 			_logger = logger;
 			_studentViewModel = studentViewModel;
