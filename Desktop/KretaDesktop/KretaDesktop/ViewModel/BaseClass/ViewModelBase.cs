@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

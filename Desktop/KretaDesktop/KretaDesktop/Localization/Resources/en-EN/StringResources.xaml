@@ -11,6 +11,7 @@
         <!-- Adatkezelés -->
     <system:String x:Key="headDataManagmentSubject">Manage subjects</system:String>
     <system:String x:Key="headDataManagmentStudent">Manage students</system:String>
+    <system:String x:Key="headDataManagmentStudentPerClass">Students by class</system:String>
         <!-- Localization view -->
     <system:String x:Key="contentLocalizationCurrentLanguage">Current language:</system:String>
     <system:String x:Key="contentLocalizationSelectLanguage">Select language</system:String>

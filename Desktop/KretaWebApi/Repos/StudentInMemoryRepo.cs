@@ -1,4 +1,5 @@
-﻿using KretaWebApi.Contexts;
+﻿using KretaCommandLine.Model;
+using KretaWebApi.Contexts;
 using KretaWebApi.Repos.Base;
 using Microsoft.EntityFrameworkCore;
 

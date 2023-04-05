@@ -2,6 +2,7 @@
 using KretaDesktop.Services;
 using KretaDesktop.ViewModel.BaseClass.Interface;
 using KretaDesktop.ViewModel.Command;
+using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
@@ -11,8 +12,8 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public CRUDListViewModel(IAPIService service) : base(service)
         {
-            RemoveCommand = new RelayCommand(parameter => Remove(parameter));
-            SaveAndRefreshCommand = new RelayCommand(parameter => SaveAndRefresh(parameter));
+            RemoveCommand = new AsyncRelayCommandWithParameter(parameter => Remove(parameter), (ex) => OnException());
+            SaveAndRefreshCommand = new AsyncRelayCommandWithParameter(parameter => SaveAndRefresh(parameter), (ex) => OnException());
             NewCommand = new RelayCommand(execute => New());
             CancelCommand = new RelayCommand(execute => Cancel());
             ClearFormCommand = new RelayCommand(execute => Clear());
@@ -21,13 +22,13 @@ namespace KretaDesktop.ViewModel.BaseClass
         }
 
         public RelayCommand NewCommand { get; set; }
-        public RelayCommand RemoveCommand { get; set; }
-        public RelayCommand SaveAndRefreshCommand { get; set; }
+        public AsyncRelayCommandWithParameter RemoveCommand { get; set; }
+        public AsyncRelayCommandWithParameter SaveAndRefreshCommand { get; set; }
         public RelayCommand ClearFormCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand RemoveAllCommand { get; set; }
 
-        protected async void Remove(object parameter)
+        protected async Task Remove(object parameter)
         {
             if (parameter is TEntity entity)
             {
@@ -39,7 +40,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             }
         }
 
-        protected async void SaveAndRefresh(object parameter)
+        protected async Task SaveAndRefresh(object parameter)
         {
             if (parameter is TEntity entity)
             {
@@ -65,6 +66,10 @@ namespace KretaDesktop.ViewModel.BaseClass
         protected void Clear()
         {
             DisplaydItem = new TEntity();
+        }
+
+        private void OnException()
+        {
         }
 
     }

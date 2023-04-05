@@ -41,5 +41,21 @@ namespace KretaWebApi.Controllers
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(pagedList.MetaData));
             return Ok(pagedList);
         }
+
+        [HttpGet("byclass/{schoolClassId}")]
+        public async Task<ActionResult<List<Student>>> SelectStudentOfClass(long schoolClassId)
+        {
+            List<Student>? students = null;
+            try
+            {
+                students = await _service.SelectStudentOfClass<Student>(schoolClassId);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Az adatbázis nem elérhető.");
+            }
+            return Ok(students);
+        }
     }
 }

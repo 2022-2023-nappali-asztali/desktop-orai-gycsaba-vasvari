@@ -21,9 +21,9 @@ namespace KretaCommandLine.Model
             HeadTeacherId = -1;
         }
 
-        public virtual int SchoolYear { get; set; }
+        public int SchoolYear { get; set; }
 
-        public virtual char ClassType { get; set; }
+        public char ClassType { get; set; }
 
         // one-zero
         public long HeadTeacherId { get; set; }

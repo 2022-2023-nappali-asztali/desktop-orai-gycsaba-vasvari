@@ -15,7 +15,8 @@
         <!-- Localization view -->
     <system:String x:Key="contentLocalizationCurrentLanguage">Aktuális nyelv:</system:String>
     <system:String x:Key="contentLocalizationSelectLanguage">Nyelv választás</system:String>
-        <!-- Name validation -->
+    <system:String x:Key="headDataManagmentStudentPerClass">Diákok osztályonként</system:String>
+    <!-- Name validation -->
     <system:String x:Key="validationNameIsShort">A név nem elég hosszú!</system:String>
     <system:String x:Key="validationNameFirstLetterNotUppercase">A név nem nagybetűvel kezdődik!</system:String>
     <system:String x:Key="validationOtherLetterNotLowercase">A kezdőbetűk után kisbetűket írjon!</system:String>

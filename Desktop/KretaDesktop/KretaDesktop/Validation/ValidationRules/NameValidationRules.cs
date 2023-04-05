@@ -23,6 +23,9 @@ namespace KretaDesktop.Validation.ValidationRules
         public bool IsOtherLetterLowercase
             => _nameToValidate.Substring(1).All(character => char.IsLower(character)) ? true : false;
 
+        public bool IsOtherLetterLowercaseOrSpace
+            => _nameToValidate.Substring(1).All(character => char.IsLower(character) || char.IsWhiteSpace(character)) ? true : false;
+
         public bool IsOnlyLetters => _nameToValidate.Any(charachter => char.IsLetter(charachter)) ? true : false;
 
         public bool UppercaseLetterAfterSpace => !HaveLowercaseLetterAfterSpaceOrUpperAfterFirsUpper(_nameToValidate);

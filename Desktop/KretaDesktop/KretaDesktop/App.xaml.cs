@@ -86,10 +86,21 @@ namespace KretaDesktop
                     services.AddSingleton<ListStudentView>(
                         s => new ListStudentView()
                         {
-                            DataContext=s.GetRequiredService<ListStudentView>()
+                            DataContext=s.GetRequiredService<ListStudentViewModel>()
                         }
                     );
+
+                    services.AddSingleton<StudentByClassViewModel>();
+                    services.AddSingleton<StudentByClassView>(
+                        s => new StudentByClassView()
+                        {
+                            DataContext = s.GetRequiredService<StudentByClassViewModel>()
+                        }
+                    );                    
                     services.AddSingleton<IAPIService, APIService>();
+                    services.AddSingleton<IStudentAPIService, StudentAPIService>();
+
+                    services.AddSingleton<IListStudentByClassViewModel,ListStudentByClassViewModel>();
                 })
                 .Build();
             Log.Logger.Information("Build megtörtént...");

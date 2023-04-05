@@ -16,9 +16,10 @@ namespace KretaDesktop.ViewModel.Header
 		private readonly ILogger<DataManagmentHeaderViewModel> _logger;
 		private ListStudentViewModel _studentViewModel;
 		private ListSubjectViewModel _subjectViewModel;
+		private StudentByClassViewModel _studentPerClassViewModel;
 
-        private ViewModelBase selectedView;
-		public ViewModelBase SelectedView
+        private InitializedViewModelBase selectedView;
+		public InitializedViewModelBase SelectedView
 		{
 			get { return selectedView; }
 			set 
@@ -30,11 +31,12 @@ namespace KretaDesktop.ViewModel.Header
 
 		public AsyncRelayCommandWithParameter UpdateViewCommand { get; set; }
 
-		public DataManagmentHeaderViewModel(ILogger<DataManagmentHeaderViewModel> logger, ListStudentViewModel studentViewModel, ListSubjectViewModel subjectViewModel )
+		public DataManagmentHeaderViewModel(ILogger<DataManagmentHeaderViewModel> logger, ListStudentViewModel studentViewModel, ListSubjectViewModel subjectViewModel, StudentByClassViewModel studentPerClassViewModel)
 		{
 			_logger = logger;
 			_studentViewModel = studentViewModel;
 			_subjectViewModel = subjectViewModel;
+			_studentPerClassViewModel = studentPerClassViewModel;
 
 			UpdateViewCommand = new AsyncRelayCommandWithParameter((parameter) => ChangeView(parameter),(ex) =>OnException());
 		}
@@ -54,7 +56,11 @@ namespace KretaDesktop.ViewModel.Header
 						SelectedView = _studentViewModel;
                         await _studentViewModel.OnInitialize();
                         break;
-					default:
+					case "StudentPerClass":
+						SelectedView = _studentPerClassViewModel;						
+                        await _studentPerClassViewModel.OnInitialize();
+                        break;
+                    default:
 						_logger.LogError($"A menüpont választás nem sikerült");
 						break;
                 }
@@ -63,11 +69,6 @@ namespace KretaDesktop.ViewModel.Header
 
 		private void OnException()
 		{
-
 		}
-
-
-
-
-	}
+    }
 }

@@ -59,7 +59,7 @@
                                  UpdateSourceTrigger="PropertyChanged"
                                  ValidatesOnDataErrors="True">
                             <Binding.ValidationRules>
-                                <validation:NameValidation/>
+                                <validation:SubjectNameValidation/>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>

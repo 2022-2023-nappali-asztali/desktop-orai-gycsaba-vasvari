@@ -26,6 +26,39 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="ContentStackPanelStyle" TargetType="{x:Type StackPanel}">
+        <Style.Resources>
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="Foreground" Value="White"></Setter>
+            </Style>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="Background" Value="Orange"></Setter>
+                <Setter Property="Foreground" Value="#02060A"></Setter>
+                <Setter Property="Margin" Value="2 2 2 2"></Setter>
+            </Style>
+            <Style TargetType="Button" x:Key="ContentButton">
+                <Setter Property="Background" Value="{StaticResource StandardButtonBackground}"></Setter>
+                <Setter Property="Foreground" Value="{StaticResource StandardButtonForeground}"></Setter>
+                <Setter Property="Width" Value="100"></Setter>
+                <Setter Property="Height" Value="32"></Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Margin="5" Padding="1,1,1,1" BorderThickness="1" CornerRadius="5" Background="{StaticResource StandardButtonBackground}">
+                                <ContentPresenter Margin="1" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Foreground" Value="{StaticResource StandardButtonBackground}"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Style.Resources>
+    </Style>
+
     <Style x:Key="ContentGridStyle" TargetType="{x:Type Grid}">
         <Style.Resources>
             <Style TargetType="{x:Type Label}">

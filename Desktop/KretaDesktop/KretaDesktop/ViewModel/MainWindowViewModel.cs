@@ -35,7 +35,6 @@ namespace KretaDesktop.ViewModel
             DataManagmentHeaderViewModel dataManagmentHeaderViewModel)
         {
             _logger = logger;
-            //this.window = mainWindow;
             _configurationHeaderViewModel = configurationHeaderViewModel;
             _dataMagmentHeaderViewModel = dataManagmentHeaderViewModel;
 
