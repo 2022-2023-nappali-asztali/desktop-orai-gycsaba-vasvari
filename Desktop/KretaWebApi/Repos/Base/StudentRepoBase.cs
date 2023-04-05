@@ -37,16 +37,13 @@ namespace KretaWebApi.Repos.Base
         {
             var dbContext = _dbContextFactory.CreateDbContext();
 
-            DbSet<TEntity> entities = DbSet<TEntity>();
+            IQueryable<TEntity>? entities = GetAllIncluded<TEntity>();
 
             if (entities is not object)
                 return new PagedList<TEntity>();
             else
             {
-                List<TEntity> students = await entities
-                    .Include(student => student.SchoolClassOfStudent)
-                    .Include(student => student.StudentAddress)
-                    .ToListAsync();
+                List<TEntity> students = await entities.ToListAsync();
                 return PagedList<TEntity>.ToPagedList(students, parameters.PageNumber, parameters.PageSize); ;
             }
         }
@@ -55,17 +52,26 @@ namespace KretaWebApi.Repos.Base
         {
             var dbContext = _dbContextFactory.CreateDbContext();
 
-            DbSet<TEntity> entities = DbSet<TEntity>();
+            IQueryable<TEntity>? entities = GetAllIncluded<TEntity>();
 
             if (entities is not object)
                 return new List<TEntity>();
             else
             {
-                var result=entities.SearchById<TEntity>("SchoolClassId", schoolClassId);
-                if (result is object)
-                    return await result.ToListAsync<TEntity>();
-                else
-                    return new List<TEntity>();
+                return await entities.SearchById<TEntity>("SchoolClassId", schoolClassId);
+            }
+        }
+
+        private IQueryable<TEntity>? GetAllIncluded<TEntity>() where TEntity : Student, new()
+        {
+            DbSet<TEntity>? entities = DbSet<TEntity>();
+            if (entities is not object)
+                return null;
+            else
+            {
+                return entities
+                    .Include(student => student.SchoolClassOfStudent)
+                    .Include(student => student.StudentAddress);
             }
         }
     }

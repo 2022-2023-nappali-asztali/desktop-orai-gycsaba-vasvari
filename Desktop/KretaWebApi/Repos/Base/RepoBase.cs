@@ -14,7 +14,7 @@ namespace KretaWebApi.Repos.Base
             _dbContextFactory = dbContextFactory;
         }
 
-        public DbSet<TEntity> DbSet<TEntity>() where TEntity : class, new()
+        public DbSet<TEntity>? DbSet<TEntity>() where TEntity : class, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
             return dbContext.GetDbSet<TEntity>();
