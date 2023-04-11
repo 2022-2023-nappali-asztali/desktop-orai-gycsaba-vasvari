@@ -11,6 +11,6 @@ namespace KretaWebApi.Repos.Base
         public ValueTask<APICallState> Save<TEntity>(TEntity item) where TEntity : ClassWithId, new();
         public ValueTask<APICallState> Delete<TEntity>(long id) where TEntity : ClassWithId, new();
 
-        public ValueTask<PagedList<TEntity>> GetPaged<TEntity>(ItemParameters parameters) where TEntity : ClassWithId, new();
+        public ValueTask<PagedList<TEntity>> GetPaged<TEntity>(PagingParameters parameters) where TEntity : ClassWithId, new();
     }
 }

@@ -2,6 +2,7 @@
 using KretaDesktop.Services;
 using KretaDesktop.ViewModel.BaseClass.Interface;
 using KretaDesktop.ViewModel.Command;
+using System;
 using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.BaseClass
@@ -9,6 +10,12 @@ namespace KretaDesktop.ViewModel.BaseClass
     public class CRUDListViewModel<TEntity> : ListViewModel<TEntity>, ICRUDListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
+        private string _itemFilter;
+        public string ItemFilter
+        {
+            get => _itemFilter;
+            set => SetValue(ref _itemFilter, value);
+        }
 
         public CRUDListViewModel(IAPIService service) : base(service)
         {
@@ -17,7 +24,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             NewCommand = new RelayCommand(execute => New());
             CancelCommand = new RelayCommand(execute => Cancel());
             ClearFormCommand = new RelayCommand(execute => Clear());
-
+            FilterItemsCommand = new AsyncRelayCommand(OnFilterItems, (ex) => OnException());
             IsCRUDVisible = true;
         }
 
@@ -27,7 +34,12 @@ namespace KretaDesktop.ViewModel.BaseClass
         public RelayCommand ClearFormCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand RemoveAllCommand { get; set; }
-        public AsyncRelayCommandWithParameter FilterItemsCommand { get; set; }
+        public AsyncRelayCommand FilterItemsCommand { get; set; }
+
+        protected async Task OnFilterItems()
+        {
+            await FilterItems(_itemFilter);
+        }
 
         protected async Task Remove(object parameter)
         {

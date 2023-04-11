@@ -33,7 +33,7 @@ namespace KretaWebApi.Repos.Base
             }
         }
 
-        public async ValueTask<PagedList<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(ItemParameters parameters) where TEntity : Student, new()
+        public async ValueTask<PagedList<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(PagingParameters parameters) where TEntity : Student, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
 

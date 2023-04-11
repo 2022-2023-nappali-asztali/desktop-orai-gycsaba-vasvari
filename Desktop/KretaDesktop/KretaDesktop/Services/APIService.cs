@@ -13,7 +13,7 @@ namespace KretaDesktop.Services
 {
     public class APIService : IAPIService
     {
-        public async ValueTask<PagingResponse<TEntity>> GetPageAsync<TEntity>(ItemParameters parameters) where TEntity : ClassWithId, new()
+        public async ValueTask<PagingResponse<TEntity>> GetPageAsync<TEntity>(PagingParameters parameters) where TEntity : ClassWithId, new()
         {
 
             HttpClient client = new HttpClient();
@@ -47,7 +47,7 @@ namespace KretaDesktop.Services
             return new PagingResponse<TEntity>();
         }
 
-        public async ValueTask<PagingResponse<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(ItemParameters parameters) where TEntity : ClassWithId, new()
+        public async ValueTask<PagingResponse<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(PagingParameters parameters) where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = APIURLExtension.GetHttpClientUri();

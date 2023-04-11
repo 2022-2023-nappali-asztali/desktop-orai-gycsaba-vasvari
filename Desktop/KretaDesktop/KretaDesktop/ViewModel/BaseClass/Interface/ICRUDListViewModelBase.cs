@@ -7,7 +7,7 @@ namespace KretaDesktop.ViewModel.BaseClass.Interface
         public RelayCommand NewCommand { get; set; }
         public AsyncRelayCommandWithParameter RemoveCommand { get; set; }
         public AsyncRelayCommandWithParameter SaveAndRefreshCommand { get; set; }
-        public AsyncRelayCommandWithParameter FilterItemsCommand { get; set; }
+        public AsyncRelayCommand FilterItemsCommand { get; set; }
         public RelayCommand ClearFormCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand RemoveAllCommand { get; set; }

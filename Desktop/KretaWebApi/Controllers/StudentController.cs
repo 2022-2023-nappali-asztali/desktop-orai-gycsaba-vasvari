@@ -35,7 +35,7 @@ namespace KretaWebApi.Controllers
         }
 
         [HttpGet("includedandpaged")]
-        public async Task<ActionResult<List<Student>>> SelectAllIncludedRecordPagedAsync([FromQuery] ItemParameters parameters)
+        public async Task<ActionResult<List<Student>>> SelectAllIncludedRecordPagedAsync([FromQuery] PagingParameters parameters)
         {
             PagedList<Student> pagedList = await _service.SelectAllIncludedRecordPagedAsync<Student>(parameters);
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(pagedList.MetaData));

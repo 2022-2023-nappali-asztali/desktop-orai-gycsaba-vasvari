@@ -102,9 +102,13 @@
             </StackPanel>
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="30 0 0 0">
                 <Label Content="Szűres:"></Label>
-                <TextBox Width="150"></TextBox>
+                <TextBox Width="150" 
+                         Text="{Binding ItemFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                </TextBox>
                 <Button Content="Szűres"></Button>
-                <Button Content="Összes"></Button>
+                <Button Content="Összes" 
+                        Command="{Binding FilterItemsCommand}">
+                </Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3" Margin="0 0 30 0">
                 <Label Content="Sor/oldal:"></Label>

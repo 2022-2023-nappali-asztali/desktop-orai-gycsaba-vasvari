@@ -16,7 +16,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected bool _inculdedAndPaged = false;
         
-        private ItemParameters _itemParameters = new ItemParameters(5);
+        private PagingParameters _itemParameters = new PagingParameters(5);
         private MetaData _metaData = new();
         public MetaData MetaData
         {

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using KretaCommandLine.Model.Abstract;
+using KretaCommandLine.QueryParameter;
 using KretaDesktop.Services;
 using KretaDesktop.ViewModel.BaseClass.Interface;
 
@@ -13,6 +15,8 @@ namespace KretaDesktop.ViewModel.BaseClass
         where TCollection : ObservableCollection<TEntity>, new()
     {
         protected bool _withIncludedData = false;
+        protected QueryParameters _queryParameters = new QueryParameters();
+
 
         public TCollection Items { get; set; } = new();
 
@@ -37,16 +41,35 @@ namespace KretaDesktop.ViewModel.BaseClass
             await RefreshItems();
         }
 
+        protected virtual async Task FilterAndSortItems(string itemFilter,string itemSort )
+        {
+            _queryParameters.SearchTerm = itemFilter;
+            _queryParameters.SortedTerm = itemSort;
+            await RefreshItems();
+        }
+
+        protected virtual async Task FilterItems(string itemFilter)
+        {
+            _queryParameters.SearchTerm= itemFilter;
+            await RefreshItems();
+        }
+
+        protected virtual async Task SortItems(string itemSort)
+        {
+            _queryParameters.SortedTerm = itemSort;
+            await RefreshItems();
+        }
+
         protected virtual async Task RefreshItems()
         {
             List<TEntity> result = null;
             if (_withIncludedData)
             {
-                result=await SelectAllIncludedRecordAsync();
+                result=await SelectAllIncludedRecordAsync(_queryParameters);
             }
             else
             {
-                result = await SelectAllRecordAsync();
+                result = await SelectAllRecordAsync(_queryParameters);
             }
             if (result != null)
             {
