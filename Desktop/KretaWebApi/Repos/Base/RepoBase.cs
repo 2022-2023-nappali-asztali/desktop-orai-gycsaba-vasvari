@@ -1,7 +1,9 @@
 ﻿using APIHelpersLibrary.Paged;
 using KretaCommandLine.API;
 using KretaCommandLine.Model.Abstract;
+using KretaCommandLine.QueryParameter;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 
 namespace KretaWebApi.Repos.Base
 {
@@ -20,17 +22,29 @@ namespace KretaWebApi.Repos.Base
             return dbContext.GetDbSet<TEntity>();
         }
 
-        public virtual async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>() where TEntity : ClassWithId, new()
+        public async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>(QueryParameters? queryParameters) where TEntity : ClassWithId, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
-            return await dbContext.GetDbSet<TEntity>()
-                                    .AsNoTracking()
-                                    .ToListAsync() ?? new List<TEntity>();
+            if (queryParameters == null || string.IsNullOrEmpty(queryParameters.SearchedPropertyName) || string.IsNullOrEmpty(queryParameters.SearchTerm))
+            {
+                return await dbContext
+                    .GetDbSet<TEntity>()
+                    .AsNoTracking()
+                    .ToListAsync() ?? new List<TEntity>();
+            }
+            else
+            {
+                return await dbContext
+                    .GetDbSet<TEntity>()
+                    .FiltringAndSorting<TEntity>(queryParameters);
+            }
         }
 
-        public async ValueTask<PagedList<TEntity>> GetPaged<TEntity>(PagingParameters parameters) where TEntity : ClassWithId, new()
+
+
+        public async ValueTask<PagedList<TEntity>> GetPaged<TEntity>(PagingParameters parameters, QueryParameters? queryParameters) where TEntity : ClassWithId, new()
         {
-            List<TEntity> items = await SelectAllRecordAsync<TEntity>();
+            List<TEntity> items = await SelectAllRecordAsync<TEntity>(queryParameters);
             return PagedList<TEntity>.ToPagedList(items, parameters.PageNumber, parameters.PageSize);
         }
 

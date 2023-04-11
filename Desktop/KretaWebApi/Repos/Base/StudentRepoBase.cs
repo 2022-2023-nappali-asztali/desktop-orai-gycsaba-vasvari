@@ -19,7 +19,7 @@ namespace KretaWebApi.Repos.Base
         {
             var dbContext = _dbContextFactory.CreateDbContext();
 
-            DbSet<TEntity> entities = DbSet<TEntity>();
+            DbSet<TEntity>? entities = DbSet<TEntity>();
 
             if (entities is not object)
                 return new List<TEntity>();
