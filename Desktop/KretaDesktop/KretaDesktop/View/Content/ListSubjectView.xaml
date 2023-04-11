@@ -45,7 +45,7 @@
                 </StackPanel>
                 <Label Grid.Row="1" Grid.Column="0" Content="Azonosító:"></Label>
                 <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True"
-                         Text="{Binding DisplaydItem.DisplayedId, Mode=OneWay}"
+                         Text="{Binding DisplayedItem.DisplayedId, Mode=OneWay}"
                          Visibility="{Binding IsIdVisible, Converter={StaticResource boolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
                 </TextBox>
                 <Label Grid.Row="2" Grid.Column="0" Content="Tantárgy név:"></Label>
@@ -54,7 +54,7 @@
                          x:Name="txtSubjectName"
                          Validation.ErrorTemplate="{StaticResource ValidationTemplate3}">
                     <TextBox.Text>
-                        <Binding Path="DisplaydItem.SubjectName" 
+                        <Binding Path="DisplayedItem.SubjectName" 
                                  Mode="TwoWay" 
                                  UpdateSourceTrigger="PropertyChanged"
                                  ValidatesOnDataErrors="True">

@@ -37,7 +37,7 @@ namespace KretaDesktop.ViewModel.BaseClass
                 if (HasItems)
                     SelectFirstRow();
                 else
-                    DisplaydItem = new TEntity();
+                    DisplayedItem = new TEntity();
             }
         }
 
@@ -53,7 +53,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected void New()
         {            
-            DisplaydItem = new TEntity();
+            DisplayedItem = new TEntity();
             IsNewMode = true;
         }
 
@@ -66,7 +66,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected void Clear()
         {
-            DisplaydItem = new TEntity();
+            DisplayedItem = new TEntity();
         }
 
         private void OnException()

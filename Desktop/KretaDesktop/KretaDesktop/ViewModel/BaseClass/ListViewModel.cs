@@ -19,7 +19,7 @@ namespace KretaDesktop.ViewModel.BaseClass
                 SetValue(ref _selectedItem, value);
                 if (_selectedItem is object) 
                 {
-                    DisplaydItem = (TEntity) _selectedItem.Clone();
+                    DisplayedItem = (TEntity) _selectedItem.Clone();
                 }
             }
         }
@@ -32,11 +32,11 @@ namespace KretaDesktop.ViewModel.BaseClass
         }
 
 
-        private TEntity _displaydItem = new();
-        public TEntity DisplaydItem
+        private TEntity _displayedItem = new();
+        public TEntity DisplayedItem
         {
-            get => _displaydItem;
-            set => SetValue(ref _displaydItem, value);
+            get => _displayedItem;
+            set => SetValue(ref _displayedItem, value);
         }
 
         private long _selectedItemId = -1;
@@ -44,8 +44,8 @@ namespace KretaDesktop.ViewModel.BaseClass
         {
             get
             {
-                if (DisplaydItem.Id > 0)
-                    return DisplaydItem.Id;
+                if (DisplayedItem.Id > 0)
+                    return DisplayedItem.Id;
                 else if (_selectedItemId > 0)
                     return _selectedItemId;
                 else
