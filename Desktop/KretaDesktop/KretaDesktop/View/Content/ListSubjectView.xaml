@@ -106,7 +106,7 @@
                 <TextBox Width="150" 
                          Text="{Binding ItemFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 </TextBox>
-                <Button Content="Összes" 
+                <Button Content="Szűres"                         
                         Command="{Binding FilterItemsCommand}">
                 </Button>
                 <Button Content="Összes"></Button>

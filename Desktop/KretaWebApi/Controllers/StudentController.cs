@@ -36,7 +36,7 @@ namespace KretaWebApi.Controllers
         }
 
         [HttpGet("includedwithparameters")]
-        public async Task<ActionResult<List<Student>>> SelectAllIncludedRecordAsync(QueryParameters queryParameters)
+        public async Task<ActionResult<List<Student>>> SelectAllIncludedRecordAsync([FromQuery] QueryParameters queryParameters)
         {
             List<Student>? students = null;
             try
@@ -60,7 +60,7 @@ namespace KretaWebApi.Controllers
         }
 
         [HttpGet("includedandpagedwithparameters")]
-        public async Task<ActionResult<List<Student>>> SelectAllIncludedRecordPagedAsync([FromQuery] PagingParameters pagingParameters, QueryParameters queryParameters)
+        public async Task<ActionResult<List<Student>>> SelectAllIncludedRecordPagedAsync([FromQuery] PagingParameters pagingParameters, [FromQuery] QueryParameters queryParameters)
         {
             PagedList<Student> pagedList = await _service.SelectAllIncludedRecordPagedAsync<Student>(pagingParameters, queryParameters);
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(pagedList.MetaData));

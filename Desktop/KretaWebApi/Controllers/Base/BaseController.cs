@@ -58,7 +58,7 @@ namespace KretaWebApi.Controllers.Base
         }
 
         [HttpGet("getpagedwithqueryparameters")]
-        public async Task<IActionResult> GetPaged([FromQuery] PagingParameters parameters, QueryParameters queryParameters)
+        public async Task<IActionResult> GetPaged([FromQuery] PagingParameters parameters, [FromQuery] QueryParameters queryParameters)
         {
             PagedList<TEntity> pagedList = await _service.GetPaged<TEntity>(parameters, queryParameters);
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(pagedList.MetaData));

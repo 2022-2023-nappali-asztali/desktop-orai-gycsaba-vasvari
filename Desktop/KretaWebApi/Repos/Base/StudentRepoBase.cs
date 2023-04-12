@@ -29,7 +29,7 @@ namespace KretaWebApi.Repos.Base
                 IQueryable<TEntity>? query = GetAllIncluded<TEntity>();
                 if (query is not null)
                 {
-                    if (queryParameters is not null && queryParameters.IsValid)  
+                    if (queryParameters is not null && (queryParameters.SearchTerm != null || queryParameters.SortedTerm != null))
                         return await query.FiltringAndSorting(queryParameters);
                     else
                         return await query.ToListAsync();
@@ -49,7 +49,7 @@ namespace KretaWebApi.Repos.Base
             else
             {
                 List<TEntity> students = new List<TEntity>();
-                if (queryParameters is not null && queryParameters.IsValid)
+                if (queryParameters is not null && (queryParameters.SearchTerm != null || queryParameters.SortedTerm != null))
                      students = await entities.FiltringAndSorting(queryParameters);
                 else
                     students= await entities.ToListAsync();

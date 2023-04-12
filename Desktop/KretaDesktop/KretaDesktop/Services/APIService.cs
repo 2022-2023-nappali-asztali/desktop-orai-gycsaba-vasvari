@@ -135,7 +135,7 @@ namespace KretaDesktop.Services
             if (client is object)
             {
                 string path = APIURLExtension.SetRelativUrl<TEntity>();
-                if (queryParameters is object && queryParameters.IsValid)
+                if (queryParameters is object && (queryParameters.SearchTerm != null || queryParameters.SortedTerm != null))
                 {
                     Dictionary<string, string> parameter = GetParameterDictionary(queryParameters);
                     HttpResponseMessage response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/includedwithparameters", parameter));

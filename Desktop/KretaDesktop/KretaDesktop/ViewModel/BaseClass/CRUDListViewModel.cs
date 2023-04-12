@@ -11,6 +11,8 @@ namespace KretaDesktop.ViewModel.BaseClass
         where TEntity : ClassWithId, new()
     {
         private string _itemFilter=string.Empty;
+        protected string _searchedPropertyName=
+
         public string ItemFilter
         {
             get => _itemFilter;
@@ -40,6 +42,8 @@ namespace KretaDesktop.ViewModel.BaseClass
         {
             await FilterItems(_itemFilter);
         }
+
+        protected
 
         protected async Task Remove(object parameter)
         {
