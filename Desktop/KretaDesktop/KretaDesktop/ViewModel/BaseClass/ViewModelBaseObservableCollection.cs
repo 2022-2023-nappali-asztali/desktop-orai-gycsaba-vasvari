@@ -50,7 +50,10 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected virtual async Task FilterItems(string itemFilter)
         {
-            _queryParameters.SearchTerm= itemFilter;
+            if (itemFilter is object && itemFilter.Any())
+                _queryParameters.SearchTerm= itemFilter;
+            else
+                _queryParameters.SearchTerm= null;
             await RefreshItems();
         }
 

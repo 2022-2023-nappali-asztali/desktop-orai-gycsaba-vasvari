@@ -27,13 +27,18 @@ namespace KretaWebApi.Repos.Base
             else
             {
                 IQueryable<TEntity>? query = GetAllIncluded<TEntity>();
-                if (query is not null)  
-                    return await query.FiltringAndSorting(queryParameters);
+                if (query is not null)
+                {
+                    if (queryParameters is not null && queryParameters.IsValid)  
+                        return await query.FiltringAndSorting(queryParameters);
+                    else
+                        return await query.ToListAsync();
+                }
             }
             return new List<TEntity>();
         }
 
-        public async ValueTask<PagedList<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(PagingParameters parameters, QueryParameters queryParameters) where TEntity : Student, new()
+        public async ValueTask<PagedList<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(PagingParameters parameters, QueryParameters? queryParameters) where TEntity : Student, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
 
@@ -43,7 +48,11 @@ namespace KretaWebApi.Repos.Base
                 return new PagedList<TEntity>();
             else
             {
-                List<TEntity> students = await entities.FiltringAndSorting(queryParameters);
+                List<TEntity> students = new List<TEntity>();
+                if (queryParameters is not null && queryParameters.IsValid)
+                     students = await entities.FiltringAndSorting(queryParameters);
+                else
+                    students= await entities.ToListAsync();
                 return PagedList<TEntity>.ToPagedList(students, parameters.PageNumber, parameters.PageSize); ;
             }
         }

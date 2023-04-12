@@ -10,7 +10,7 @@ namespace KretaDesktop.ViewModel.BaseClass
     public class CRUDListViewModel<TEntity> : ListViewModel<TEntity>, ICRUDListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
-        private string _itemFilter;
+        private string _itemFilter=string.Empty;
         public string ItemFilter
         {
             get => _itemFilter;
