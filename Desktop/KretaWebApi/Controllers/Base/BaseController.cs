@@ -1,6 +1,7 @@
 ﻿using APIHelpersLibrary.Paged;
 using KretaCommandLine.API;
 using KretaCommandLine.Model.Abstract;
+using KretaCommandLine.QueryParameter;
 using KretaWebApi.Repos.Base;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -22,7 +23,23 @@ namespace KretaWebApi.Controllers.Base
             List<TEntity>? users = null;
             try
             {
-                users = await _service.SelectAllRecordAsync<TEntity>();
+                users = await _service.SelectAllRecordAsync<TEntity>(null);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Az adatbázis nem elérhető.");
+            }
+            return Ok(users);
+        }
+
+        [HttpGet("withqueryparameters")]
+        public async Task<IActionResult> SelectAllRecordAsync([FromQuery] QueryParameters queryParameters)
+        {
+            List<TEntity>? users = null;
+            try
+            {
+                users = await _service.SelectAllRecordAsync<TEntity>(queryParameters);
 
             }
             catch (Exception ex)
@@ -35,7 +52,15 @@ namespace KretaWebApi.Controllers.Base
         [HttpGet("getpaged")]
         public async Task<IActionResult> GetPaged([FromQuery] PagingParameters parameters)
         {
-            PagedList<TEntity> pagedList = await _service.GetPaged<TEntity>(parameters);
+            PagedList<TEntity> pagedList = await _service.GetPaged<TEntity>(parameters, null);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(pagedList.MetaData));
+            return Ok(pagedList);
+        }
+
+        [HttpGet("getpagedwithqueryparameters")]
+        public async Task<IActionResult> GetPaged([FromQuery] PagingParameters parameters, QueryParameters queryParameters)
+        {
+            PagedList<TEntity> pagedList = await _service.GetPaged<TEntity>(parameters, queryParameters);
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(pagedList.MetaData));
             return Ok(pagedList);
         }

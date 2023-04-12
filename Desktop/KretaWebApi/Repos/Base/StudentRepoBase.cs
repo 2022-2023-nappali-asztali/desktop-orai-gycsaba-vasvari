@@ -1,5 +1,6 @@
 ﻿using APIHelpersLibrary.Paged;
 using KretaCommandLine.Model;
+using KretaCommandLine.QueryParameter;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,7 @@ namespace KretaWebApi.Repos.Base
             _dbContextFactory = dbContextFactory;
         }
 
-        public async ValueTask<List<TEntity>> SelectAllIncludedRecordAsync<TEntity>() where TEntity : Student, new()
+        public async ValueTask<List<TEntity>> SelectAllIncludedRecordAsync<TEntity>(QueryParameters queryParameters) where TEntity : Student, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
 
@@ -25,15 +26,14 @@ namespace KretaWebApi.Repos.Base
                 return new List<TEntity>();
             else
             {
-                List<TEntity> students = await entities
-                    .Include(student => student.SchoolClassOfStudent)
-                    .Include(student => student.StudentAddress)
-                    .ToListAsync();
-                return students;
+                IQueryable<TEntity>? query = GetAllIncluded<TEntity>();
+                if (query is not null)  
+                    return await query.FiltringAndSorting(queryParameters);
             }
+            return new List<TEntity>();
         }
 
-        public async ValueTask<PagedList<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(PagingParameters parameters) where TEntity : Student, new()
+        public async ValueTask<PagedList<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(PagingParameters parameters, QueryParameters queryParameters) where TEntity : Student, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
 
@@ -43,7 +43,7 @@ namespace KretaWebApi.Repos.Base
                 return new PagedList<TEntity>();
             else
             {
-                List<TEntity> students = await entities.ToListAsync();
+                List<TEntity> students = await entities.FiltringAndSorting(queryParameters);
                 return PagedList<TEntity>.ToPagedList(students, parameters.PageNumber, parameters.PageSize); ;
             }
         }

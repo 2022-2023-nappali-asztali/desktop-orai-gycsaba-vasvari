@@ -8,110 +8,151 @@ using System.Collections.Generic;
 using System.Net.Http.Json;
 using System.Linq;
 using KretaCommandLine.API;
+using KretaCommandLine.QueryParameter;
 
 namespace KretaDesktop.Services
 {
     public class APIService : IAPIService
     {
-        public async ValueTask<PagingResponse<TEntity>> GetPageAsync<TEntity>(PagingParameters parameters) where TEntity : ClassWithId, new()
+        public async ValueTask<PagingResponse<TEntity>> GetPageAsync<TEntity>(PagingParameters pagingParameters, QueryParameters queryParameters=null) where TEntity : ClassWithId, new()
         {
 
             HttpClient client = new HttpClient();
             client.BaseAddress = APIURLExtension.GetHttpClientUri();
             if (client is object)
             {
-                Dictionary<string, string> queryParameters = new Dictionary<string, string>()
+                Dictionary<string, string> dictionary= new Dictionary<string, string>();
+                HttpResponseMessage? response = null;
+                if (queryParameters is object)
                 {
-                    ["pageNumber"] = parameters.PageNumber.ToString(),
-                    ["pageSize"] = parameters.PageSize.ToString()
-                };
+                    Dictionary<string, string> pagingDictionary = GetParameterDictionary(pagingParameters,queryParameters);
+                    string path = APIURLExtension.SetRelativUrl<TEntity>();
+                    response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/getpagedwithqueryparameters", pagingDictionary));
 
-                string path = APIURLExtension.SetRelativeUrl<TEntity>();
-                var response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/getpaged", queryParameters));
-                var content = await response.Content.ReadAsStringAsync();
-                if (response is object && response.Headers is object && response.IsSuccessStatusCode)
+                }
+                else
                 {
-                    var headerValues = response.Headers.GetValues("X-Pagination").First<string>();
-                    MetaData? medaData = JsonConvert.DeserializeObject<MetaData>(headerValues);
-                    if (medaData is object)
+                    Dictionary<string, string> pagingDictionary = GetParameterDictionary(pagingParameters);
+                    string path = APIURLExtension.SetRelativUrl<TEntity>();
+                    response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/getpaged", pagingDictionary));
+                    
+                }
+
+                if (response is object)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    if (response is object && response.Headers is object && response.IsSuccessStatusCode)
                     {
-                        PagingResponse<TEntity> pagingResponse = new PagingResponse<TEntity>
+                        var headerValues = response.Headers.GetValues("X-Pagination").First<string>();
+                        MetaData? medaData = JsonConvert.DeserializeObject<MetaData>(headerValues);
+                        if (medaData is object)
                         {
-                            Items = JsonConvert.DeserializeObject<List<TEntity>>(content),
-                            MetaData = medaData
-                        };
-                        return pagingResponse;
+                            PagingResponse<TEntity> pagingResponse = new PagingResponse<TEntity>
+                            {
+                                Items = JsonConvert.DeserializeObject<List<TEntity>>(content),
+                                MetaData = medaData
+                            };
+                            return pagingResponse;
+                        }
                     }
                 }
             }
             return new PagingResponse<TEntity>();
         }
 
-        public async ValueTask<PagingResponse<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(PagingParameters parameters) where TEntity : ClassWithId, new()
+        public async ValueTask<PagingResponse<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(PagingParameters pagingParameters, QueryParameters queryParameters) where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();
+            string path = APIURLExtension.SetRelativUrl<TEntity>();
             client.BaseAddress = APIURLExtension.GetHttpClientUri();
             if (client is object)
             {
-                Dictionary<string, string> queryParameters = new Dictionary<string, string>()
+                Dictionary<string, string> parameter=new Dictionary<string, string>();
+                HttpResponseMessage response = null;
+                if (pagingParameters is object)
                 {
-                    ["pageNumber"] = parameters.PageNumber.ToString(),
-                    ["pageSize"] = parameters.PageSize.ToString()
-                };
-
-                string path = APIURLExtension.SetRelativeUrl<TEntity>();
-                var response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/includedandpaged", queryParameters));
-                var content = await response.Content.ReadAsStringAsync();
-                if (response is object && response.Headers is object && response.IsSuccessStatusCode)
+                    parameter=GetParameterDictionary(pagingParameters,queryParameters);
+                    response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/includedandpagedwithparameters", parameter));
+                }
+                else
                 {
-                    var headerValues = response.Headers.GetValues("X-Pagination").First<string>();
-                    MetaData? medaData = JsonConvert.DeserializeObject<MetaData>(headerValues);
-                    if (medaData is object)
+                    parameter = GetParameterDictionary(pagingParameters);
+                    response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/includedandpaged", parameter));
+                }
+                if (response is object)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    if (response is object && response.Headers is object && response.IsSuccessStatusCode)
                     {
-                        PagingResponse<TEntity> pagingResponse = new PagingResponse<TEntity>
+                        var headerValues = response.Headers.GetValues("X-Pagination").First<string>();
+                        MetaData? medaData = JsonConvert.DeserializeObject<MetaData>(headerValues);
+                        if (medaData is object)
                         {
-                            Items = JsonConvert.DeserializeObject<List<TEntity>>(content),
-                            MetaData = medaData
-                        };
-                        return pagingResponse;
+                            PagingResponse<TEntity> pagingResponse = new PagingResponse<TEntity>
+                            {
+                                Items = JsonConvert.DeserializeObject<List<TEntity>>(content),
+                                MetaData = medaData
+                            };
+                            return pagingResponse;
+                        }
                     }
                 }
             }
             return new PagingResponse<TEntity>();
         }
 
-        public async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>() where TEntity : ClassWithId, new()
+        public async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>(QueryParameters? queryParameters=null) where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = APIURLExtension.GetHttpClientUri();            
             if (client is object)
             {
-                string path = APIURLExtension.SetRelativeUrl<TEntity>();
-                List<TEntity>? result = await client.GetFromJsonAsync<List<TEntity>>(path);
-                if (result is object)
-                    return result;
+                string path = APIURLExtension.SetRelativUrl<TEntity>();
+                if (queryParameters is object)
+                {
+                    Dictionary<string,string> parameter=GetParameterDictionary(queryParameters);
+                    HttpResponseMessage response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/withqueryparameters",parameter));
+                    var content = await response.Content.ReadAsStringAsync();
+                    if (response is object && response.IsSuccessStatusCode)
+                    {
+                        return JsonConvert.DeserializeObject<List<TEntity>>(content);
+                    }
+                }
                 else
-                    return new List<TEntity>();
+                {
+                    List<TEntity>? result = await client.GetFromJsonAsync<List<TEntity>>(path);
+                    if (result is object)
+                        return result;
+                }
             }
-            else
-                return new List<TEntity>();
+            return new List<TEntity>();
         }
 
-        public async ValueTask<List<TEntity>> SelectAllIncludedRecordAsync<TEntity>() where TEntity : ClassWithId, new()
+        public async ValueTask<List<TEntity>> SelectAllIncludedRecordAsync<TEntity>(QueryParameters? queryParameters=null) where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = APIURLExtension.GetHttpClientUri();
             if (client is object)
             {
-                string path = APIURLExtension.SetRelativeUrl<TEntity>();
-                List<TEntity>? result = await client.GetFromJsonAsync<List<TEntity>>($"{path}/included");
-                if (result is object)
-                    return result;
+                string path = APIURLExtension.SetRelativUrl<TEntity>();
+                if (queryParameters is object)
+                {
+                    Dictionary<string, string> parameter = GetParameterDictionary(queryParameters);
+                    HttpResponseMessage response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/includedwithparameters", parameter));
+                    var content = await response.Content.ReadAsStringAsync();
+                    if (response is object && response.IsSuccessStatusCode)
+                    {
+                        return JsonConvert.DeserializeObject<List<TEntity>>(content);
+                    }
+                }
                 else
-                    return new List<TEntity>();
+                {
+                    List<TEntity>? result = await client.GetFromJsonAsync<List<TEntity>>($"{path}/included");
+                    if (result is object)
+                        return result;                 
+                }
             }
-            else
-                return new List<TEntity>();
+            return new List<TEntity>();
         }
 
         public async ValueTask<TEntity> GetBy<TEntity>(long id) where TEntity : ClassWithId, new()
@@ -121,7 +162,7 @@ namespace KretaDesktop.Services
             client.BaseAddress = APIURLExtension.GetHttpClientUri();
             if (client is object)
             {
-                string path = APIURLExtension.SetRelativeUrl<TEntity>();
+                string path = APIURLExtension.SetRelativUrl<TEntity>();
                 result = await client.GetFromJsonAsync<TEntity>($"{path}/{id}");
                 if (result is object)
                     return result;
@@ -135,7 +176,7 @@ namespace KretaDesktop.Services
             client.BaseAddress = APIURLExtension.GetHttpClientUri();             
             if (client is object)
             {
-                string path = APIURLExtension.SetRelativeUrl<TEntity>();
+                string path = APIURLExtension.SetRelativUrl<TEntity>();
                 if (item.HasId)
                 {
                     HttpResponseMessage response = await client.PutAsJsonAsync(path, item);
@@ -158,12 +199,44 @@ namespace KretaDesktop.Services
             client.BaseAddress = APIURLExtension.GetHttpClientUri();
             if (client is object)
             {
-                string path = APIURLExtension.SetRelativeUrl<TEntity>();
+                string path = APIURLExtension.SetRelativUrl<TEntity>();
                 HttpResponseMessage response = await client.DeleteAsync($"{path}/{id}");
                 if (response is object && response.IsSuccessStatusCode)
                     return APICallState.Success;
             }
             return APICallState.DeleteFail;
+        }
+
+        private Dictionary<string, string> GetParameterDictionary(PagingParameters pagingParameters)
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                ["pageNumber"] = pagingParameters.PageNumber.ToString(),
+                ["pageSize"] = pagingParameters.PageSize.ToString()
+            };
+            return dictionary;
+        }
+
+        private Dictionary<string,string> GetParameterDictionary(QueryParameters queryParameters)
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                ["searchTerm"] = queryParameters.SearchTerm,
+                ["sortedTerm"] = queryParameters.SortedTerm
+            };
+            return dictionary;
+        }
+
+        private Dictionary<string, string> GetParameterDictionary(PagingParameters pagingParameters, QueryParameters queryParameters)
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                ["pageNumber"] = pagingParameters.PageNumber.ToString(),
+                ["pageSize"] = pagingParameters.PageSize.ToString(),
+                ["searchTerm"] = queryParameters.SearchTerm,
+                ["sortedTerm"] = queryParameters.SortedTerm
+            };
+            return dictionary;
         }
     }
 }
