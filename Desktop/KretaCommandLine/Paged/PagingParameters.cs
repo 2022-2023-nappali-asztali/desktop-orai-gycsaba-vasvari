@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace APIHelpersLibrary.Paged
 {
-    public class ItemParameters
+    public class PagingParameters
     {        
         const int maxPageSize = 50;        
         private int _pageSize = 10;
 
 
-        public ItemParameters(int pageSize)
+        public PagingParameters(int pageSize)
         {
             _pageSize = pageSize;
            
         }
 
-        public ItemParameters()
+        public PagingParameters()
         {
             _pageSize = -1;
             PageNumber= 1;

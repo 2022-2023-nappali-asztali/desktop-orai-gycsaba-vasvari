@@ -2,13 +2,15 @@
 using KretaDesktop.Services;
 using KretaDesktop.ViewModel.BaseClass.Interface;
 using KretaDesktop.ViewModel.Command;
+using System;
 using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class CRUDListViewModel<TEntity> : ListViewModel<TEntity>, ICRUDListViewModelBase<TEntity>
+    public class CRUDListViewModel<TEntity> : SearchAndSortViewModel<TEntity>, ICRUDListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
+
 
         public CRUDListViewModel(IAPIService service) : base(service)
         {
@@ -36,7 +38,7 @@ namespace KretaDesktop.ViewModel.BaseClass
                 if (HasItems)
                     SelectFirstRow();
                 else
-                    DisplaydItem = new TEntity();
+                    DisplayedItem = new TEntity();
             }
         }
 
@@ -52,7 +54,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected void New()
         {            
-            DisplaydItem = new TEntity();
+            DisplayedItem = new TEntity();
             IsNewMode = true;
         }
 
@@ -65,7 +67,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected void Clear()
         {
-            DisplaydItem = new TEntity();
+            DisplayedItem = new TEntity();
         }
 
         private void OnException()

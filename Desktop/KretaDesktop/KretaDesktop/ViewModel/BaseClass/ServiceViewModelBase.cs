@@ -1,6 +1,7 @@
 ﻿using APIHelpersLibrary.Paged;
 using KretaCommandLine.API;
 using KretaCommandLine.Model.Abstract;
+using KretaCommandLine.QueryParameter;
 using KretaDesktop.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,25 +17,25 @@ namespace KretaDesktop.ViewModel.BaseClass
             _service = service;
         }
 
-        protected async ValueTask<PagingResponse<TEntity>> GetPaged(ItemParameters parameters)
+        protected async ValueTask<PagingResponse<TEntity>> GetPaged(PagingParameters itemParameters, QueryParameters queryParameter)
         {
-            return await _service.GetPageAsync<TEntity>(parameters);
+            return await _service.GetPageAsync<TEntity>(itemParameters,queryParameter);
         }
 
-        public async ValueTask<PagingResponse<TEntity>> SelectAllIncludedRecordPagedAsync(ItemParameters parameters)
+        public async ValueTask<PagingResponse<TEntity>> SelectAllIncludedRecordPagedAsync(PagingParameters itemParameters, QueryParameters queryParameter)
         {
-            return await _service.SelectAllIncludedRecordPagedAsync<TEntity>(parameters);
+            return await _service.SelectAllIncludedRecordPagedAsync<TEntity>(itemParameters, queryParameter);
         }
 
-        protected async ValueTask<List<TEntity>> SelectAllRecordAsync()
+        protected async ValueTask<List<TEntity>> SelectAllRecordAsync(QueryParameters queryParameter)
         {
-            return await _service.SelectAllRecordAsync<TEntity>();
+            return await _service.SelectAllRecordAsync<TEntity>(queryParameter);
         }
 
 
-        protected async ValueTask<List<TEntity>> SelectAllIncludedRecordAsync()
+        protected async ValueTask<List<TEntity>> SelectAllIncludedRecordAsync(QueryParameters queryParameter)
         {
-            return await _service.SelectAllIncludedRecordAsync<TEntity>();
+            return await _service.SelectAllIncludedRecordAsync<TEntity>(queryParameter);
         }
 
         protected async ValueTask<TEntity> GetBy(long id)

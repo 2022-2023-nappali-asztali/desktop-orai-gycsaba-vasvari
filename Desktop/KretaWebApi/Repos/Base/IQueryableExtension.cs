@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using KretaCommandLine.QueryParameter;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Reflection;
 
 namespace KretaWebApi.Repos.Base
@@ -24,6 +26,29 @@ namespace KretaWebApi.Repos.Base
                 }
             }
             return result;
+        }
+
+        public async static ValueTask<List<TEntity>> FiltringAndSorting<TEntity>(this IQueryable<TEntity> dbSet, QueryParameters queryParameters) where TEntity : class
+        {
+            List<TEntity> result = new List<TEntity>();
+            if (dbSet.Any() && !string.IsNullOrEmpty(queryParameters.SearchPropertyName))
+            {
+                PropertyInfo? propertyInfo = dbSet.First().GetType().GetProperty(queryParameters.SearchPropertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                if (propertyInfo is object)
+                {
+                    try
+                    {
+                        var list = await dbSet.ToListAsync();
+                        var lowerCaseSearchTerm = queryParameters.SearchTerm.Trim().ToLower();
+                        result = list.Where(entity => propertyInfo.GetValue(entity, null).ToString().ToLower().Contains(lowerCaseSearchTerm) ).ToList();
+                    }
+                    catch (Exception e)
+                    {
+                    }
+                }
+            }
+            return result;
+
         }
     }
 }

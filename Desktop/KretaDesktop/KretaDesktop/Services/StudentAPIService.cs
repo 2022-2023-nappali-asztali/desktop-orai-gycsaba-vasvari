@@ -16,7 +16,7 @@ namespace KretaDesktop.Services
             client.BaseAddress = APIURLExtension.GetHttpClientUri();
             if (client is object)
             {
-                string path = APIURLExtension.SetRelativeUrl<TEntity>();
+                string path = APIURLExtension.SetRelativUrl<TEntity>();
                 result = await client.GetFromJsonAsync<List<Student>>($"{path}/byclass/{schoolClassId}");
                 if (result is object)
                     return result;
