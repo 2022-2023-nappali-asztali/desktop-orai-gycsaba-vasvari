@@ -1,5 +1,6 @@
 ﻿using APIHelpersLibrary.Paged;
 using KretaCommandLine.Model.Abstract;
+using KretaCommandLine.QueryParameter;
 using KretaDesktop.Services;
 using KretaDesktop.ViewModel.BaseClass.Interface;
 using KretaDesktop.ViewModel.Command;
@@ -61,9 +62,9 @@ namespace KretaDesktop.ViewModel.BaseClass
         {
             PagingResponse<TEntity> result = null;
             if (_inculdedAndPaged)
-                result = await _service.SelectAllIncludedRecordPagedAsync<TEntity>(_itemParameters);
+                result = await _service.SelectAllIncludedRecordPagedAsync<TEntity>(_itemParameters,_queryParameters);
             else
-                result = await _service.GetPageAsync<TEntity>(_itemParameters);
+                result = await _service.GetPageAsync<TEntity>(_itemParameters, _queryParameters);
             InitizlizeData(result);
         }
 

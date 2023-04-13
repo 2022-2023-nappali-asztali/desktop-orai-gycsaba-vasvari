@@ -17,7 +17,6 @@ namespace KretaDesktop.ViewModel.BaseClass
         protected bool _withIncludedData = false;
         protected QueryParameters _queryParameters = new QueryParameters();
 
-
         public TCollection Items { get; set; } = new();
 
         protected bool HasItems => Items.Any();  //Items.Count > 0;
