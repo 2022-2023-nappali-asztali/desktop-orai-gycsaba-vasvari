@@ -23,14 +23,22 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public SearchAndSortViewModel(IAPIService service) : base(service)
         {
-            FilterItemsCommand = new AsyncRelayCommand(OnFilterItems, (ex) => OnException());
+            SearchItemsCommand = new AsyncRelayCommand(OnFilterItems, (ex) => OnException());
+            ShowAllItemsCommand = new AsyncRelayCommand(OnShowAllItems, (ex) => OnException());
         }
 
-        public AsyncRelayCommand FilterItemsCommand { get; set; }
+        public AsyncRelayCommand SearchItemsCommand { get; set; }
+        public AsyncRelayCommand ShowAllItemsCommand { get; set; }
 
         protected async Task OnFilterItems()
         {
             await SearchAndSortItems(_searchedPropertyName, _searchTerm,"");
+        }
+
+        protected async Task OnShowAllItems()
+        {
+            SearchTerm = null;
+            await SearchAndSortItems(_searchedPropertyName, _searchTerm, "");
         }
 
         private void OnException()

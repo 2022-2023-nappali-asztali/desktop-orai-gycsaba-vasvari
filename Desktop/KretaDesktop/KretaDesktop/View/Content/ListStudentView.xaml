@@ -106,9 +106,10 @@
                          Text="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 </TextBox>
                 <Button Content="Szűres"                         
-                        Command="{Binding FilterItemsCommand}">
+                        Command="{Binding SearchItemsCommand}">
                 </Button>
-                <Button Content="Összes">
+                <Button Content="Összes"
+                        Command="{Binding ShowAllItemsCommand}">
                 </Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3" Margin="0 0 30 0">
