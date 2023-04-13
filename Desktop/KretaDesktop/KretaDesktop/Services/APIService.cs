@@ -211,8 +211,8 @@ namespace KretaDesktop.Services
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
-                ["pageNumber"] = pagingParameters.PageNumber.ToString(),
-                ["pageSize"] = pagingParameters.PageSize.ToString()
+                [nameof(pagingParameters.PageNumber)] = pagingParameters.PageNumber.ToString(),
+                [nameof(pagingParameters.PageSize)] = pagingParameters.PageSize.ToString()
             };
             return dictionary;
         }
@@ -221,8 +221,9 @@ namespace KretaDesktop.Services
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
-                ["searchTerm"] = queryParameters.SearchTerm,
-                ["sortedTerm"] = queryParameters.OrderBy
+                [nameof(queryParameters.SearchPropertyName)]=queryParameters.SearchPropertyName,
+                [nameof(queryParameters.SearchTerm)] = queryParameters.SearchTerm,
+                [nameof(queryParameters.OrderBy)] = queryParameters.OrderBy
             };
             return dictionary;
         }
@@ -231,10 +232,11 @@ namespace KretaDesktop.Services
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
-                ["pageNumber"] = pagingParameters.PageNumber.ToString(),
-                ["pageSize"] = pagingParameters.PageSize.ToString(),
-                ["searchTerm"] = queryParameters.SearchTerm,
-                ["sortedTerm"] = queryParameters.OrderBy
+                [nameof(pagingParameters.PageNumber)] = pagingParameters.PageNumber.ToString(),
+                [nameof(pagingParameters.PageSize)] = pagingParameters.PageSize.ToString(),
+                [nameof(queryParameters.SearchPropertyName)] = queryParameters.SearchPropertyName,
+                [nameof(queryParameters.SearchTerm)] = queryParameters.SearchTerm,
+                [nameof(queryParameters.OrderBy)] = queryParameters.OrderBy
             };
             return dictionary;
         }

@@ -40,7 +40,7 @@ namespace KretaWebApi.Repos.Base
                     {
                         var list = await dbSet.ToListAsync();
                         var lowerCaseSearchTerm = queryParameters.SearchTerm.Trim().ToLower();
-                        result = list.Where(entity => propertyInfo.GetValue(entity, null).ToString().Contains(lowerCaseSearchTerm) ).ToList();
+                        result = list.Where(entity => propertyInfo.GetValue(entity, null).ToString().ToLower().Contains(lowerCaseSearchTerm) ).ToList();
                     }
                     catch (Exception e)
                     {
