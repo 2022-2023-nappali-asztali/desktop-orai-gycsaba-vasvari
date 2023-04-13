@@ -7,17 +7,10 @@ using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class CRUDListViewModel<TEntity> : ListViewModel<TEntity>, ICRUDListViewModelBase<TEntity>
+    public class CRUDListViewModel<TEntity> : SearchAndSortViewModel<TEntity>, ICRUDListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
-        private string _itemFilter=string.Empty;
-        protected string _searchedPropertyName=
 
-        public string ItemFilter
-        {
-            get => _itemFilter;
-            set => SetValue(ref _itemFilter, value);
-        }
 
         public CRUDListViewModel(IAPIService service) : base(service)
         {
@@ -36,7 +29,6 @@ namespace KretaDesktop.ViewModel.BaseClass
         public RelayCommand ClearFormCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand RemoveAllCommand { get; set; }
-        public AsyncRelayCommand FilterItemsCommand { get; set; }
 
         protected async Task OnFilterItems()
         {
