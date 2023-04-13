@@ -135,7 +135,7 @@ namespace KretaDesktop.Services
             if (client is object)
             {
                 string path = APIURLExtension.SetRelativUrl<TEntity>();
-                if (queryParameters is object && (queryParameters.SearchTerm != null || queryParameters.SortedTerm != null))
+                if (queryParameters is object && (queryParameters.SearchTerm != null || queryParameters.OrderBy != null))
                 {
                     Dictionary<string, string> parameter = GetParameterDictionary(queryParameters);
                     HttpResponseMessage response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/includedwithparameters", parameter));
@@ -222,7 +222,7 @@ namespace KretaDesktop.Services
             Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
                 ["searchTerm"] = queryParameters.SearchTerm,
-                ["sortedTerm"] = queryParameters.SortedTerm
+                ["sortedTerm"] = queryParameters.OrderBy
             };
             return dictionary;
         }
@@ -234,7 +234,7 @@ namespace KretaDesktop.Services
                 ["pageNumber"] = pagingParameters.PageNumber.ToString(),
                 ["pageSize"] = pagingParameters.PageSize.ToString(),
                 ["searchTerm"] = queryParameters.SearchTerm,
-                ["sortedTerm"] = queryParameters.SortedTerm
+                ["sortedTerm"] = queryParameters.OrderBy
             };
             return dictionary;
         }

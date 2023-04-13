@@ -41,25 +41,25 @@ namespace KretaDesktop.ViewModel.BaseClass
             await RefreshItems();
         }
 
-        protected virtual async Task FilterAndSortItems(string itemFilter,string itemSort )
-        {
-            _queryParameters.SearchTerm = itemFilter;
-            _queryParameters.SortedTerm = itemSort;
-            await RefreshItems();
-        }
 
-        protected virtual async Task FilterItems(string itemFilter)
+        protected virtual async Task SearchAndSortItems(string propertyName, string searchTerm, string orderBy)
         {
-            if (itemFilter is object && itemFilter.Any())
-                _queryParameters.SearchTerm= itemFilter;
+            _queryParameters.SearchPropertyName = null;
+            _queryParameters.SearchTerm = null;
+            _queryParameters.OrderBy = null;
+            if (searchTerm is object && !string.IsNullOrEmpty(propertyName) && !string.IsNullOrEmpty(searchTerm))
+            {
+                _queryParameters.SearchPropertyName = propertyName;
+                _queryParameters.SearchTerm = searchTerm;
+                _queryParameters.OrderBy=orderBy;
+            }
             else
-                _queryParameters.SearchTerm= null;
-            await RefreshItems();
-        }
-
-        protected virtual async Task SortItems(string itemSort)
-        {
-            _queryParameters.SortedTerm = itemSort;
+            {
+                if (!string.IsNullOrEmpty(orderBy))
+                {
+                    _queryParameters.OrderBy = orderBy;
+                }
+            }
             await RefreshItems();
         }
 

@@ -25,7 +25,7 @@ namespace KretaWebApi.Repos.Base
         public async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>(QueryParameters? queryParameters) where TEntity : ClassWithId, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
-            if (queryParameters == null || string.IsNullOrEmpty(queryParameters.SearchedPropertyName) || string.IsNullOrEmpty(queryParameters.SearchTerm))
+            if (queryParameters == null || string.IsNullOrEmpty(queryParameters.SearchPropertyName) || string.IsNullOrEmpty(queryParameters.SearchTerm))
             {
                 return await dbContext
                     .GetDbSet<TEntity>()

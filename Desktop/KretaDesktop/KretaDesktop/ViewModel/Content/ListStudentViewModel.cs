@@ -10,6 +10,7 @@ namespace KretaDesktop.ViewModel.Content
     {
         public ListStudentViewModel(IAPIService service) : base(service)
         {
+            SearchedPropertyName = nameof(Student.Name);
         }
 
         public override async Task OnInitialize()

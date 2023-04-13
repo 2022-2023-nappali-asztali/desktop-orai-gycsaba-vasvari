@@ -104,7 +104,7 @@
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="30 0 0 0">
                 <Label Content="Szűres:"></Label>
                 <TextBox Width="150" 
-                         Text="{Binding ItemFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                         Text="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 </TextBox>
                 <Button Content="Szűres"                         
                         Command="{Binding FilterItemsCommand}">

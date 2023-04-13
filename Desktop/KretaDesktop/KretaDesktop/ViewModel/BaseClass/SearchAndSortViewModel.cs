@@ -8,13 +8,17 @@ namespace KretaDesktop.ViewModel.BaseClass
     public class SearchAndSortViewModel<TEntity> : ListViewModel<TEntity> where TEntity : ClassWithId, new()
     {
         private string _searchedPropertyName = string.Empty;
-        protected string SearchedPropertyName;
-
-        private string _itemFilter = string.Empty;
-        protected string ItemFilter
+        protected string SearchedPropertyName
         {
-            get => _itemFilter;
-            set => SetValue(ref _itemFilter, value);
+            get =>_searchedPropertyName;
+            set => SetValue(ref _searchedPropertyName, value);
+        }
+
+        private string _searchTerm = string.Empty;
+        public string SearchTerm
+        {
+            get => _searchTerm;
+            set => SetValue(ref _searchTerm, value);
         }
 
         public SearchAndSortViewModel(IAPIService service) : base(service)
@@ -26,7 +30,7 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected async Task OnFilterItems()
         {
-            await FilterItems(_itemFilter);
+            await SearchAndSortItems(_searchedPropertyName, _searchTerm,"");
         }
 
         private void OnException()

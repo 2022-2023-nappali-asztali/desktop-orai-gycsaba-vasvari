@@ -8,8 +8,8 @@ namespace KretaCommandLine.QueryParameter
 {
     public class QueryParameters
     {
-        public string SearchedPropertyName { get; set; }
+        public string SearchPropertyName { get; set; }
         public string SearchTerm { get; set; }
-        public string SortedTerm { get; set; }
+        public string OrderBy { get; set; }
     }
 }

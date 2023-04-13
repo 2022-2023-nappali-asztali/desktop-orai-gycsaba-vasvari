@@ -34,9 +34,9 @@ namespace KretaWebApi.Repos.Base
         public async static ValueTask<List<TEntity>> FiltringAndSorting<TEntity>(this DbSet<TEntity> dbSet, QueryParameters queryParameters) where TEntity : class
         {
             List<TEntity> result = new List<TEntity>();
-            if (dbSet.Any() && !string.IsNullOrEmpty(queryParameters.SearchedPropertyName))
+            if (dbSet.Any() && !string.IsNullOrEmpty(queryParameters.SearchPropertyName))
             {
-                PropertyInfo? propertyInfo = dbSet.First().GetType().GetProperty(queryParameters.SearchedPropertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                PropertyInfo? propertyInfo = dbSet.First().GetType().GetProperty(queryParameters.SearchPropertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
                 if (propertyInfo is object)
                 {
                     try

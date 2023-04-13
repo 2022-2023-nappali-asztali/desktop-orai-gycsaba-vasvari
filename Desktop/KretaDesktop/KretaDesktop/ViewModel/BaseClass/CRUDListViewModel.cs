@@ -19,7 +19,7 @@ namespace KretaDesktop.ViewModel.BaseClass
             NewCommand = new RelayCommand(execute => New());
             CancelCommand = new RelayCommand(execute => Cancel());
             ClearFormCommand = new RelayCommand(execute => Clear());
-            FilterItemsCommand = new AsyncRelayCommand(OnFilterItems, (ex) => OnException());
+
             IsCRUDVisible = true;
         }
 
@@ -29,13 +29,6 @@ namespace KretaDesktop.ViewModel.BaseClass
         public RelayCommand ClearFormCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand RemoveAllCommand { get; set; }
-
-        protected async Task OnFilterItems()
-        {
-            await FilterItems(_itemFilter);
-        }
-
-        protected
 
         protected async Task Remove(object parameter)
         {
