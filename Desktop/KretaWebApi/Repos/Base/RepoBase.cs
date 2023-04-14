@@ -25,18 +25,29 @@ namespace KretaWebApi.Repos.Base
         public async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>(QueryParameters? queryParameters) where TEntity : ClassWithId, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
-            if (queryParameters == null || string.IsNullOrEmpty(queryParameters.SearchPropertyName) || string.IsNullOrEmpty(queryParameters.SearchTerm))
+            if (queryParameters == null || string.IsNullOrEmpty(queryParameters.SearchPropertyName) || string.IsNullOrEmpty(queryParameters.SearchTerm) || string.IsNullOrEmpty(queryParameters.OrderBy))
             {
-                return await dbContext
-                    .GetDbSet<TEntity>()
-                    .AsNoTracking()
-                    .ToListAsync() ?? new List<TEntity>();
+                    return await dbContext
+                        .GetDbSet<TEntity>()
+                        .AsNoTracking()
+                        .ToListAsync() ?? new List<TEntity>();
+
             }
             else
             {
-                return await dbContext
-                    .GetDbSet<TEntity>()
-                    .FiltringAndSorting<TEntity>(queryParameters);
+                if (!string.IsNullOrEmpty(queryParameters.OrderBy))
+                {
+                    return await dbContext
+                     .GetDbSet<TEntity>()
+                     .Filtring<TEntity>(queryParameters);
+                     
+                }
+                else
+                {
+                    return await dbContext
+                        .GetDbSet<TEntity>()
+                        .Filtring<TEntity>(queryParameters);
+                }
             }
         }
 

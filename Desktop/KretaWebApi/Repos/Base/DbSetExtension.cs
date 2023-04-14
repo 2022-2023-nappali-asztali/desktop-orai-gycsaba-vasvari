@@ -10,9 +10,8 @@ namespace KretaWebApi.Repos.Base
 
     public static class DbSetExtension
     {
-        public async static ValueTask<List<TEntity>> SearchById<TEntity>(this DbSet<TEntity> dbSet, string propertyName, long id) where TEntity : class
+        public static IQueryable<TEntity>? SearchById<TEntity>(this DbSet<TEntity> dbSet, string propertyName, long id) where TEntity : class
         {
-            List<TEntity> result = new List<TEntity>();
             if (dbSet.Any() && !string.IsNullOrEmpty(propertyName))
             {
                 PropertyInfo? propertyInfo = dbSet.First().GetType().GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
@@ -20,20 +19,19 @@ namespace KretaWebApi.Repos.Base
                 {
                     try
                     {
-                        var list = await dbSet.ToListAsync();
-                        result = list.Where(entity => (long)propertyInfo.GetValue(entity, null) == id).ToList();
+                        var result = dbSet.Where(entity => (long) propertyInfo.GetValue(entity, null) == id);
+                        return result;
                     }
                     catch (Exception e)
                     {
                     }
                 }
             }
-            return result;
+            return null;
         }
 
-        public async static ValueTask<List<TEntity>> FiltringAndSorting<TEntity>(this DbSet<TEntity> dbSet, QueryParameters queryParameters) where TEntity : class
+        public static IQueryable<TEntity>? Filtring<TEntity>(this DbSet<TEntity> dbSet, QueryParameters queryParameters) where TEntity : class
         {
-            List<TEntity> result = new List<TEntity>();
             if (dbSet.Any() && !string.IsNullOrEmpty(queryParameters.SearchPropertyName))
             {
                 PropertyInfo? propertyInfo = dbSet.First().GetType().GetProperty(queryParameters.SearchPropertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
@@ -41,16 +39,16 @@ namespace KretaWebApi.Repos.Base
                 {
                     try
                     {
-                        var list = await dbSet.ToListAsync();
                         var lowerCaseSearchTerm = queryParameters.SearchTerm.Trim().ToLower();
-                        result = list.Where(entity => propertyInfo.GetValue(entity, null).ToString().ToLower().Contains(lowerCaseSearchTerm)).ToList();
+                        var result = dbSet.Where(entity => propertyInfo.GetValue(entity, null).ToString().ToLower().Contains(lowerCaseSearchTerm));
+                        return result;
                     }
                     catch (Exception e)
                     {
                     }
                 }
             }
-            return result;
+            return null;
         }
     }
 }
