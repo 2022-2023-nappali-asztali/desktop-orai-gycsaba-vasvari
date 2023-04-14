@@ -28,7 +28,7 @@ namespace KretaWebApi.Repos.Base
             return null;
         }
 
-        public static IQueryable<TEntity> ApplySort(IQueryable<TEntity entities, string orderByQueryString) where TEntity : class
+        public static IQueryable<TEntity> ApplySort<TEntity>(this IQueryable<TEntity> entities, string orderByQueryString) where TEntity : class
         {
             if (!entities.Any())
                 return entities;
@@ -37,7 +37,7 @@ namespace KretaWebApi.Repos.Base
                 return entities;
             }
             var orderParams = orderByQueryString.Trim().Split(',');
-            var propertyInfos = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var propertyInfos = typeof(TEntity).GetProperties(BindingFlags.Public | BindingFlags.Instance);
             var orderQueryBuilder = new StringBuilder();
             foreach (var param in orderParams)
             {
@@ -53,5 +53,6 @@ namespace KretaWebApi.Repos.Base
             var orderQuery = orderQueryBuilder.ToString().TrimEnd(',', ' ');
             return entities.OrderBy(orderQuery);
         }
+
     }
 }
