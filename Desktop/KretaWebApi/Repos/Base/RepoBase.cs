@@ -39,19 +39,20 @@ namespace KretaWebApi.Repos.Base
                 {
                     return await dbContext
                      .GetDbSet<TEntity>()
-                     .Filtring<TEntity>(queryParameters);
-                     
+                     .Filtring<TEntity>(queryParameters)
+                     .OrderBy(queryParameters.OrderBy)
+                     .ToListAsync();
+
                 }
                 else
                 {
                     return await dbContext
                         .GetDbSet<TEntity>()
-                        .Filtring<TEntity>(queryParameters);
+                        .Filtring<TEntity>(queryParameters)
+                        .ToListAsync();
                 }
             }
         }
-
-
 
         public async ValueTask<PagedList<TEntity>> GetPaged<TEntity>(PagingParameters parameters, QueryParameters? queryParameters) where TEntity : ClassWithId, new()
         {

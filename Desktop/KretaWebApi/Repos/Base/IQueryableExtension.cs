@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Reflection;
+using System.Text;
 
 namespace KretaWebApi.Repos.Base
 {
@@ -25,6 +26,32 @@ namespace KretaWebApi.Repos.Base
                 }
             }
             return null;
+        }
+
+        public static IQueryable<TEntity> ApplySort(IQueryable<TEntity entities, string orderByQueryString) where TEntity : class
+        {
+            if (!entities.Any())
+                return entities;
+            if (string.IsNullOrWhiteSpace(orderByQueryString))
+            {
+                return entities;
+            }
+            var orderParams = orderByQueryString.Trim().Split(',');
+            var propertyInfos = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var orderQueryBuilder = new StringBuilder();
+            foreach (var param in orderParams)
+            {
+                if (string.IsNullOrWhiteSpace(param))
+                    continue;
+                var propertyFromQueryName = param.Split(" ")[0];
+                var objectProperty = propertyInfos.FirstOrDefault(pi => pi.Name.Equals(propertyFromQueryName, StringComparison.InvariantCultureIgnoreCase));
+                if (objectProperty == null)
+                    continue;
+                var sortingOrder = param.EndsWith(" desc") ? "descending" : "ascending";
+                orderQueryBuilder.Append($"{objectProperty.Name.ToString()} {sortingOrder}, ");
+            }
+            var orderQuery = orderQueryBuilder.ToString().TrimEnd(',', ' ');
+            return entities.OrderBy(orderQuery);
         }
     }
 }
