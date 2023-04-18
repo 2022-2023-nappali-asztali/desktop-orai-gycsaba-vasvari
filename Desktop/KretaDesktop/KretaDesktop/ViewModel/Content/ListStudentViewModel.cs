@@ -17,8 +17,8 @@ namespace KretaDesktop.ViewModel.Content
             sortingDatas.Add(new SortingData("Rendezés", "", ""));
             sortingDatas.Add(new SortingData("Név - növekvő", "Diák neve szerint növekvő sorrend", "name asc"));
             sortingDatas.Add(new SortingData("Név - csökkenő", "Diák neve szerint csökkenő sorrend", "name desc"));
-            sortingDatas.Add(new SortingData("Osztály - növekvő", "Tantárgy neve szerint növekvő sorrend", "displayedSchoolClass asc"));
-            sortingDatas.Add(new SortingData("Osztály - csökkenő", "Tantárgy neve szerint csökkenő sorrend", "displayedSchoolClass desc"));
+            sortingDatas.Add(new SortingData("Osztály - növekvő", "Tantárgy neve szerint növekvő sorrend", "SchoolClassOfStudent asc"));
+            sortingDatas.Add(new SortingData("Osztály - csökkenő", "Tantárgy neve szerint csökkenő sorrend", "SchoolClassOfStudent desc"));
 
             SortingDatas =sortingDatas;
         }

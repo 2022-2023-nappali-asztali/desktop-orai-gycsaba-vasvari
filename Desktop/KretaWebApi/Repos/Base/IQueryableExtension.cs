@@ -57,10 +57,13 @@ namespace KretaWebApi.Repos.Base
             {
                result=query.Filtring<TEntity>(queryParameters);
             }
+            else
+                result= query;
             if (!string.IsNullOrEmpty(queryParameters.OrderBy))
             {
                 if (result is object)
                 {
+                    List<TEntity> list = result.ToList();
                     IQueryable<TEntity> sorted = result.ApplySort<TEntity>(queryParameters.OrderBy);
                     return sorted;
                 }

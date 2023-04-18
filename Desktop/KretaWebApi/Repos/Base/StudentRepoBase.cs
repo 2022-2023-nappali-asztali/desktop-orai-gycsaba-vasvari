@@ -31,7 +31,7 @@ namespace KretaWebApi.Repos.Base
                 {
                     if (query is object && queryParameters is not null)
                     {
-                        IQueryable<TEntity> result= query.FiltringAndSorting<TEntity>(queryParameters);
+                        IQueryable<TEntity>? result= query.FiltringAndSorting<TEntity>(queryParameters);
                         if (result is object)
                             return  await result.ToListAsync();
                     }
@@ -44,7 +44,7 @@ namespace KretaWebApi.Repos.Base
 
         public async ValueTask<PagedList<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(PagingParameters parameters, QueryParameters? queryParameters) where TEntity : Student, new()
         {
-            var dbContext = _dbContextFactory.CreateDbContext();
+            //var dbContext = _dbContextFactory.CreateDbContext();
 
             IQueryable<TEntity>? entities = GetAllIncluded<TEntity>();
 

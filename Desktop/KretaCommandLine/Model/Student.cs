@@ -15,19 +15,6 @@ namespace KretaCommandLine.Model
         public long SchoolClassId { get; set; }
         public virtual SchoolClass SchoolClassOfStudent { get; set; }
 
-        public string DisplayedSchoolClass
-        {
-            get
-            {
-                if (SchoolClassOfStudent.HasId)
-                {
-                    return $"{SchoolClassOfStudent.SchoolYear}.{SchoolClassOfStudent.ClassType}";
-                }
-                else return string.Empty;
-            }
-        }
-
-
         public Student(long id, string name, int schoolClassId, long studentAddressId)
             : base(id)
         {
