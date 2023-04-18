@@ -25,7 +25,7 @@ namespace KretaWebApi.Repos.Base
         public async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>(QueryParameters? queryParameters) where TEntity : ClassWithId, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
-            if (queryParameters == null || string.IsNullOrEmpty(queryParameters.SearchPropertyName) || string.IsNullOrEmpty(queryParameters.SearchTerm) || string.IsNullOrEmpty(queryParameters.OrderBy))
+            if (queryParameters == null || (string.IsNullOrEmpty(queryParameters.SearchPropertyName) && string.IsNullOrEmpty(queryParameters.SearchTerm) && string.IsNullOrEmpty(queryParameters.OrderBy)))
             {
                 return await dbContext
                     .GetDbSet<TEntity>()
@@ -34,11 +34,19 @@ namespace KretaWebApi.Repos.Base
             }
             else
             {
-                if (!string.IsNullOrEmpty(queryParameters.OrderBy))
+                if (string.IsNullOrEmpty(queryParameters.OrderBy))
+                {
+                    IQueryable<TEntity>? result = dbContext
+                        .GetDbSet<TEntity>()
+                        .Filtring<TEntity>(queryParameters);
+                    if (result is object)
+                        return await result.ToListAsync();                                          
+                }
+                else
                 {
                     if (dbContext is object)
                     {
-                        IQueryable<TEntity> filtring = dbContext
+                        IQueryable<TEntity>? filtring = dbContext
                          .GetDbSet<TEntity>()
                          .Filtring<TEntity>(queryParameters);
 
@@ -48,13 +56,6 @@ namespace KretaWebApi.Repos.Base
                                           .ToListAsync();
                         }
                     }
-                }
-                else
-                {
-                        return await dbContext
-                            .GetDbSet<TEntity>()
-                            .Filtring<TEntity>(queryParameters)
-                            .ToListAsync();
                 }
             }
             

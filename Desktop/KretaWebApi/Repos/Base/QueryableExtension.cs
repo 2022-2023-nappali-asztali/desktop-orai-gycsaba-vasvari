@@ -3,10 +3,12 @@ using System.Text;
 using System.Linq.Dynamic.Core;
 using KretaCommandLine.QueryParameter;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using KretaCommandLine.Model;
 
 namespace KretaWebApi.Repos.Base
 {
-    public static class IQueryableExtension
+    public static class QueryableExtension
     {
         public static IQueryable<TEntity>? SearchById<TEntity>(this IQueryable<TEntity> query, string propertyName, long id) where TEntity : class
         {
@@ -29,7 +31,7 @@ namespace KretaWebApi.Repos.Base
         }
 
 
-        public static IQueryable<TEntity>? Filtring<TEntity>(this IQueryable<TEntity> query, QueryParameters queryParameters) where TEntity : class
+        public static IQueryable<TEntity>? Filtring<TEntity>(this IQueryable<TEntity> query, QueryParameters queryParameters) where TEntity : Subject
         {
             if (query.Any() && !string.IsNullOrEmpty(queryParameters.SearchPropertyName))
             {
@@ -39,7 +41,9 @@ namespace KretaWebApi.Repos.Base
                     try
                     {
                         var lowerCaseSearchTerm = queryParameters.SearchTerm.Trim().ToLower();
-                        var result = query.Where(entity => propertyInfo.GetValue(entity, null).ToString().ToLower().Contains(lowerCaseSearchTerm));
+                        //var result = query.Where(entity => propertyInfo.GetValue(entity, null).ToString().ToLower().Contains(lowerCaseSearchTerm));
+                        var result = query.Where(entity => entity.SubjectName.ToString().ToLower().Contains(lowerCaseSearchTerm));
+                        var proba=result.ToList();
                         return result;
                     }
                     catch (Exception e)

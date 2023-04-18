@@ -12,6 +12,7 @@ namespace KretaDesktop.ViewModel.Content
         public ListSubjectViewModel(IAPIService service) : base(service)
         {
             SearchedPropertyName = nameof(Subject.SubjectName);
+
             List<SortingData> sortingDatas = new List<SortingData>();
             sortingDatas.Add(new SortingData("Rendezés", "", ""));
             sortingDatas.Add(new SortingData("Név - növekvő", "Tantárgy neve szerint növekvő sorrend", "subjectname asc"));

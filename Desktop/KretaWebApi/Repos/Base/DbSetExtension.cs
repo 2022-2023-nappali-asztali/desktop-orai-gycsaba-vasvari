@@ -1,4 +1,6 @@
-﻿using KretaCommandLine.QueryParameter;
+﻿using KretaCommandLine.Model;
+using KretaCommandLine.Model.Abstract;
+using KretaCommandLine.QueryParameter;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Reflection;
@@ -30,7 +32,7 @@ namespace KretaWebApi.Repos.Base
             return null;
         }
 
-        public static IQueryable<TEntity>? Filtring<TEntity>(this DbSet<TEntity> dbSet, QueryParameters queryParameters) where TEntity : class
+        public static IQueryable<TEntity>? Filtring<TEntity>(this DbSet<TEntity> dbSet, QueryParameters queryParameters) where TEntity : ClassWithId
         {
             if (dbSet.Any() && !string.IsNullOrEmpty(queryParameters.SearchPropertyName))
             {
@@ -39,8 +41,19 @@ namespace KretaWebApi.Repos.Base
                 {
                     try
                     {
+                        //dbSet.ToListAsync().Result.Where
                         var lowerCaseSearchTerm = queryParameters.SearchTerm.Trim().ToLower();
-                        var result = dbSet.Where(entity => propertyInfo.GetValue(entity, null).ToString().ToLower().Contains(lowerCaseSearchTerm));
+                        //var result = dbSet.Where(entity => propertyInfo.GetValue(entity, null).ToString().ToLower().Contains(lowerCaseSearchTerm));
+
+                        /*IQueryable<TEntity> result = from entity
+                                                     in dbSet
+                                                     where (propertyInfo.GetValue(entity, null).ToString().ToLower().Contains(lowerCaseSearchTerm))
+                                                     select entity;*/
+
+                        var result = dbSet.Where(entity => ( (Subject) entity).SubjectName.ToString().ToLower().Contains(lowerCaseSearchTerm));
+
+
+                        var proba = result.ToListAsync().Result;
                         return result;
                     }
                     catch (Exception e)

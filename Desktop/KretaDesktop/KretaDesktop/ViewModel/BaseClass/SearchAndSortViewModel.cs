@@ -71,7 +71,8 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected async Task OnShowAllItems()
         {
-            SearchTerm = null;
+            SearchTerm = string.Empty;
+            _searchedPropertyName= string.Empty;
             await SearchAndSortItems(_searchedPropertyName, _searchTerm, _sortingCommand);
         }
 
