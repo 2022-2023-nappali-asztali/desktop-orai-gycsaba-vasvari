@@ -1,23 +1,23 @@
-﻿using KretaCommandLine.QueryParameter;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text;
+using System.Linq.Dynamic.Core;
+using KretaCommandLine.QueryParameter;
+using Microsoft.EntityFrameworkCore;
 
 namespace KretaWebApi.Repos.Base
 {
     public static class IQueryableExtension
     {
-        public static IQueryable<TEntity>? SearchById<TEntity>(this IQueryable<TEntity> dbSet, string propertyName, long id) where TEntity : class
+        public static IQueryable<TEntity>? SearchById<TEntity>(this IQueryable<TEntity> query, string propertyName, long id) where TEntity : class
         {
-            if (dbSet.Any() && !string.IsNullOrEmpty(propertyName))
+            if (query.Any() && !string.IsNullOrEmpty(propertyName))
             {
-                PropertyInfo? propertyInfo = dbSet.First().GetType().GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                PropertyInfo? propertyInfo = query.First().GetType().GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
                 if (propertyInfo is object)
                 {
                     try
                     {
-                        var result = dbSet.Where(entity => (long)propertyInfo.GetValue(entity, null) == id);
+                        var result = query.Where(entity => (long)propertyInfo.GetValue(entity, null) == id);
                         return result;
                     }
                     catch (Exception e)
@@ -26,6 +26,46 @@ namespace KretaWebApi.Repos.Base
                 }
             }
             return null;
+        }
+
+
+        public static IQueryable<TEntity>? Filtring<TEntity>(this IQueryable<TEntity> query, QueryParameters queryParameters) where TEntity : class
+        {
+            if (query.Any() && !string.IsNullOrEmpty(queryParameters.SearchPropertyName))
+            {
+                PropertyInfo? propertyInfo = query.First().GetType().GetProperty(queryParameters.SearchPropertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                if (propertyInfo is object)
+                {
+                    try
+                    {
+                        var lowerCaseSearchTerm = queryParameters.SearchTerm.Trim().ToLower();
+                        var result = query.Where(entity => propertyInfo.GetValue(entity, null).ToString().ToLower().Contains(lowerCaseSearchTerm));
+                        return result;
+                    }
+                    catch (Exception e)
+                    {
+                    }
+                }
+            }
+            return null;
+        }
+
+        public static IQueryable<TEntity>? FiltringAndSorting<TEntity>(this IQueryable<TEntity> query, QueryParameters queryParameters) where TEntity : class
+        {
+            IQueryable<TEntity>? result = null;
+            if (!string.IsNullOrEmpty(queryParameters.SearchTerm) && !string.IsNullOrEmpty(queryParameters.SearchPropertyName))
+            {
+               result=query.Filtring<TEntity>(queryParameters);
+            }
+            if (!string.IsNullOrEmpty(queryParameters.OrderBy))
+            {
+                if (result is object)
+                {
+                    IQueryable<TEntity> sorted = result.ApplySort<TEntity>(queryParameters.OrderBy);
+                    return sorted;
+                }
+            }
+            return result;
         }
 
         public static IQueryable<TEntity> ApplySort<TEntity>(this IQueryable<TEntity> entities, string orderByQueryString) where TEntity : class

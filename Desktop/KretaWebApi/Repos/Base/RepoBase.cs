@@ -27,31 +27,38 @@ namespace KretaWebApi.Repos.Base
             var dbContext = _dbContextFactory.CreateDbContext();
             if (queryParameters == null || string.IsNullOrEmpty(queryParameters.SearchPropertyName) || string.IsNullOrEmpty(queryParameters.SearchTerm) || string.IsNullOrEmpty(queryParameters.OrderBy))
             {
-                    return await dbContext
-                        .GetDbSet<TEntity>()
-                        .AsNoTracking()
-                        .ToListAsync() ?? new List<TEntity>();
-
+                return await dbContext
+                    .GetDbSet<TEntity>()
+                    .AsNoTracking()
+                    .ToListAsync() ?? new List<TEntity>();
             }
             else
             {
                 if (!string.IsNullOrEmpty(queryParameters.OrderBy))
                 {
-                    return await dbContext
-                     .GetDbSet<TEntity>()
-                     .Filtring<TEntity>(queryParameters)
-                     .OrderBy(queryParameters.OrderBy)
-                     .ToListAsync();
+                    if (dbContext is object)
+                    {
+                        IQueryable<TEntity> filtring = dbContext
+                         .GetDbSet<TEntity>()
+                         .Filtring<TEntity>(queryParameters);
 
+                        if (filtring is object)
+                        {
+                            return await filtring.ApplySort(queryParameters.OrderBy)
+                                          .ToListAsync();
+                        }
+                    }
                 }
                 else
                 {
-                    return await dbContext
-                        .GetDbSet<TEntity>()
-                        .Filtring<TEntity>(queryParameters)
-                        .ToListAsync();
+                        return await dbContext
+                            .GetDbSet<TEntity>()
+                            .Filtring<TEntity>(queryParameters)
+                            .ToListAsync();
                 }
             }
+            
+            return new List<TEntity>();
         }
 
         public async ValueTask<PagedList<TEntity>> GetPaged<TEntity>(PagingParameters parameters, QueryParameters? queryParameters) where TEntity : ClassWithId, new()
