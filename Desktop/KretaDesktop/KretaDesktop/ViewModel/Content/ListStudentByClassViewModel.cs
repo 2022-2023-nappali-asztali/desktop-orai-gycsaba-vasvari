@@ -19,6 +19,7 @@ namespace KretaDesktop.ViewModel.Content
         public async Task OnInitialize(SchoolClass schoolClass)
         {
             _selectedSchoolClass=schoolClass;
+            IsSearchAndSortVisible = false;
             await RefreshItems();
 
         }

@@ -1,6 +1,11 @@
 ﻿using KretaCommandLine.Model.Abstract;
+using KretaCommandLine.QueryParameter;
 using KretaDesktop.Services;
 using KretaDesktop.ViewModel.Command;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.BaseClass
@@ -14,6 +19,35 @@ namespace KretaDesktop.ViewModel.BaseClass
             set => SetValue(ref _searchedPropertyName, value);
         }
 
+        private List<SortingData>? _sortingDatas = null;
+        protected List<SortingData>? SortingDatas 
+        {
+            get => _sortingDatas;
+            set
+            {
+                SetValue(ref _sortingDatas, value);
+                OnPropertyChanged(nameof(SortingLabels));
+            }
+        }
+
+        private string _sortingCommand= string.Empty;
+        private string _selectedSortingLabel;
+        public string SelectedSortingLabel
+        {
+            get => _selectedSortingLabel;
+            set
+            {
+                SetValue(ref _selectedSortingLabel, value);
+                _sortingCommand= _sortingDatas.Where(data => data.SortingLabel == SelectedSortingLabel).Select(data => data.SortingCommand).FirstOrDefault();
+                OnSortAndFilterItems();
+            }
+        }
+
+        public ObservableCollection<string> SortingLabels
+        {
+            get =>new ObservableCollection<string>(_sortingDatas.Select(sortingdata => sortingdata.SortingLabel));
+        }
+
         private string _searchTerm = string.Empty;
         public string SearchTerm
         {
@@ -23,22 +57,22 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         public SearchAndSortViewModel(IAPIService service) : base(service)
         {
-            SearchItemsCommand = new AsyncRelayCommand(OnFilterItems, (ex) => OnException());
+            SearchItemsCommand = new AsyncRelayCommand(OnSortAndFilterItems, (ex) => OnException());
             ShowAllItemsCommand = new AsyncRelayCommand(OnShowAllItems, (ex) => OnException());
         }
 
         public AsyncRelayCommand SearchItemsCommand { get; set; }
         public AsyncRelayCommand ShowAllItemsCommand { get; set; }
 
-        protected async Task OnFilterItems()
+        protected async Task OnSortAndFilterItems()
         {
-            await SearchAndSortItems(_searchedPropertyName, _searchTerm,"");
+            await SearchAndSortItems(_searchedPropertyName, _searchTerm, _sortingCommand);
         }
 
         protected async Task OnShowAllItems()
         {
-            SearchTerm = null;
-            await SearchAndSortItems(_searchedPropertyName, _searchTerm, "");
+            SearchTerm = string.Empty;            
+            await SearchAndSortItems(_searchedPropertyName, _searchTerm, _sortingCommand);
         }
 
         private void OnException()

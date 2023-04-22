@@ -52,17 +52,32 @@ namespace KretaWebApi.Controllers.Base
         [HttpGet("getpaged")]
         public async Task<IActionResult> GetPaged([FromQuery] PagingParameters parameters)
         {
-            PagedList<TEntity> pagedList = await _service.GetPaged<TEntity>(parameters, null);
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(pagedList.MetaData));
-            return Ok(pagedList);
+            try
+            {
+                PagedList<TEntity> pagedList = await _service.GetPaged<TEntity>(parameters, null);
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(pagedList.MetaData));
+                return Ok(pagedList);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Az adatbázis nem elérhető.");
+            }
         }
 
         [HttpGet("getpagedwithqueryparameters")]
         public async Task<IActionResult> GetPaged([FromQuery] PagingParameters parameters, [FromQuery] QueryParameters queryParameters)
         {
-            PagedList<TEntity> pagedList = await _service.GetPaged<TEntity>(parameters, queryParameters);
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(pagedList.MetaData));
-            return Ok(pagedList);
+            try
+            {
+                PagedList<TEntity> pagedList = await _service.GetPaged<TEntity>(parameters, queryParameters);
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(pagedList.MetaData));
+                return Ok(pagedList);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Az adatbázis nem elérhető.");
+            }
         }
 
         [HttpGet("{id}")]

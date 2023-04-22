@@ -15,7 +15,6 @@ namespace KretaCommandLine.Model
         public long SchoolClassId { get; set; }
         public virtual SchoolClass SchoolClassOfStudent { get; set; }
 
-
         public Student(long id, string name, int schoolClassId, long studentAddressId)
             : base(id)
         {

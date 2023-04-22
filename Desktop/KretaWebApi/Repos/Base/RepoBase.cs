@@ -25,7 +25,7 @@ namespace KretaWebApi.Repos.Base
         public async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>(QueryParameters? queryParameters) where TEntity : ClassWithId, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
-            if (queryParameters == null || string.IsNullOrEmpty(queryParameters.SearchPropertyName) || string.IsNullOrEmpty(queryParameters.SearchTerm))
+            if (queryParameters == null || (string.IsNullOrEmpty(queryParameters.SearchPropertyName) && string.IsNullOrEmpty(queryParameters.SearchTerm) && string.IsNullOrEmpty(queryParameters.OrderBy)))
             {
                 return await dbContext
                     .GetDbSet<TEntity>()
@@ -34,13 +34,31 @@ namespace KretaWebApi.Repos.Base
             }
             else
             {
-                return await dbContext
-                    .GetDbSet<TEntity>()
-                    .FiltringAndSorting<TEntity>(queryParameters);
+                if (string.IsNullOrEmpty(queryParameters.OrderBy))
+                {
+                    List<TEntity>? result = await dbContext
+                        .GetDbSet<TEntity>()
+                        .AsQueryable()                        
+                        .FiltringAndSorting<TEntity>(queryParameters);
+                    if (result is object)
+                        return result;                                          
+                }
+                else
+                {
+                    if (dbContext is object)
+                    {
+                        List<TEntity>? filtring = await dbContext
+                         .GetDbSet<TEntity>()
+                         .AsQueryable()
+                         .FiltringAndSorting<TEntity>(queryParameters);
+                        return filtring;
+
+                    }
+                }
             }
+            
+            return new List<TEntity>();
         }
-
-
 
         public async ValueTask<PagedList<TEntity>> GetPaged<TEntity>(PagingParameters parameters, QueryParameters? queryParameters) where TEntity : ClassWithId, new()
         {

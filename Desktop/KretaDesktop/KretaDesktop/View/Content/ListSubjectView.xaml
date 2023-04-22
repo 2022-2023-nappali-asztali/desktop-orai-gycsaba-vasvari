@@ -94,16 +94,18 @@
 
             <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
                 <Label Content="Rendezés:"></Label>
-                <Button>
-                    <StackPanel Orientation="Horizontal" Background="Orange">
-                        <Image Source="//Resources/Icons/sort-alpha-down.png"></Image>
-                        <Label>   Növekvő   </Label>
-                    </StackPanel>
-                </Button>
+                <ComboBox x:Name="cbSortingLabel"
+                          Margin="5 5 3 5"
+                          Width="150"
+                          ItemsSource="{Binding SortingLabels}"
+                          SelectedItem="{Binding SelectedSortingLabel}"
+                          SelectedIndex="0">
+                </ComboBox>
             </StackPanel>
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="30 0 0 0">
-                <Label Content="Szűres:"></Label>
+                <Label Content="Szűres:" Margin="2 3 2 3"></Label>
                 <TextBox Width="150" 
+                         Margin="2 5 2 5"
                          Text="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 </TextBox>
                 <Button Content="Szűres"                         
