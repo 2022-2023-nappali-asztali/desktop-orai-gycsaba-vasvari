@@ -1,10 +1,11 @@
 ﻿using APIHelpersLibrary.Paged;
 using KretaCommandLine.Model;
 using KretaCommandLine.QueryParameter;
+using KretaWebApi.Repos.Base;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace KretaWebApi.Repos.Base
+namespace KretaWebApi.Repos
 {
     public class StudentRepoBase<TDbContext> : RepoBase<TDbContext>, IStudentRepoBase where TDbContext : DbContext
 
@@ -31,12 +32,14 @@ namespace KretaWebApi.Repos.Base
                 {
                     if (query is object && queryParameters is not null)
                     {
-                        IQueryable<TEntity>? result= query.FiltringAndSorting<TEntity>(queryParameters);
-                        if (result is object)
-                            return  await result.ToListAsync();
+                        List<TEntity>? result = await query.FiltringAndSorting(queryParameters);
+                        return result;
                     }
                     else
-                        return await query.ToListAsync();
+                    {
+                        if (query is object)
+                            return await query.ToListAsync();
+                    }
                 }
             }
             return new List<TEntity>();
@@ -52,9 +55,8 @@ namespace KretaWebApi.Repos.Base
             List<TEntity> students = new List<TEntity>();
             if (entities is object && queryParameters is not null)
             {
-                IQueryable<TEntity>? result = entities.FiltringAndSorting(queryParameters);
-                if (result is Object)
-                    students = await result.ToListAsync<TEntity>();
+                List<TEntity>? result = await entities.FiltringAndSorting(queryParameters);
+                students = result;
             }
             else
             {
@@ -64,8 +66,6 @@ namespace KretaWebApi.Repos.Base
                     students = new List<TEntity>();
             }
             return PagedList<TEntity>.ToPagedList(students, parameters.PageNumber, parameters.PageSize); ;
-
-            
         }
 
         public async ValueTask<List<TEntity>> SelectStudentOfClass<TEntity>(long schoolClassId) where TEntity : Student, new()
@@ -78,9 +78,10 @@ namespace KretaWebApi.Repos.Base
                 return new List<TEntity>();
             else
             {
-                var search=entities.SearchById<TEntity>("SchoolClassId", schoolClassId);
+                var search = await entities.SearchById("SchoolClassId", schoolClassId);
                 if (search is object)
-                    return await search.ToListAsync();
+                    return search;
+
             }
             return new List<TEntity>();
         }

@@ -36,25 +36,23 @@ namespace KretaWebApi.Repos.Base
             {
                 if (string.IsNullOrEmpty(queryParameters.OrderBy))
                 {
-                    IQueryable<TEntity>? result = dbContext
+                    List<TEntity>? result = await dbContext
                         .GetDbSet<TEntity>()
-                        .Filtring<TEntity>(queryParameters);
+                        .AsQueryable()                        
+                        .FiltringAndSorting<TEntity>(queryParameters);
                     if (result is object)
-                        return await result.ToListAsync();                                          
+                        return result;                                          
                 }
                 else
                 {
                     if (dbContext is object)
                     {
-                        IQueryable<TEntity>? filtring = dbContext
+                        List<TEntity>? filtring = await dbContext
                          .GetDbSet<TEntity>()
-                         .Filtring<TEntity>(queryParameters);
+                         .AsQueryable()
+                         .FiltringAndSorting<TEntity>(queryParameters);
+                        return filtring;
 
-                        if (filtring is object)
-                        {
-                            return await filtring.ApplySort(queryParameters.OrderBy)
-                                          .ToListAsync();
-                        }
                     }
                 }
             }
