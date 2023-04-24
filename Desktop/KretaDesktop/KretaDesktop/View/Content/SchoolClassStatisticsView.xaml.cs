@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace KretaDesktop.View.Content
 {
     /// <summary>
-    /// Interaction logic for StatistictsView.xaml
+    /// Interaction logic for SchoolClassStatisticsView.xaml
     /// </summary>
-    public partial class StatistictsView : UserControl
+    public partial class SchoolClassStatisticsView : UserControl
     {
-        public StatistictsView()
+        public SchoolClassStatisticsView()
         {
             InitializeComponent();
         }

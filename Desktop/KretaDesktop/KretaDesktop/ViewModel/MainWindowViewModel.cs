@@ -66,6 +66,11 @@ namespace KretaDesktop.ViewModel
                     _logger.LogInformation($"{nameof(MainWindowViewModel)} - Adatkezelés menüpont választás");
                     SelectedView = _dataMagmentHeaderViewModel;
                 }
+                else if (commandParameter == "DataManagment")
+                {
+                    _logger.LogInformation($"{nameof(MainWindowViewModel)} - Statisztika menüpont választás");
+                    SelectedView = _dataMagmentHeaderViewModel;
+                }
 
             }
         }
