@@ -52,7 +52,7 @@ namespace KretaWebApi.Repos.Base
                     }
                 }*/
             }
-            return new List<NumberOfStudentInClass>();
+            return result;
         }
 
     }
