@@ -6,15 +6,19 @@
              xmlns:local="clr-namespace:KretaDesktop.View.Content"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel  Orientation="Vertical" Margin="20">
-        <StackPanel Margin="20 20 20 20" Orientation="Horizontal">
-            <Label>Diákok száma osztályonként</Label>
-            <ListBox x:Name="lbNumberOfStudentPerClass" ItemsSource="{Binding NumberOfStudentPerClass}"/>
-        </StackPanel>
+    <Grid Background="{DynamicResource ContentBackgroundColor}"          
+          Style="{DynamicResource ContentGridStyle}"
+          Margin="0,5,0,-5">
+        <StackPanel  Orientation="Vertical" Margin="20">
+            <StackPanel Margin="20 20 20 20" Orientation="Horizontal">
+                <Label>Diákok száma osztályonként</Label>
+                <ListBox x:Name="lbNumberOfStudentPerClass" ItemsSource="{Binding NumberOfStudentPerClass}"/>
+            </StackPanel>
 
-        <StackPanel Margin="20 20 20 20" Orientation="Horizontal">
-            <Label>Az osztályok osztályfőnökei</Label>
-            <ListBox x:Name="lbTeachersNamePerClass" ItemsSource="{Binding TeachersNamePerClass}"/>
+            <StackPanel Margin="20 20 20 20" Orientation="Horizontal">
+                <Label>Az osztályok osztályfőnökei</Label>
+                <ListBox x:Name="lbTeachersNamePerClass" ItemsSource="{Binding TeachersNamePerClass}"/>
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </UserControl>

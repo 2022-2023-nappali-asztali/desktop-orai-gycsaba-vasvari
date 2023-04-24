@@ -21,9 +21,19 @@
                     Width="150"
                     Margin="32 0 0 0"
                     Content="Iskolai statisztika"
-                    Command="SchoolStatistics"
-                    CommandParameter="SubjectDataManagment"
+                    Command="{Binding UpdateViewCommand}"
+                    CommandParameter="SchoolStatistics"
+                    />
+            <Button HorizontalAlignment="Left"
+                    Width="150"
+                    Margin="32 0 0 0"
+                    Content="Osztály statisztika"
+                    Command="{Binding UpdateViewCommand}"
+                    CommandParameter="SchoolClassStatistics"
                     />
         </StackPanel>
+        <ContentControl Grid.Row="2"
+                        Content="{Binding SelectedView}" 
+        />
     </Grid>
 </UserControl>

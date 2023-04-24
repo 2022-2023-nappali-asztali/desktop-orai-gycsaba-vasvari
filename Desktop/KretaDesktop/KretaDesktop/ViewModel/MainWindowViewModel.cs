@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using KretaDesktop.View.Header;
 using KretaDesktop.ViewModel.BaseClass;
 using KretaDesktop.ViewModel.Command;
 using KretaDesktop.ViewModel.Header;
@@ -16,6 +17,7 @@ namespace KretaDesktop.ViewModel
         ILogger<MainWindowViewModel> _logger;
         private ConfigurationHeaderViewModel _configurationHeaderViewModel;
         private DataManagmentHeaderViewModel _dataMagmentHeaderViewModel;
+        private StatisticsHeaderViewModel _statisticsHeaderView;
 
         private ViewModelBase _selectedView;
         public ViewModelBase SelectedView
@@ -32,11 +34,13 @@ namespace KretaDesktop.ViewModel
         public MainWindowViewModel(
             ILogger<MainWindowViewModel> logger, 
             ConfigurationHeaderViewModel configurationHeaderViewModel,
-            DataManagmentHeaderViewModel dataManagmentHeaderViewModel)
+            DataManagmentHeaderViewModel dataManagmentHeaderViewModel,
+            StatisticsHeaderViewModel statisticsHeaderView)
         {
             _logger = logger;
             _configurationHeaderViewModel = configurationHeaderViewModel;
             _dataMagmentHeaderViewModel = dataManagmentHeaderViewModel;
+            _statisticsHeaderView = statisticsHeaderView;
 
             UpdateViewCommand = new RelayCommand((parameter) => UpdateView(parameter));
         }
@@ -66,10 +70,10 @@ namespace KretaDesktop.ViewModel
                     _logger.LogInformation($"{nameof(MainWindowViewModel)} - Adatkezelés menüpont választás");
                     SelectedView = _dataMagmentHeaderViewModel;
                 }
-                else if (commandParameter == "DataManagment")
+                else if (commandParameter == "Statistics")
                 {
                     _logger.LogInformation($"{nameof(MainWindowViewModel)} - Statisztika menüpont választás");
-                    SelectedView = _dataMagmentHeaderViewModel;
+                    SelectedView = _statisticsHeaderView;
                 }
 
             }
