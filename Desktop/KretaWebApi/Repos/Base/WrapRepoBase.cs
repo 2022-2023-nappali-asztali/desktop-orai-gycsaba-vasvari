@@ -31,23 +31,27 @@ namespace KretaWebApi.Repos.Base
             List<NumberOfStudentInClass> result = new List<NumberOfStudentInClass>();
 
 
-            var result2 = from schoolClass in schoolClassesSet
-                          from students in studentsSet
-                          group schoolClass by new { schoolClass.SchoolYear, schoolClass.ClassType } into schoolClassGroup
-                          select new NumberOfStudentInClass(schoolClassGroup.Key.SchoolYear, schoolClassGroup.Key.ClassType, schoolClassGroup.Count());
-                          
-
-            /*if (schoolClassesSet is object)
+            if (schoolClassesSet is object && studentsSet is object)
             {
-                foreach (SchoolClass schoolClass in schoolClassesSet)
+
+                result = (from schoolClass in schoolClassesSet
+                              from students in studentsSet
+                              group schoolClass by new { schoolClass.SchoolYear, schoolClass.ClassType } into schoolClassGroup
+                              select new NumberOfStudentInClass(schoolClassGroup.Key.SchoolYear, schoolClassGroup.Key.ClassType, schoolClassGroup.Count())).ToList();
+
+
+                /*if (schoolClassesSet is object)
                 {
-                    if (studentsSet is object)
+                    foreach (SchoolClass schoolClass in schoolClassesSet)
                     {
-                        int count = studentsSet.Count(student => student.SchoolClassId == schoolClass.Id);
-                        result.Add(new NumberOfStudentInClass(schoolClass.SchoolYear, schoolClass.ClassType, count));
+                        if (studentsSet is object)
+                        {
+                            int count = studentsSet.Count(student => student.SchoolClassId == schoolClass.Id);
+                            result.Add(new NumberOfStudentInClass(schoolClass.SchoolYear, schoolClass.ClassType, count));
+                        }
                     }
-                }
-            }*/
+                }*/
+            }
             return new List<NumberOfStudentInClass>();
         }
 
