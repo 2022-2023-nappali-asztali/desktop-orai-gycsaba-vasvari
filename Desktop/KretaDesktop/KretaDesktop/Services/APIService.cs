@@ -170,6 +170,20 @@ namespace KretaDesktop.Services
             return result;
         }
 
+        public async ValueTask<int> GetCountOf<TEntity>() where TEntity : ClassWithId, new()
+        {
+            HttpClient client = new HttpClient();
+            int result = 0;
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();
+            if (client is object)
+            {
+                string path = APIURLExtension.SetRelativUrl<TEntity>();
+                result = await client.GetFromJsonAsync<int>($"{path}/count");
+            }
+            return result;
+        }
+
+
         public async ValueTask<APICallState> Save<TEntity>(TEntity item) where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();
@@ -240,5 +254,6 @@ namespace KretaDesktop.Services
             };
             return dictionary;
         }
+
     }
 }
