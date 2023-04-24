@@ -18,11 +18,11 @@ namespace KretaWebApi.Contexts
         public DbSet<Student>? Student { get; set; }
         public DbSet<Address>? Address { get; set; }
         public DbSet<SchoolClass>? SchoolClass { get; set; }
-        public DbSet<Parent> Parent { get; set; }
+        public DbSet<Parent>? Parent { get; set; }
         public DbSet<TypeOfSubject>? TypeOfSubject { get; set; }
         public DbSet<TeachTeacherSubject>? TeachTeaherSubject { get; set; }
         public DbSet<TeachTeacherSchoolClass>? TeachTeacherSchoolClass { get; set; }
-        public DbSet<Settings> Settings { get; set; }
+        public DbSet<Settings>? Settings { get; set; }
 
         public KretaContext(DbContextOptions<KretaContext> options)
           : base(options)

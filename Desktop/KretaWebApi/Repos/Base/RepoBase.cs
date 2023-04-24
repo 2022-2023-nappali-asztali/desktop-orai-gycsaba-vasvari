@@ -3,7 +3,6 @@ using KretaCommandLine.API;
 using KretaCommandLine.Model.Abstract;
 using KretaCommandLine.QueryParameter;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 
 namespace KretaWebApi.Repos.Base
 {
@@ -147,6 +146,14 @@ namespace KretaWebApi.Repos.Base
                 return await ValueTask.FromResult(APICallState.SaveFaild);
             }
             return await ValueTask.FromResult(APICallState.Success);
+        }
+
+        public int GetNumberOfEntity<TEntity>() where TEntity : ClassWithId, new()
+        {
+            var dbContext = _dbContextFactory.CreateDbContext();
+            DbSet<TEntity> dbSet =  dbContext.GetDbSet<TEntity>();
+            int number = dbSet.Count();
+            return number;
         }
 
         private long GetNextId<TEntity>() where TEntity : ClassWithId, new()
