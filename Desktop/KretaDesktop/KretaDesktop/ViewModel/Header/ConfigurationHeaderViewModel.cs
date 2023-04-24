@@ -16,16 +16,16 @@ namespace KretaDesktop.ViewModel.Header
         private readonly ILogger<ConfigurationHeaderViewModel> _logger;
         private LocalizationViewModel _localizationView;
 
-        private ViewModelBase selectedView;
+        private ViewModelBase _selectedView;
         public ViewModelBase SelectedView
         {
             get
             {
-                return selectedView;
+                return _selectedView;
             }
             set 
             {
-                selectedView= value;
+                _selectedView= value;
                 OnPropertyChanged(nameof(SelectedView));
             } 
         }

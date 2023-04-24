@@ -13,19 +13,19 @@
             <StackPanel Orientation="Horizontal" Margin="10 5 10 2">
                 <Label>Diákok száma:</Label>
                 <Label x:Name="tbNumberOfStudent" 
-                        Content="{Binding NumberOfStudents}"/>
+                        Content="{Binding NumberOfStudents, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="10 5 10 2">
                 <Label>Tantárgyak száma:</Label>
                 <Label x:Name="tbNumberOfSubjects" 
-                        Content="{Binding NumberOfSubjects}"/>
+                        Content="{Binding NumberOfSubjects, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="10 5 10 2">
                 <Label>Osztályok száma:</Label>
                 <Label x:Name="tbNumberOfClasses" 
-                        Content="{Binding NumberOfClasses}"/>
+                        Content="{Binding NumberOfClasses, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

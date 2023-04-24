@@ -11,13 +11,13 @@ namespace KretaDesktop.ViewModel.Header
         SchoolStatisticsViewModel _schoolStatisticsViewModel;
         SchoolClassStatisticsViewMoldel _schoolClassStatisticsViewMoldel;
 
-        private InitializedViewModelBase selectedView;
+        private InitializedViewModelBase _selectedView;
         public InitializedViewModelBase SelectedView
         {
-            get { return selectedView; }
+            get { return _selectedView; }
             set
             {
-                selectedView = value;
+                _selectedView = value;
                 OnPropertyChanged();
             }
         }

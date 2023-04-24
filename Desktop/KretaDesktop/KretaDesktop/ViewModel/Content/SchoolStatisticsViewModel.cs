@@ -7,22 +7,29 @@ namespace KretaDesktop.ViewModel.Content
 {
     public class SchoolStatisticsViewModel : ServiceViewModelBase
     {
+        public string _numberOfStudents;
+        public string NumberOfStudents { get { return _numberOfStudents; } set { SetValue(ref _numberOfStudents, value); OnPropertyChanged(); } }
+
+        public string _numberOfSubjects;
+        public string NumberOfSubjects { get { return _numberOfSubjects; } set { SetValue(ref _numberOfSubjects, value); OnPropertyChanged(); } }
+
+        public string _numberOfClasses;
+        public string NumberOfClasses { get { return _numberOfClasses; } set { SetValue(ref _numberOfClasses, value); OnPropertyChanged(); } }
+
         public SchoolStatisticsViewModel(IAPIService service) : base(service)
         {
-        }
-
-        public string NumberOfStudents { get; set; }
-        public string NumberOfSubjects { get; set; }
-        public string NumberOfClasses { get; set; }
+        }        
 
         public async override Task OnInitialize()
         {
             int _numberOfStudents = await _service.GetCountOf<Student>();
             NumberOfStudents =$"{ _numberOfStudents } fő";
+
             int _numberOfSubject = await _service.GetCountOf<Subject>();
-            NumberOfStudents = $"{_numberOfSubject} fő";
+            NumberOfSubjects = $"{_numberOfSubject} fő";
+
             int _numberOfClasses = await _service.GetCountOf<SchoolClass>();
-            NumberOfStudents = $"{_numberOfClasses} fő";
+            NumberOfClasses = $"{_numberOfClasses} fő";
 
             return;
         }
