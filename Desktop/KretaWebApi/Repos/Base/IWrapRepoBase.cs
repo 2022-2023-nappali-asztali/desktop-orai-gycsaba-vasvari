@@ -10,6 +10,6 @@ namespace KretaWebApi.Repos.Base
     public interface IWrapRepoBase
     {
         public ValueTask<List<NumberOfStudentInClass>> GetNumberOfStudentPerClass();
-        public ValueTask<List<SchoolClass>> GetSchoolClassWithNoStudents();
+        public ValueTask<List<SchoolClass>> GetSchoolClassWithNoStudent();
     }
 }

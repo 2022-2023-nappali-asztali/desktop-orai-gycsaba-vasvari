@@ -1,4 +1,6 @@
-﻿using KretaDesktop.Services;
+﻿using KretaCommandLine.DTO;
+using KretaCommandLine.Model;
+using KretaDesktop.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +11,15 @@ namespace KretaDesktop.ViewModel.BaseClass
 {
     public class ServiceViewModelBase : InitializedViewModelBase
     {
-        protected IAPIService _service;
+        protected IWrapService _service;
 
-        public ServiceViewModelBase(IAPIService service)
+        public ServiceViewModelBase(IWrapService service)
         {
             _service = service;
         }
 
         public override Task OnInitialize()
         {
-            return Task.CompletedTask;
         }
     }
 }

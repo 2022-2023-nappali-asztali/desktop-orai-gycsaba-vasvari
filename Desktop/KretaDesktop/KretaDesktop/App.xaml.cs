@@ -120,8 +120,9 @@ namespace KretaDesktop
                     );
 
 
-                    services.AddSingleton<IAPIService, APIService>();
-                    services.AddSingleton<IStudentAPIService, StudentAPIService>();
+                    services.AddScoped<IAPIService, APIService>();
+                    services.AddScoped<IStudentAPIService, StudentAPIService>();
+                    services.AddScoped<IWrapService, WrapService>();
 
                     services.AddSingleton<IListStudentByClassViewModel,ListStudentByClassViewModel>();
                 })

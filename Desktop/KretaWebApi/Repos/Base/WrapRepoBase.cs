@@ -51,7 +51,7 @@ namespace KretaWebApi.Repos.Base
             return result;
         }
 
-        public async ValueTask<List<SchoolClass>> GetSchoolClassWithNoStudents()
+        public async ValueTask<List<SchoolClass>> GetSchoolClassWithNoStudent()
         {
             List<SchoolClass> result = new List<SchoolClass>();
 
