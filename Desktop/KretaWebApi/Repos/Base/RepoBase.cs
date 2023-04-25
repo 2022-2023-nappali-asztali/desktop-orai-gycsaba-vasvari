@@ -15,12 +15,6 @@ namespace KretaWebApi.Repos.Base
             _dbContextFactory = dbContextFactory;
         }
 
-        public DbSet<TEntity>? DbSet<TEntity>() where TEntity : class, new()
-        {
-            var dbContext = _dbContextFactory.CreateDbContext();
-            return dbContext.GetDbSet<TEntity>();
-        }
-
         public async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>(QueryParameters? queryParameters) where TEntity : ClassWithId, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
@@ -156,6 +150,12 @@ namespace KretaWebApi.Repos.Base
             return number;
         }
 
+        protected DbSet<TEntity>? DbSet<TEntity>() where TEntity : class, new()
+        {
+            var dbContext = _dbContextFactory.CreateDbContext();
+            return dbContext.GetDbSet<TEntity>();
+        }
+
         private long GetNextId<TEntity>() where TEntity : ClassWithId, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
@@ -166,5 +166,7 @@ namespace KretaWebApi.Repos.Base
                 maxId = 0;
             return maxId + 1;
         }
+
+
     }
 }

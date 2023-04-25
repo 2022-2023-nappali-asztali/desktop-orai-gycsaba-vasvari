@@ -11,6 +11,7 @@ namespace KretaWebApi.Extension
         {
             services.AddScoped<IRepoBase, KretaInMemoryRepo>();
             services.AddScoped<IStudentRepoBase, StudentInMemoryRepo>();
+            services.AddScoped<IWrapRepoBase, KretaInMemoryWrapRepo>();
         }
 
         public static void ConfigureCors(this IServiceCollection services)

@@ -8,9 +8,9 @@ namespace KretaCommandLine.DTO
 {
     public class NumberOfStudentInClass
     {
-        public int SchoolYear;
-        public char ClassType;
-        public int NumberOfStudent;
+        public int SchoolYear { get; set; }
+        public char ClassType { get; set; }
+        public int NumberOfStudent { get; set; }
 
         public NumberOfStudentInClass()
         {

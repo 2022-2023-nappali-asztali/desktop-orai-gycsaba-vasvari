@@ -10,43 +10,39 @@ namespace KretaWebApi.Repos.Base
 {
     public class WrapRepoBase<TDbContext> : IWrapRepoBase where TDbContext : DbContext
     {
+        private DbSet<SchoolClass>? _schoolClassesSet;
+        private DbSet<Student>? _studentsSet;
         private IDbContextFactory<TDbContext> _dbContextFactory;
 
         public WrapRepoBase(IDbContextFactory<TDbContext> dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
-        }
-
-        public DbSet<TEntity>? DbSet<TEntity>() where TEntity : class, new()
-        {
             var dbContext = _dbContextFactory.CreateDbContext();
-            return dbContext.GetDbSet<TEntity>();
+            
+            _schoolClassesSet= dbContext.GetDbSet<SchoolClass>();
+            _studentsSet = dbContext.GetDbSet<Student>();
         }
 
-        public List<NumberOfStudentInClass> GetNumberOfStudentPerClass()
+        public async ValueTask<List<NumberOfStudentInClass>> GetNumberOfStudentPerClass()
         {
-            DbSet<SchoolClass>? schoolClassesSet = DbSet<SchoolClass>();
-            DbSet<Student>? studentsSet = DbSet<Student>();
-
             List<NumberOfStudentInClass> result = new List<NumberOfStudentInClass>();
 
-
-            if (schoolClassesSet is object && studentsSet is object)
+            if (_schoolClassesSet is object && _studentsSet is object)
             {
-
-                result = (from schoolClass in schoolClassesSet
-                              from students in studentsSet
+                result = (    from schoolClass in _schoolClassesSet
+                              from students in _studentsSet
+                              where students.SchoolClassId==schoolClass.Id
                               group schoolClass by new { schoolClass.SchoolYear, schoolClass.ClassType } into schoolClassGroup
                               select new NumberOfStudentInClass(schoolClassGroup.Key.SchoolYear, schoolClassGroup.Key.ClassType, schoolClassGroup.Count())).ToList();
 
 
-                /*if (schoolClassesSet is object)
+              /*  if (_schoolClassesSet is object)
                 {
-                    foreach (SchoolClass schoolClass in schoolClassesSet)
+                    foreach (SchoolClass schoolClass in _schoolClassesSet)
                     {
-                        if (studentsSet is object)
+                        if (_studentsSet is object)
                         {
-                            int count = studentsSet.Count(student => student.SchoolClassId == schoolClass.Id);
+                            int count = _studentsSet.Count(student => student.SchoolClassId == schoolClass.Id);
                             result.Add(new NumberOfStudentInClass(schoolClass.SchoolYear, schoolClass.ClassType, count));
                         }
                     }
@@ -54,6 +50,5 @@ namespace KretaWebApi.Repos.Base
             }
             return result;
         }
-
     }
 }
