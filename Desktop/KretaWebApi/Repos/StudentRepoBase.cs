@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KretaWebApi.Repos
 {
-    public class StudentRepoBase<TDbContext> : RepoBase<TDbContext>, IStudentRepoBase where TDbContext : DbContext
+    public class StudentRepoBase<TDbContext> : IncludedRepoBase<TDbContext>, IStudentRepoBase where TDbContext : DbContext
 
     {
         private IDbContextFactory<TDbContext> _dbContextFactory;
@@ -17,78 +17,15 @@ namespace KretaWebApi.Repos
             _dbContextFactory = dbContextFactory;
         }
 
-        public async ValueTask<List<TEntity>> SelectAllIncludedRecordAsync<TEntity>(QueryParameters queryParameters) where TEntity : Student, new()
+
+        protected override IQueryable<TEntity>? GetAllIncluded<TEntity>() where TEntity : class 
         {
-            var dbContext = _dbContextFactory.CreateDbContext();
-
-            DbSet<TEntity>? entities = DbSet<TEntity>();
-
-            if (entities is not object)
-                return new List<TEntity>();
-            else
-            {
-                IQueryable<TEntity>? query = GetAllIncluded<TEntity>();
-                if (query is not null)
-                {
-                    if (query is object && queryParameters is not null)
-                    {
-                        List<TEntity>? result = await query.FiltringAndSorting(queryParameters);
-                        return result;
-                    }
-                    else
-                    {
-                        if (query is object)
-                            return await query.ToListAsync();
-                    }
-                }
-            }
-            return new List<TEntity>();
+            return GetAllIncluded();
         }
 
-        public async ValueTask<PagedList<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(PagingParameters parameters, QueryParameters? queryParameters) where TEntity : Student, new()
+        protected IQueryable<Student>? GetAllIncluded() 
         {
-            //var dbContext = _dbContextFactory.CreateDbContext();
-
-            IQueryable<TEntity>? entities = GetAllIncluded<TEntity>();
-
-
-            List<TEntity> students = new List<TEntity>();
-            if (entities is object && queryParameters is not null)
-            {
-                List<TEntity>? result = await entities.FiltringAndSorting(queryParameters);
-                students = result;
-            }
-            else
-            {
-                if (entities is object)
-                    students = await entities.ToListAsync();
-                else
-                    students = new List<TEntity>();
-            }
-            return PagedList<TEntity>.ToPagedList(students, parameters.PageNumber, parameters.PageSize); ;
-        }
-
-        public async ValueTask<List<TEntity>> SelectStudentOfClass<TEntity>(long schoolClassId) where TEntity : Student, new()
-        {
-            var dbContext = _dbContextFactory.CreateDbContext();
-
-            IQueryable<TEntity>? entities = GetAllIncluded<TEntity>();
-
-            if (entities is not object)
-                return new List<TEntity>();
-            else
-            {
-                var search = await entities.SearchById("SchoolClassId", schoolClassId);
-                if (search is object)
-                    return search;
-
-            }
-            return new List<TEntity>();
-        }
-
-        private IQueryable<TEntity>? GetAllIncluded<TEntity>() where TEntity : Student, new()
-        {
-            DbSet<TEntity>? entities = DbSet<TEntity>();
+            DbSet<Student>? entities = DbSet<Student>();
             if (entities is not object)
                 return null;
             else

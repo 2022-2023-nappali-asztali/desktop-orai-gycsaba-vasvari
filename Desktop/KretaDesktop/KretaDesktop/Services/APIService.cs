@@ -9,6 +9,7 @@ using System.Net.Http.Json;
 using System.Linq;
 using KretaCommandLine.API;
 using KretaCommandLine.QueryParameter;
+using KretaCommandLine.DTO;
 
 namespace KretaDesktop.Services
 {
@@ -112,9 +113,9 @@ namespace KretaDesktop.Services
                 {
                     Dictionary<string,string> parameter=GetParameterDictionary(queryParameters);
                     HttpResponseMessage response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/withqueryparameters",parameter));
-                    var content = await response.Content.ReadAsStringAsync();
                     if (response is object && response.IsSuccessStatusCode)
                     {
+                        var content = await response.Content.ReadAsStringAsync();
                         return JsonConvert.DeserializeObject<List<TEntity>>(content);
                     }
                 }
@@ -138,18 +139,21 @@ namespace KretaDesktop.Services
                 if (queryParameters is object && (queryParameters.SearchTerm != null || queryParameters.OrderBy != null))
                 {
                     Dictionary<string, string> parameter = GetParameterDictionary(queryParameters);
-                    HttpResponseMessage response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/includedwithparameters", parameter));
-                    var content = await response.Content.ReadAsStringAsync();
+                    HttpResponseMessage response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/includedwithparameters", parameter));                   
                     if (response is object && response.IsSuccessStatusCode)
                     {
+                        var content = await response.Content.ReadAsStringAsync();
                         return JsonConvert.DeserializeObject<List<TEntity>>(content);
                     }
                 }
                 else
                 {
-                    List<TEntity>? result = await client.GetFromJsonAsync<List<TEntity>>($"{path}/included");
-                    if (result is object)
-                        return result;                 
+                    HttpResponseMessage response = await client.GetAsync($"{path}/included");
+                    if (response is object && response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<List<TEntity>>(content);
+                    }
                 }
             }
             return new List<TEntity>();

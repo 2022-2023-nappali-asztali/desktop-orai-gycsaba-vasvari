@@ -25,5 +25,10 @@ namespace KretaCommandLine.DTO
             ClassType = classType;
             NumberOfStudent = numberOfStudent;
         }
+
+        public override string ToString()
+        {
+            return $"{SchoolYear}.{ClassType} osztály, {NumberOfStudent} fő";
+        }
     }
 }

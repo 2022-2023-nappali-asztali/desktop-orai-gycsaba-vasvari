@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.BaseClass
 {
-    public class ServiceViewModelBase : InitializedViewModelBase
+    public class WrapServiceViewModelBase : InitializedViewModelBase
     {
-        protected IAPIService _service;
+        protected IWrapService _service;
 
-        public ServiceViewModelBase(IAPIService service)
+        public WrapServiceViewModelBase(IWrapService service)
         {
             _service = service;
         }

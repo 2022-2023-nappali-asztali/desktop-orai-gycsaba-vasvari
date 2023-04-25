@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace KretaDesktop.ViewModel.Content
 {
-    public class SchoolClassStatisticsViewMoldel : ServiceViewModelBase
+    public class SchoolClassStatisticsViewMoldel : WrapServiceViewModelBase
     {
+        private IAPIService _apiService;
+
         private List<NumberOfStudentInClass> _numberOfStudentInClasses;
         public List<NumberOfStudentInClass> NumberOfStudentInClasses
         {
@@ -23,16 +25,24 @@ namespace KretaDesktop.ViewModel.Content
             set { SetValue(ref _schoolClassWithNoStudent,value); }
         }
 
-
-        public SchoolClassStatisticsViewMoldel(IWrapService service) : base(service)
+        private List<SchoolClass> _schoolClasses;
+        public List<SchoolClass> SchoolClasses
         {
+            get { return _schoolClasses; }
+            set { SetValue(ref _schoolClasses, value); }
+        }
+
+
+        public SchoolClassStatisticsViewMoldel(IWrapService service, IAPIService apiService) : base(service)
+        {
+            _apiService= apiService;
         }
 
         public override async Task OnInitialize()
         {
             NumberOfStudentInClasses = await _service.NumberOfStudentPerClass();
             SchoolClassWithNoStudent= await _service.SchoolClassWithNoStudent();
-
+            SchoolClasses = await _apiService.SelectAllIncludedRecordAsync<SchoolClass>();
         }
     }
 }

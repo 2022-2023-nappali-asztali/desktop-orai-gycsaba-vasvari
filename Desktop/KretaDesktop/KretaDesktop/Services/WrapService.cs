@@ -1,5 +1,6 @@
 ﻿using KretaCommandLine.DTO;
 using KretaCommandLine.Model;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -15,10 +16,13 @@ namespace KretaDesktop.Services
             client.BaseAddress = APIURLExtension.GetHttpClientUri();
             if (client is object)
             {
-                string path = APIURLExtension.SetRelativUrl<Student>();
-                List<NumberOfStudentInClass>? result = await client.GetFromJsonAsync<List<NumberOfStudentInClass>>($"{path}/numberofstudentperclass");
-                if (result is object)
-                    return result;            
+                string path = APIURLExtension.SetRelativUrl();
+                HttpResponseMessage response = await client.GetAsync($"{path}/numberofstudentperclass");
+                if (response is object && response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<NumberOfStudentInClass>>(content);
+                }                  
             }
             return new List<NumberOfStudentInClass>();
         }
@@ -29,7 +33,7 @@ namespace KretaDesktop.Services
             client.BaseAddress = APIURLExtension.GetHttpClientUri();
             if (client is object)
             {
-                string path = APIURLExtension.SetRelativUrl<Student>();
+                string path = APIURLExtension.SetRelativUrl();
                 List<SchoolClass>? result = await client.GetFromJsonAsync<List<SchoolClass>>($"{path}/schoolclasswithnostudent");
                 if (result is object)
                     return result;

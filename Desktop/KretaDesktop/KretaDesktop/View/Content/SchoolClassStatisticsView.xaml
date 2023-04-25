@@ -12,12 +12,16 @@
         <StackPanel  Orientation="Vertical" Margin="20">
             <StackPanel Margin="20 20 20 20" Orientation="Vertical">
                 <Label>Diákok száma osztályonként</Label>
-                <ListBox Margin="5 2 400 5" x:Name="lbNumberOfStudentPerClass" ItemsSource="{Binding NumberOfStudentPerClass, UpdateSourceTrigger=PropertyChanged}"/>
+                <ListBox Margin="5 2 400 5" x:Name="lbNumberOfStudentInClasses" ItemsSource="{Binding NumberOfStudentInClasses, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <StackPanel Margin="20 20 20 20" Orientation="Vertical">
+                <Label>Diák nélküli osztályok</Label>
+                <ListBox Margin="5 2 400 5" x:Name="lbSchoolClassWithNoStudent" ItemsSource="{Binding SchoolClassWithNoStudent, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
             <StackPanel Margin="20 20 20 20" Orientation="Vertical">
                 <Label>Az osztályok osztályfőnökei</Label>
-                <ListBox Margin="5 2 400 5" x:Name="lbTeachersNamePerClass" ItemsSource="{Binding HeadTeachersNamePerClass, UpdateSourceTrigger=PropertyChanged}"/>
+                <ListBox Margin="5 2 400 5" x:Name="lbTeachersNamePerClass" ItemsSource="{Binding SchoolClasses, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </StackPanel>
     </Grid>
