@@ -22,6 +22,14 @@ namespace KretaWebApi.Controllers
             List<NumberOfStudentInClass> result = new List<NumberOfStudentInClass>();
             result = await _service.GetNumberOfStudentPerClass();
             return Ok(result);
-        }        
+        }
+
+        [HttpGet("schoolclasswithnostudent")]
+        public async Task<ActionResult<List<SchoolClass>>> GetSchoolClassWithNoStudent()
+        {
+            List<SchoolClass> result = new List<SchoolClass>();
+            result = await _service.GetSchoolClassWithNoStudents();
+            return Ok(result);
+        }
     }
 }

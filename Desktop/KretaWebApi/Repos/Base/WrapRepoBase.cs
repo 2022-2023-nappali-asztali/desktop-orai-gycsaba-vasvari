@@ -33,8 +33,8 @@ namespace KretaWebApi.Repos.Base
                               from students in _studentsSet
                               where students.SchoolClassId==schoolClass.Id
                               group schoolClass by new { schoolClass.SchoolYear, schoolClass.ClassType } into schoolClassGroup
-                              select new NumberOfStudentInClass(schoolClassGroup.Key.SchoolYear, schoolClassGroup.Key.ClassType, schoolClassGroup.Count())).ToList();
-
+                              select new NumberOfStudentInClass(schoolClassGroup.Key.SchoolYear, schoolClassGroup.Key.ClassType, schoolClassGroup.Count())
+                          ).ToList();
 
               /*  if (_schoolClassesSet is object)
                 {
@@ -47,6 +47,30 @@ namespace KretaWebApi.Repos.Base
                         }
                     }
                 }*/
+            }
+            return result;
+        }
+
+        public async ValueTask<List<SchoolClass>> GetSchoolClassWithNoStudents()
+        {
+            List<SchoolClass> result = new List<SchoolClass>();
+
+            if (_schoolClassesSet is object && _studentsSet is object)
+            {
+                 result =
+                              (
+                                      from SchoolClass in _schoolClassesSet
+                                      select SchoolClass
+                              )
+                              .Except
+                              (                              
+                                  (
+                                      from schoolClass in _schoolClassesSet
+                                      from students in _studentsSet
+                                      where students.SchoolClassId == schoolClass.Id
+                                      select schoolClass
+                                  ).Distinct()
+                              ).ToList();               
             }
             return result;
         }
