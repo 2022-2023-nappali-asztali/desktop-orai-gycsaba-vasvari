@@ -12,13 +12,12 @@ namespace KretaWebApi.Contexts
 
         private void MakteTestData()
         {
-            if (Settings.Count() > 0)
-                return;
-
             try
             {
                 if (Settings is object)
                 {
+                    if (Settings.Count() > 0)
+                        return;
                     Settings.Add(new Settings(1, 10));
                 }                
                 if (Address is object)
@@ -79,6 +78,8 @@ namespace KretaWebApi.Contexts
                     Student.Add(new Student(8, "Német Nelli", 3, 18));
                     Student.Add(new Student(9, "Megértő Mari", 3, 19));
                     Student.Add(new Student(10, "Felelő Fanni", 3, 20));
+                    Student.Add(new Student(11, "Új Ubul", -1, -1));
+                    Student.Add(new Student(12, "Új Vilma", -1, -1));
                 }
                 if (Subject is object)
                 {
@@ -106,7 +107,7 @@ namespace KretaWebApi.Contexts
                     Teacher.Add(new Teacher(7, "Álmodozó Aliz", true, true, 7));
                     Teacher.Add(new Teacher(8, "Nagy Nelli", false, true, 8));
                     Teacher.Add(new Teacher(9, "Megértő Margit", true, true, 9));
-                    Teacher.Add(new Teacher(10, "Fuldokló Fanni", true, true, 10));
+                    Teacher.Add(new Teacher(10, "Fuldokló Fanni", true, true, -1));
                 }
                 if (TeachTeacherSchoolClass is object)
                 {

@@ -9,7 +9,7 @@ namespace KretaWebApi.Controllers
     [Route("/api/[controller]")]
     public class AddressController : BaseController<Address>
     {
-        public AddressController(IRepoBase service) : base(service)
+        public AddressController(IIncludedRepoBase service) : base(service)
         {
         }
     }

@@ -25,6 +25,10 @@
                               CommandParameter="DataManagment">
                         
                     </MenuItem>
+                    <MenuItem Header="Statisztikák"
+                              Command="{Binding UpdateViewCommand}"
+                              CommandParameter="Statistics">
+                    </MenuItem>
                     <MenuItem Header="Konfiguráció"
                         Command="{Binding UpdateViewCommand}"
                         CommandParameter="Configuration">

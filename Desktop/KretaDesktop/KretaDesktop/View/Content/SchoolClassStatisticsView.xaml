@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="KretaDesktop.View.Content.SchoolClassStatisticsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:KretaDesktop.View.Content"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="{DynamicResource ContentBackgroundColor}"          
+          Style="{DynamicResource ContentGridStyle}"
+          Margin="0,5,0,-5">
+        <StackPanel  Orientation="Vertical" Margin="20">
+            <StackPanel Margin="20 20 20 20" Orientation="Vertical">
+                <Label>Diákok száma osztályonként</Label>
+                <ListBox Margin="5 2 400 5" x:Name="lbNumberOfStudentInClasses" ItemsSource="{Binding NumberOfStudentInClasses, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <StackPanel Margin="20 20 20 20" Orientation="Vertical">
+                <Label>Diák nélküli osztályok</Label>
+                <ListBox Margin="5 2 400 5" x:Name="lbSchoolClassWithNoStudent" ItemsSource="{Binding SchoolClassWithNoStudent, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Margin="20 20 20 20" Orientation="Vertical">
+                <Label>Az osztályok osztályfőnökei</Label>
+                <ListBox Margin="5 2 400 5" x:Name="lbTeachersNamePerClass" ItemsSource="{Binding SchoolClasses, UpdateSourceTrigger=PropertyChanged}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Path=Id}"/>
+                                <TextBlock Text=". "/>
+                                <TextBlock Text="{Binding Path=SchoolYear}"/>
+                                <TextBlock Text="."/>
+                                <TextBlock Text="{Binding Path=ClassType}"/>
+                                <TextBlock Text=", osztályfőnök "/>
+                                <TextBlock Text="{Binding Path=HeadTeacher}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

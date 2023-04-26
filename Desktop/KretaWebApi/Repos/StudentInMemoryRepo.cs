@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KretaWebApi.Repos
 {
-    public class StudentInMemoryRepo : StudentRepoBase<InMemoryContext>, IStudentRepoBase
+    public class StudentInMemoryRepo : StudentRepoBase<InMemoryContext>, IStudentInMemoryRepo
     {
         public StudentInMemoryRepo(IDbContextFactory<InMemoryContext> dbContextFactory) : base(dbContextFactory)
         {

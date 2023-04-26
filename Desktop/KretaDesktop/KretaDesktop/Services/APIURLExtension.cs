@@ -24,5 +24,10 @@ namespace KretaDesktop.Services
         {
             return $"/api/{typeof(TEntity).Name}";
         }
+
+        public static string SetRelativUrl() 
+        {
+            return $"/api";
+        }
     }
 }

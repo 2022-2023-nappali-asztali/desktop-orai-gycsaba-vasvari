@@ -18,13 +18,13 @@ namespace KretaDesktop.ViewModel.Header
 		private ListSubjectViewModel _subjectViewModel;
 		private StudentByClassViewModel _studentPerClassViewModel;
 
-        private InitializedViewModelBase selectedView;
+        private InitializedViewModelBase _selectedView;
 		public InitializedViewModelBase SelectedView
 		{
-			get { return selectedView; }
+			get { return _selectedView; }
 			set 
 			{ 
-				selectedView = value; 
+				_selectedView = value; 
 				OnPropertyChanged();
 			}
 		}

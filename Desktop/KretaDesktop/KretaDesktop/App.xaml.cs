@@ -74,6 +74,13 @@ namespace KretaDesktop
                             DataContext=s.GetRequiredService<DataManagmentHeaderViewModel>()
                         }
                     );
+                    services.AddSingleton<StatisticsHeaderViewModel>();
+                    services.AddSingleton<StatisticsHeaderView>(
+                        s => new StatisticsHeaderView()
+                        {
+                            DataContext = s.GetRequiredService<StatisticsHeaderViewModel>()
+                        }
+                    );
                     services.AddSingleton<ListSubjectViewModel>();
                     services.AddSingleton<ListSubjectView>(
                         s => new ListSubjectView()
@@ -96,9 +103,26 @@ namespace KretaDesktop
                         {
                             DataContext = s.GetRequiredService<StudentByClassViewModel>()
                         }
-                    );                    
-                    services.AddSingleton<IAPIService, APIService>();
-                    services.AddSingleton<IStudentAPIService, StudentAPIService>();
+                    );
+                    services.AddSingleton<SchoolStatisticsViewModel>();
+                    services.AddSingleton<SchoolStatisticsView>(
+                        s => new SchoolStatisticsView()
+                        {
+                            DataContext = s.GetRequiredService<SchoolStatisticsViewModel>()
+                        }
+                    );
+                    services.AddSingleton<SchoolClassStatisticsViewMoldel>();
+                    services.AddSingleton<SchoolClassStatisticsView>(
+                        s => new SchoolClassStatisticsView()
+                        {
+                            DataContext = s.GetRequiredService<SchoolClassStatisticsViewMoldel>()
+                        }
+                    );
+
+
+                    services.AddScoped<IAPIService, APIService>();
+                    services.AddScoped<IStudentAPIService, StudentAPIService>();
+                    services.AddScoped<IWrapService, WrapService>();
 
                     services.AddSingleton<IListStudentByClassViewModel,ListStudentByClassViewModel>();
                 })

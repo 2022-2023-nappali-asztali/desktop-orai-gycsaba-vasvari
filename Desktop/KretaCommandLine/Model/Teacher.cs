@@ -45,5 +45,10 @@ namespace KretaCommandLine.Model
                 IsHeadTeacher = this.IsHeadTeacher
             };
         }
+
+        public override string ToString()
+        {
+            return $"{Name}";
+        }
     }
 }

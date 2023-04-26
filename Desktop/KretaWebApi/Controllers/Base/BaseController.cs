@@ -8,11 +8,11 @@ using Newtonsoft.Json;
 
 namespace KretaWebApi.Controllers.Base
 {
-    public class BaseController<TEntity> : ControllerBase where TEntity : ClassWithId, new()
+    public partial class BaseController<TEntity> : ControllerBase where TEntity : ClassWithId, new()
     {
-        private IRepoBase _service;
+        private IIncludedRepoBase _service;
 
-        public BaseController(IRepoBase service)
+        public BaseController(IIncludedRepoBase service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(_service));
         }
