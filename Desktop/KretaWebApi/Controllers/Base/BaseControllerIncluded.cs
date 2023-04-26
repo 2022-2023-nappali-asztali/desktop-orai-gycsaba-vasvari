@@ -14,33 +14,33 @@ namespace KretaWebApi.Controllers.Base
         [HttpGet("included")]
         public async Task<ActionResult<List<TEntity>>> SelectAllIncludedRecordAsync()
         {
-            List<TEntity>? students = null;
+            List<TEntity>? entitys = null;
             try
             {
-                students = await _service.SelectAllIncludedRecordAsync<TEntity>(null);
+                entitys = await _service.SelectAllIncludedRecordAsync<TEntity>(null);
 
             }
             catch (Exception ex)
             {
                 return BadRequest("Az adatbázis nem elérhető.");
             }
-            return Ok(students);
+            return Ok(entitys);
         }
 
         [HttpGet("includedwithparameters")]
         public async Task<ActionResult<List<TEntity>>> SelectAllIncludedRecordAsync([FromQuery] QueryParameters queryParameters)
         {
-            List<TEntity>? students = null;
+            List<TEntity>? entitys = null;
             try
             {
-                students = await _service.SelectAllIncludedRecordAsync<TEntity>(queryParameters);
+                entitys = await _service.SelectAllIncludedRecordAsync<TEntity>(queryParameters);
 
             }
             catch (Exception ex)
             {
                 return BadRequest("Az adatbázis nem elérhető.");
             }
-            return Ok(students);
+            return Ok(entitys);
         }
 
         [HttpGet("includedandpaged")]

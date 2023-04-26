@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KretaWebApi.Repos
 {
-    public class SchoolClassRepoBase<TDbContext> : IncludedRepoBase<TDbContext> where TDbContext : DbContext
+    public class SchoolClassRepoBase<TDbContext> : IncludedRepoBase<TDbContext>, ISchoolClassRepoBase where TDbContext : DbContext
 
     {
         private IDbContextFactory<TDbContext> _dbContextFactory;
@@ -36,10 +36,11 @@ namespace KretaWebApi.Repos
             return new List<TEntity>();
         }
 
-        protected override IQueryable<TEntity>? GetAllIncluded<TEntity>() where TEntity : class 
+        protected override IQueryable<TEntity>? GetAllIncluded<TEntity>() where TEntity : class
         {
             return GetAllIncludedSchoolClass<TEntity>();
         }
+
 
         protected IQueryable<TEntity>? GetAllIncludedSchoolClass<TEntity>() where TEntity : class
         {
