@@ -8,7 +8,7 @@
     <Style TargetType="Button">
         <Setter Property="Background" Value="{StaticResource StandardButtonBackground}"></Setter>
         <Setter Property="Foreground" Value="{StaticResource StandardButtonForeground}"></Setter>
-        <Setter Property="Width" Value="100"></Setter>
+        <Setter Property="Width" Value="200"></Setter>
         <Setter Property="Height" Value="32"></Setter>
         <Setter Property="Template">
             <Setter.Value>

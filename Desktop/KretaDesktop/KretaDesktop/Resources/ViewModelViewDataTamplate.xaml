@@ -41,4 +41,10 @@
     <DataTemplate DataType="{x:Type contentviewmodels:SchoolClassStatisticsViewMoldel}">
         <contentviews:SchoolClassStatisticsView></contentviews:SchoolClassStatisticsView>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type contentviewmodels:StudentOfClassViewModel}">
+        <contentviews:StudentByClassView></contentviews:StudentByClassView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type contentviewmodels:TeachTeacherSubjectViewModel}">
+        <contentviews:TeachTeacherSubjectView></contentviews:TeachTeacherSubjectView>
+    </DataTemplate>
 </ResourceDictionary>

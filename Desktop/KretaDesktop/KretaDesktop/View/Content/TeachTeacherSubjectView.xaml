@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="KretaDesktop.View.Content.TeachTeacherSubjectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:KretaDesktop.View.Content"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid  Background="{DynamicResource ContentBackgroundColor}"          
+          Style="{DynamicResource ContentGridStyle}"
+          Margin="0,5,0,-5">
+        <StackPanel Orientation="Vertical" Margin="30">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical" Margin="10">
+                    <TextBlock Margin="5">Válassza ki a tanárt:</TextBlock>
+                    <ComboBox x:Name="cbTeachers" Margin="5"
+                          ItemsSource="{Binding Teachers}"
+                          SelectedItem="{Binding SelectedTeacher}"
+                />
+                    <TextBlock Margin="5">Tárgyai:</TextBlock>
+                    <ListBox x:Name="lbSubjects" Margin="5"
+                         ItemsSource="{Binding SubjectsOfTeachers}"
+                         />
+
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="10">
+                    <TextBlock Margin="5">Tanítható tantárgyak:</TextBlock>
+                    <Button Margin="5" x:Name="btSubjectNoTeacher"
+                        Content="Tanítható tantárgyak" 
+                 />
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
