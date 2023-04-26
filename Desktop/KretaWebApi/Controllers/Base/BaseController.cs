@@ -10,9 +10,9 @@ namespace KretaWebApi.Controllers.Base
 {
     public partial class BaseController<TEntity> : ControllerBase where TEntity : ClassWithId, new()
     {
-        private IRepoBase _service;
+        private IIncludedRepoBase _service;
 
-        public BaseController(IRepoBase service)
+        public BaseController(IIncludedRepoBase service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(_service));
         }

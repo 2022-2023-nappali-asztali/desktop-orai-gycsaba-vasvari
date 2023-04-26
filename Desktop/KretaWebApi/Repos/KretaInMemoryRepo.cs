@@ -1,4 +1,7 @@
-﻿using KretaWebApi.Contexts;
+﻿using APIHelpersLibrary.Paged;
+using KretaCommandLine.Model.Abstract;
+using KretaCommandLine.QueryParameter;
+using KretaWebApi.Contexts;
 using KretaWebApi.Repos.Base;
 using Microsoft.EntityFrameworkCore;
 

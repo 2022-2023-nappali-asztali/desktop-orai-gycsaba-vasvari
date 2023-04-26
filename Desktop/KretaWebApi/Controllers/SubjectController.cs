@@ -9,7 +9,7 @@ namespace KretaWebApi.Controllers
     [Route("/api/[controller]")]
     public class SubjectController : BaseController<Subject>
     {
-        public SubjectController(IRepoBase service) : base(service)
+        public SubjectController(IIncludedRepoBase service) : base(service)
         {
         }
     }
