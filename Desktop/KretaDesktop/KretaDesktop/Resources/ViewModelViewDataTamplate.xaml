@@ -19,6 +19,9 @@
     <DataTemplate DataType="{x:Type headerviewmodels:DataManagmentHeaderViewModel}">
         <headerviews:DataManagmentHeaderView></headerviews:DataManagmentHeaderView>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type headerviewmodels:DataSettingsViewModel}">
+        <headerviews:DataSettingsView></headerviews:DataSettingsView>
+    </DataTemplate>
 
     <DataTemplate DataType="{x:Type headerviewmodels:StatisticsHeaderViewModel}">
         <headerviews:StatisticsHeaderView></headerviews:StatisticsHeaderView>
@@ -42,7 +45,7 @@
         <contentviews:SchoolClassStatisticsView></contentviews:SchoolClassStatisticsView>
     </DataTemplate>
     <DataTemplate DataType="{x:Type contentviewmodels:StudentOfClassViewModel}">
-        <contentviews:StudentByClassView></contentviews:StudentByClassView>
+        <contentviews:StudentOfClassView></contentviews:StudentOfClassView>
     </DataTemplate>
     <DataTemplate DataType="{x:Type contentviewmodels:TeachTeacherSubjectViewModel}">
         <contentviews:TeachTeacherSubjectView></contentviews:TeachTeacherSubjectView>

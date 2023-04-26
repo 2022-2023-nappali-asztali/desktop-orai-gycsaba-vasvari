@@ -74,6 +74,13 @@ namespace KretaDesktop
                             DataContext=s.GetRequiredService<DataManagmentHeaderViewModel>()
                         }
                     );
+                    services.AddSingleton<DataSettingsViewModel>();
+                    services.AddSingleton<DataSettingsView>(
+                        s => new DataSettingsView()
+                        {
+                            DataContext = s.GetRequiredService<DataSettingsViewModel>()
+                        }
+                    );
                     services.AddSingleton<StatisticsHeaderViewModel>();
                     services.AddSingleton<StatisticsHeaderView>(
                         s => new StatisticsHeaderView()

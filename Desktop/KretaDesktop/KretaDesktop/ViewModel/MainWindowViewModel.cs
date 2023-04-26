@@ -18,6 +18,7 @@ namespace KretaDesktop.ViewModel
         private ConfigurationHeaderViewModel _configurationHeaderViewModel;
         private DataManagmentHeaderViewModel _dataMagmentHeaderViewModel;
         private StatisticsHeaderViewModel _statisticsHeaderView;
+        private DataSettingsViewModel _dataSettingsViewModel;
 
         private ViewModelBase _selectedView;
         public ViewModelBase SelectedView
@@ -35,12 +36,14 @@ namespace KretaDesktop.ViewModel
             ILogger<MainWindowViewModel> logger, 
             ConfigurationHeaderViewModel configurationHeaderViewModel,
             DataManagmentHeaderViewModel dataManagmentHeaderViewModel,
-            StatisticsHeaderViewModel statisticsHeaderView)
+            StatisticsHeaderViewModel statisticsHeaderView,
+            DataSettingsViewModel dataSettingsViewModel)
         {
             _logger = logger;
             _configurationHeaderViewModel = configurationHeaderViewModel;
             _dataMagmentHeaderViewModel = dataManagmentHeaderViewModel;
             _statisticsHeaderView = statisticsHeaderView;
+            _dataSettingsViewModel = dataSettingsViewModel;
 
             UpdateViewCommand = new RelayCommand((parameter) => UpdateView(parameter));
         }
@@ -74,6 +77,11 @@ namespace KretaDesktop.ViewModel
                 {
                     _logger.LogInformation($"{nameof(MainWindowViewModel)} - Statisztika menüpont választás");
                     SelectedView = _statisticsHeaderView;
+                }
+                else if (commandParameter == "DataSettings")
+                {
+                    _logger.LogInformation($"{nameof(MainWindowViewModel)} - Adatbeállítás menüpont választás");
+                    SelectedView = _dataSettingsViewModel;
                 }
 
             }

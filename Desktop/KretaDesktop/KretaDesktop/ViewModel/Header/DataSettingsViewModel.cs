@@ -11,8 +11,8 @@ namespace KretaDesktop.ViewModel.Header
 {
     public class DataSettingsViewModel : ViewModelBase
     {
-        SchoolStatisticsViewModel _schoolStatisticsViewModel;
-        SchoolClassStatisticsViewMoldel _schoolClassStatisticsViewMoldel;
+        TeachTeacherSubjectViewModel _teachTeacherSubjectViewModel;
+        StudentOfClassViewModel _studentOfClassViewModel;
 
         private InitializedViewModelBase _selectedView;
         public InitializedViewModelBase SelectedView
@@ -26,12 +26,12 @@ namespace KretaDesktop.ViewModel.Header
         }
 
         public DataSettingsViewModel(
-            SchoolStatisticsViewModel schoolStatisticsViewModel,
-            SchoolClassStatisticsViewMoldel schoolClassStatisticsViewMoldel
+            TeachTeacherSubjectViewModel teachTeacherSubjectViewModel,
+            StudentOfClassViewModel studentOfClassViewModel
             )
         {
-            _schoolStatisticsViewModel = schoolStatisticsViewModel;
-            _schoolClassStatisticsViewMoldel = schoolClassStatisticsViewMoldel;
+            _teachTeacherSubjectViewModel = teachTeacherSubjectViewModel;
+            _studentOfClassViewModel = studentOfClassViewModel;
 
             UpdateViewCommand = new AsyncRelayCommandWithParameter((parameter) => ChangeView(parameter), (ex) => OnException());
         }
@@ -44,13 +44,13 @@ namespace KretaDesktop.ViewModel.Header
             {
                 switch (parameter)
                 {
-                    case "SchoolStatistics":
-                        SelectedView = _schoolStatisticsViewModel;
-                        await _schoolStatisticsViewModel.OnInitialize();
+                    case "TeacherSubjects":
+                        SelectedView = _teachTeacherSubjectViewModel;
+                        await _teachTeacherSubjectViewModel.OnInitialize();
                         break;
-                    case "SchoolClassStatistics":
-                        SelectedView = _schoolClassStatisticsViewMoldel;
-                        await _schoolClassStatisticsViewMoldel.OnInitialize();
+                    case "SchoolClassStudents":
+                        SelectedView = _studentOfClassViewModel;
+                        await _studentOfClassViewModel.OnInitialize();
                         break;
 
                 }
