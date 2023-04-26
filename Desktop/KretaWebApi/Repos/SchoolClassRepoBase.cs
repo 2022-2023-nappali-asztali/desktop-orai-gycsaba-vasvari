@@ -36,7 +36,6 @@ namespace KretaWebApi.Repos
             return new List<TEntity>();
         }
 
-
         protected override IQueryable<TEntity>? GetAllIncluded<TEntity>() where TEntity : class 
         {
             return GetAllIncludedSchoolClass<TEntity>();

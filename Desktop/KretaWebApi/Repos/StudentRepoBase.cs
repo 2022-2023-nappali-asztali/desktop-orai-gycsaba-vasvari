@@ -37,6 +37,25 @@ namespace KretaWebApi.Repos
         }
 
 
+        public async ValueTask<List<TEntity>> SelectStudentOfClass<TEntity>(long schoolClassId) where TEntity : Student, new()
+        {
+            var dbContext = _dbContextFactory.CreateDbContext();
+
+            IQueryable<TEntity>? entities = GetAllIncluded<TEntity>();
+
+            if (entities is not object)
+                return new List<TEntity>();
+            else
+            {
+                var search = await entities.SearchById("SchoolClassId", schoolClassId);
+                if (search is object)
+                    return search;
+
+            }
+
+            return new List<TEntity>();
+        }
+
         protected override IQueryable<TEntity>? GetAllIncluded<TEntity>() where TEntity : class 
         {
             return GetAllIncludedStudent<TEntity>();
