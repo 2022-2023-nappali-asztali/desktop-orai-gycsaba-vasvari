@@ -4,7 +4,7 @@ using KretaCommandLine.QueryParameter;
 
 namespace KretaWebApi.Repos.Base
 {
-    public interface IStudentRepoBase : IIncludedRepoBase
+    public interface ISchoolClassRepoBase : IIncludedRepoBase
     {
     }
 }

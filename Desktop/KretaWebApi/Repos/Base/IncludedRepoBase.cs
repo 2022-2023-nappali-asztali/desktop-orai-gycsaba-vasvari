@@ -65,23 +65,7 @@ namespace KretaWebApi.Repos.Base
             return PagedList<TEntity>.ToPagedList(students, parameters.PageNumber, parameters.PageSize); ;
         }
 
-        public async ValueTask<List<TEntity>> SelectEntityIncludedAsync<TEntity>(long schoolClassId) where TEntity : ClassWithId, new()
-        {
-            var dbContext = _dbContextFactory.CreateDbContext();
 
-            IQueryable<TEntity>? entities = GetAllIncluded<TEntity>();
-
-            if (entities is not object)
-                return new List<TEntity>();
-            else
-            {
-                var search = await entities.SearchById("SchoolClassId", schoolClassId);
-                if (search is object)
-                    return search;
-
-            }
-            return new List<TEntity>();
-        }
 
         protected abstract IQueryable<TEntity>? GetAllIncluded<TEntity>() where TEntity : class, new();
 

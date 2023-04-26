@@ -10,7 +10,8 @@ namespace KretaWebApi.Extension
         public static void ConfigureRepo(this IServiceCollection services)
         {
             services.AddScoped<IRepoBase, KretaInMemoryRepo>();
-            services.AddScoped<IStudentRepoBase, StudentInMemoryRepo>();
+            services.AddScoped<IStudentInMemoryRepo, StudentInMemoryRepo>();
+            services.AddScoped<ISchoolClassRepoBase, SchoolClassInMemoryRepo>();
             services.AddScoped<IWrapRepoBase, KretaInMemoryWrapRepo>();
         }
 

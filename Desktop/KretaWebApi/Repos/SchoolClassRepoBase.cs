@@ -8,17 +8,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KretaWebApi.Repos
 {
-    public class StudentRepoBase<TDbContext> : IncludedRepoBase<TDbContext>, IStudentRepoBase where TDbContext : DbContext
+    public class SchoolClassRepoBase<TDbContext> : IncludedRepoBase<TDbContext> where TDbContext : DbContext
 
     {
         private IDbContextFactory<TDbContext> _dbContextFactory;
 
-        public StudentRepoBase(IDbContextFactory<TDbContext> dbContextFactory) : base(dbContextFactory)
+        public SchoolClassRepoBase(IDbContextFactory<TDbContext> dbContextFactory) : base(dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
         }
 
-        public async ValueTask<List<TEntity>> SelectEntitysIncludedAsync<TEntity>(long schoolClassId) where TEntity : ClassWithId, new()
+        public async ValueTask<List<TEntity>> SelectSchoolClassIncludedAsync<TEntity>(long schoolClassId) where TEntity : ClassWithId, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
 
@@ -39,19 +39,20 @@ namespace KretaWebApi.Repos
 
         protected override IQueryable<TEntity>? GetAllIncluded<TEntity>() where TEntity : class 
         {
-            return GetAllIncludedStudent<TEntity>();
+            return GetAllIncludedSchoolClass<TEntity>();
         }
 
-        protected IQueryable<TEntity>? GetAllIncludedStudent<TEntity>() where TEntity : class
+        protected IQueryable<TEntity>? GetAllIncludedSchoolClass<TEntity>() where TEntity : class
         {
-            DbSet<Student>? entities = DbSet<Student>();
+            DbSet<SchoolClass>? entities = DbSet<SchoolClass>();
             if (entities is not object)
                 return null;
             else
             {
                 var result = entities
-                    .Include(student => student.SchoolClassOfStudent)
-                    .Include(student => student.StudentAddress);
+                    .Include(schoolClass => schoolClass.HeadTeacher)
+                    .Include(SchoolClass => SchoolClass.Students);
+
                 return (IQueryable<TEntity>?)result;
             }
         }

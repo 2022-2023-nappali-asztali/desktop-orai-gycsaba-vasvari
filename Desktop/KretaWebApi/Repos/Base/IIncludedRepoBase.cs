@@ -9,6 +9,5 @@ namespace KretaWebApi.Repos.Base
     {
         public ValueTask<List<TEntity>> SelectAllIncludedRecordAsync<TEntity>(QueryParameters queryParameters) where TEntity : ClassWithId, new();
         public ValueTask<PagedList<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(PagingParameters parameters, QueryParameters? queryParameters) where TEntity : ClassWithId, new();
-        public ValueTask<List<TEntity>> SelectEntityIncludedAsync<TEntity>(long schoolClassId) where TEntity : ClassWithId, new();
     }
 }
