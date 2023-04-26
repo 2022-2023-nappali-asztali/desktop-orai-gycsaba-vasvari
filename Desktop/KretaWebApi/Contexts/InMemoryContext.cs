@@ -107,7 +107,7 @@ namespace KretaWebApi.Contexts
                     Teacher.Add(new Teacher(7, "Álmodozó Aliz", true, true, 7));
                     Teacher.Add(new Teacher(8, "Nagy Nelli", false, true, 8));
                     Teacher.Add(new Teacher(9, "Megértő Margit", true, true, 9));
-                    Teacher.Add(new Teacher(10, "Fuldokló Fanni", true, true, 10));
+                    Teacher.Add(new Teacher(10, "Fuldokló Fanni", true, true, -1));
                 }
                 if (TeachTeacherSchoolClass is object)
                 {

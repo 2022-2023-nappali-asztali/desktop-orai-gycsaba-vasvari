@@ -21,7 +21,21 @@
 
             <StackPanel Margin="20 20 20 20" Orientation="Vertical">
                 <Label>Az osztályok osztályfőnökei</Label>
-                <ListBox Margin="5 2 400 5" x:Name="lbTeachersNamePerClass" ItemsSource="{Binding SchoolClasses, UpdateSourceTrigger=PropertyChanged}"/>
+                <ListBox Margin="5 2 400 5" x:Name="lbTeachersNamePerClass" ItemsSource="{Binding SchoolClasses, UpdateSourceTrigger=PropertyChanged}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Path=Id}"/>
+                                <TextBlock Text=". "/>
+                                <TextBlock Text="{Binding Path=SchoolYear}"/>
+                                <TextBlock Text="."/>
+                                <TextBlock Text="{Binding Path=ClassType}"/>
+                                <TextBlock Text=", osztályfőnök "/>
+                                <TextBlock Text="{Binding Path=HeadTeacher}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </StackPanel>
         </StackPanel>
     </Grid>
