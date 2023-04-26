@@ -14,9 +14,20 @@
                 <StackPanel Orientation="Vertical" Margin="10">
                     <TextBlock Margin="5">Válassza ki a tanárt:</TextBlock>
                     <ComboBox x:Name="cbTeachers" Margin="5"
-                          ItemsSource="{Binding Teachers}"
-                          SelectedItem="{Binding SelectedTeacher}"
-                />
+                              ItemsSource="{Binding Teachers, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedTeacher}"
+                              SelectedIndex="0"
+                            >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Path=Id}"/>
+                                        <TextBlock Text=". "/>
+                                        <TextBlock Text="{Binding Path=Name}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                    </ComboBox>
                     <TextBlock Margin="5">Tárgyai:</TextBlock>
                     <ListBox x:Name="lbSubjects" Margin="5"
                          ItemsSource="{Binding SubjectsOfTeachers}"

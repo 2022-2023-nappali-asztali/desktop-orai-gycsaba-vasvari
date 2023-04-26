@@ -121,9 +121,12 @@ namespace KretaDesktop.Services
                 }
                 else
                 {
-                    List<TEntity>? result = await client.GetFromJsonAsync<List<TEntity>>(path);
-                    if (result is object)
-                        return result;
+                    HttpResponseMessage response = await client.GetAsync(path);
+                    if (response is object && response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<List<TEntity>>(content);
+                    }
                 }
             }
             return new List<TEntity>();
