@@ -190,7 +190,6 @@ namespace KretaDesktop.Services
             return result;
         }
 
-
         public async ValueTask<APICallState> Save<TEntity>(TEntity item) where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();
@@ -210,6 +209,20 @@ namespace KretaDesktop.Services
                     if (response is object && response.IsSuccessStatusCode)
                         return APICallState.Success;
                 }
+            }
+            return APICallState.SaveFaild;
+        }
+
+        public async ValueTask<APICallState> SaveNewEntity<TEntity>(TEntity item) where TEntity : class, new()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();
+            if (client is object)
+            {
+                string path = APIURLExtension.SetRelativUrl<TEntity>();
+                HttpResponseMessage response = await client.PostAsJsonAsync(path, item);
+                if (response is object && response.IsSuccessStatusCode)
+                   return APICallState.Success;
             }
             return APICallState.SaveFaild;
         }

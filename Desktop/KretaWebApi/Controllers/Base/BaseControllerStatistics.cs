@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace KretaWebApi.Controllers.Base
 {
-    public partial class BaseController<TEntity> : ControllerBase where TEntity : ClassWithId, new()
+    public partial class BaseController<TEntity> : ControllerBase where TEntity : class, new()
     {
         [HttpGet("count")]
         public ActionResult CountOfTEntity() 

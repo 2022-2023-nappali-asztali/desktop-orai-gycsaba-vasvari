@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace KretaWebApi.Controllers.Base
 {
-    public partial class BaseController<TEntity> : ControllerBase where TEntity : ClassWithId, new()
+    public partial class ClassWithIdBaseController<TEntity> : BaseController<TEntity> where TEntity : ClassWithId, new()
     {
         [HttpGet("included")]
         public async Task<ActionResult<List<TEntity>>> SelectAllIncludedRecordAsync()

@@ -11,34 +11,44 @@
           Margin="0,5,0,-5">
         <StackPanel Orientation="Vertical" Margin="30">
             <StackPanel Orientation="Horizontal">
-                <StackPanel Orientation="Vertical" Margin="10">
-                    <TextBlock Margin="5">Válassza ki a tanárt:</TextBlock>
-                    <ComboBox x:Name="cbTeachers" Margin="5"
+                <StackPanel Orientation="Vertical" Margin="10" Width="180">
+                    <Label Margin="5">Válassza ki a tanárt:</Label>
+                    <ListBox x:Name="cbTeachers" Margin="5"
                               ItemsSource="{Binding Teachers, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding SelectedTeacher}"
                               SelectedIndex="0"
                             >
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Path=Id}"/>
-                                        <TextBlock Text=". "/>
-                                        <TextBlock Text="{Binding Path=Name}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <TextBlock Margin="5">Tárgyai:</TextBlock>
-                    <ListBox x:Name="lbSubjects" Margin="5"
-                         ItemsSource="{Binding SubjectsOfTeacher}"
-                         />
-
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=Id}"/>
+                                    <TextBlock Text=". "/>
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="10">
-                    <TextBlock Margin="5">Tanítható tantárgyak:</TextBlock>
-                    <Button Margin="5" x:Name="btSubjectNoTeacher"
-                        Content="Tanítható tantárgyak" 
-                 />
+                <StackPanel Orientation="Vertical" Margin="10" Width="180">
+                    <Button Margin="5" x:Name="btDeleteSubject"
+                        Content="Tantárgy törlése" 
+                    />
+                    <Label Margin="5">Tárgyai:</Label>
+                    <ListBox x:Name="lbSubjects" Margin="5"
+                         ItemsSource="{Binding SubjectsOfTeacher,UpdateSourceTrigger=PropertyChanged}"
+                     />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="10" Width="180">
+                    <Button Margin="5" x:Name="btAddSubject"
+                            Content="Tantárgy hozzáadása" 
+                            Command="{Binding AddSubjectCommand}"
+                    />
+                    <Label Margin="5">Választható tantárgyak:</Label>
+                    <ListBox x:Name="lbOtherSubjects" Margin="5"
+                             ItemsSource="{Binding OtherSubjects, UpdateSourceTrigger=PropertyChanged}" 
+                             SelectedItem="{Binding SelectedNoTeachedSubject}"
+                             SelectedIndex="0"
+                     />
                 </StackPanel>
             </StackPanel>
         </StackPanel>

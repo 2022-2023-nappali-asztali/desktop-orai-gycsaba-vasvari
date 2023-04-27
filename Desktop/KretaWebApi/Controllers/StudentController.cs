@@ -10,11 +10,12 @@ namespace KretaWebApi.Controllers
 {
     [ApiController]
     [Route("/api/[controller]")]
-    public class StudentController : BaseController<Student>
+    public class StudentController : ClassWithIdBaseController<Student>
     {
         private IStudentRepoBase _service;
 
-        public StudentController(IStudentRepoBase service) : base(service)
+        public StudentController(IStudentRepoBase service, IIncludedRepoBase includedService, IRepoBase repoBaseService)
+            : base(includedService, repoBaseService)
         {
             _service= service;
         }      
