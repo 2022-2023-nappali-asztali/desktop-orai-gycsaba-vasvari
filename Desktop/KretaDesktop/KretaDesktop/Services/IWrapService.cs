@@ -9,5 +9,6 @@ namespace KretaDesktop.Services
     {
         public ValueTask<List<NumberOfStudentInClass>> NumberOfStudentPerClass();
         public ValueTask<List<SchoolClass>> SchoolClassWithNoStudent();
+        public ValueTask<List<Subject>> GetTeacherSubjects(long teacherId);
     }
 }

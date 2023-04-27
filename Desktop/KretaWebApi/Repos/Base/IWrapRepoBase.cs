@@ -11,5 +11,6 @@ namespace KretaWebApi.Repos.Base
     {
         public ValueTask<List<NumberOfStudentInClass>> GetNumberOfStudentPerClass();
         public ValueTask<List<SchoolClass>> GetSchoolClassWithNoStudent();
+        ValueTask<List<Subject>> GetTeacherSubjects(int teacherId);
     }
 }

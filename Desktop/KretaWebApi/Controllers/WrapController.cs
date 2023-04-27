@@ -20,7 +20,14 @@ namespace KretaWebApi.Controllers
         public async Task<ActionResult<List<NumberOfStudentInClass>>> GetNumberOfStudentPerClass()
         {
             List<NumberOfStudentInClass> result = new List<NumberOfStudentInClass>();
-            result = await _service.GetNumberOfStudentPerClass();
+            try
+            {
+                result = await _service.GetNumberOfStudentPerClass();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Az adatbázis nem elérhető.");
+            }
             return Ok(result);
         }
 
@@ -28,7 +35,29 @@ namespace KretaWebApi.Controllers
         public async Task<ActionResult<List<SchoolClass>>> GetSchoolClassWithNoStudent()
         {
             List<SchoolClass> result = new List<SchoolClass>();
-            result = await _service.GetSchoolClassWithNoStudent();
+            try
+            {
+                result = await _service.GetSchoolClassWithNoStudent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Az adatbázis nem elérhető.");
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("teachersubjects/{teacherId}")]
+        public async Task<IActionResult> GetTeacherSubjects(int teacherId)
+        {
+            List<Subject> result = new List<Subject>();
+            try
+            {
+                result = await _service.GetTeacherSubjects(teacherId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Az adatbázis nem elérhető.");
+            }
             return Ok(result);
         }
     }

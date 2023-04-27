@@ -137,34 +137,34 @@ namespace KretaWebApi.Contexts
                     TeachTeacherSchoolClass.Add(new TeachTeacherSchoolClass(3, 1));
                     TeachTeacherSchoolClass.Add(new TeachTeacherSchoolClass(2, 9));
                 }
-                if (TeachTeaherSubject is object)
+                if (TeachTeacherSubject is object)
                 {
 
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(1, 1));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(1, 2));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(1, 7));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(2, 3));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(2, 4));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(2, 10));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(3, 8));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(4, 2));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(5, 1));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(5, 8));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(5, 2));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(6, 1));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(6, 2));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(6, 7));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(7, 8));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(8, 10));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(8, 9));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(8, 3));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(9, 1));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(9, 7));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(9, 4));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(10, 3));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(10, 4));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(10, 1));
-                    TeachTeaherSubject.Add(new TeachTeacherSubject(10, 8));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(1, 1));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(1, 2));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(1, 7));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(2, 3));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(2, 4));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(2, 10));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(3, 8));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(4, 2));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(5, 1));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(5, 8));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(5, 2));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(6, 1));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(6, 2));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(6, 7));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(7, 8));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(8, 10));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(8, 9));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(8, 3));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(9, 1));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(9, 7));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(9, 4));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(10, 3));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(10, 4));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(10, 1));
+                    TeachTeacherSubject.Add(new TeachTeacherSubject(10, 8));
                 }
                 if (TypeOfSubject is object)
                 {

@@ -72,5 +72,10 @@ namespace KretaCommandLine.Model
             }
             return false;
         }
+
+        public override string ToString()
+        {
+            return $"{Id}. {SubjectName}";
+        }
     }
 }

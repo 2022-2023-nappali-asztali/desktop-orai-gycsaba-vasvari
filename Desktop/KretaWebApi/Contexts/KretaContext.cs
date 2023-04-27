@@ -20,7 +20,7 @@ namespace KretaWebApi.Contexts
         public DbSet<SchoolClass>? SchoolClass { get; set; }
         public DbSet<Parent>? Parent { get; set; }
         public DbSet<TypeOfSubject>? TypeOfSubject { get; set; }
-        public DbSet<TeachTeacherSubject>? TeachTeaherSubject { get; set; }
+        public DbSet<TeachTeacherSubject>? TeachTeacherSubject { get; set; }
         public DbSet<TeachTeacherSchoolClass>? TeachTeacherSchoolClass { get; set; }
         public DbSet<Settings>? Settings { get; set; }
 
@@ -59,7 +59,7 @@ namespace KretaWebApi.Contexts
             modelBuilder.Entity<TeachTeacherSubject>()
                 .HasKey(tts => new { tts.SubjectId, tts.TeacherId });
             modelBuilder.Entity<TeachTeacherSchoolClass>()
-                .HasKey(tts => new { tts.TeacherId, tts.SchoolClassId});       
+                .HasKey(tts => new { tts.TeacherId, tts.SchoolClassId});      
 
 
             modelBuilder.Entity<TeachTeacherSubject>()

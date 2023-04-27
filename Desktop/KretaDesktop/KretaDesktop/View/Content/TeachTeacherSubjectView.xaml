@@ -30,7 +30,7 @@
                     </ComboBox>
                     <TextBlock Margin="5">Tárgyai:</TextBlock>
                     <ListBox x:Name="lbSubjects" Margin="5"
-                         ItemsSource="{Binding SubjectsOfTeachers}"
+                         ItemsSource="{Binding SubjectsOfTeacher}"
                          />
 
                 </StackPanel>
