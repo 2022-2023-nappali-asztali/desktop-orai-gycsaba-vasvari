@@ -20,33 +20,33 @@ namespace KretaWebApi.Controllers.Base
         [HttpGet]
         public async Task<IActionResult> SelectAllRecordAsync()
         {
-            List<TEntity>? users = null;
+            List<TEntity>? entitys = null;
             try
             {
-                users = await _service.SelectAllRecordAsync<TEntity>(null);
+                entitys = await _service.SelectAllRecordAsync<TEntity>(null);
 
             }
             catch (Exception ex)
             {
                 return BadRequest("Az adatbázis nem elérhető.");
             }
-            return Ok(users);
+            return Ok(entitys);
         }
 
         [HttpGet("withqueryparameters")]
         public async Task<IActionResult> SelectAllRecordAsync([FromQuery] QueryParameters queryParameters)
         {
-            List<TEntity>? users = null;
+            List<TEntity>? entitys = null;
             try
             {
-                users = await _service.SelectAllRecordAsync<TEntity>(queryParameters);
+                entitys = await _service.SelectAllRecordAsync<TEntity>(queryParameters);
 
             }
             catch (Exception ex)
             {
                 return BadRequest("Az adatbázis nem elérhető.");
             }
-            return Ok(users);
+            return Ok(entitys);
         }
 
         [HttpGet("getpaged")]
