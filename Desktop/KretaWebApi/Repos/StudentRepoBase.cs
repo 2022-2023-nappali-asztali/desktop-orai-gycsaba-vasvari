@@ -18,7 +18,7 @@ namespace KretaWebApi.Repos
             _dbContextFactory = dbContextFactory;
         }
 
-        public async ValueTask<List<TEntity>> SelectEntitysIncludedAsync<TEntity>(long schoolClassId) where TEntity : ClassWithId, new()
+       /* public async ValueTask<List<TEntity>> SelectEntitysIncludedAsync<TEntity>(long schoolClassId) where TEntity : ClassWithId, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
 
@@ -34,7 +34,7 @@ namespace KretaWebApi.Repos
 
             }
             return new List<TEntity>();
-        }
+        }*/
 
 
         public async ValueTask<List<TEntity>> SelectStudentOfClass<TEntity>(long schoolClassId) where TEntity : Student, new()

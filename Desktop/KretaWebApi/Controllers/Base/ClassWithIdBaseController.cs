@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KretaWebApi.Controllers.Base
 {
-    public partial class ClassWithIdBaseController<TEntity> : BaseController<TEntity> where TEntity : ClassWithId, new()
+    public class ClassWithIdBaseController<TEntity> : BaseController<TEntity> where TEntity : ClassWithId, new()
     {
-        private IIncludedRepoBase _service;
+        private IClassWithIdRepoBase _service;
 
-        public ClassWithIdBaseController(IIncludedRepoBase service, IRepoBase repoBaseService) : base(repoBaseService)
+        public ClassWithIdBaseController(IClassWithIdRepoBase service, IRepoBase repoBase) : base(repoBase)
         {
             _service = service ?? throw new ArgumentNullException(nameof(_service));
         }
