@@ -80,9 +80,20 @@ namespace KretaWebApi.Controllers.Base
             }
         }
 
+        [HttpPost("savewithoutid")]
+        public async Task<IActionResult> AddNewItem(TEntity item)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            await _service.AddNewItem(item);
+            return Ok();
+        }
 
 
-        
+
+
 
     }
 }

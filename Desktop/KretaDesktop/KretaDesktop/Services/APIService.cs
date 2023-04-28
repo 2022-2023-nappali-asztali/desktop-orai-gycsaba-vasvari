@@ -220,7 +220,7 @@ namespace KretaDesktop.Services
             if (client is object)
             {
                 string path = APIURLExtension.SetRelativUrl<TEntity>();
-                HttpResponseMessage response = await client.PostAsJsonAsync(path, item);
+                HttpResponseMessage response = await client.PostAsJsonAsync("${path}/savewithoutid", item);
                 if (response is object && response.IsSuccessStatusCode)
                    return APICallState.Success;
             }
