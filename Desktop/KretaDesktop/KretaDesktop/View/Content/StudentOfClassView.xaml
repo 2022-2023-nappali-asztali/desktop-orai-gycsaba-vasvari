@@ -16,30 +16,43 @@
                     <ComboBox x:Name="cbClasses" Margin="5"
                           ItemsSource="{Binding SchoolClasses}"
                           SelectedItem="{Binding SelectedSchoolClass}"
-                          DisplayMemberPath="GradeGradeType"
-                />
+                          SelectedIndex="0"
+                     >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=Id}"/>
+                                    <TextBlock Text=". "/>
+                                    <TextBlock Text="{Binding Path=SchoolYear}"/>
+                                    <TextBlock Text="."/>
+                                    <TextBlock Text="{Binding Path=ClassType}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                     <TextBlock Margin="5">Az osztály tanulói</TextBlock>
                     <ListBox x:Name="lbStudents" Margin="5"
                          ItemsSource="{Binding StudentsOfClass}"   
                          SelectedItem="{Binding SelectedStudentOfClass}"
-                />
+                    />
+                    <Button Margin="5" x:Name="btDeleteStudentFromClass"
+                        Command="{Binding DeleteStudentFromClassCommand}"
+                        Content="A diák eltávolítása az osztályból"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="10">
                     <TextBlock Margin="5">Nem besorolt diákok kezelése:</TextBlock>
                     <Button Margin="5" x:Name="btStudentNoClass" 
                         Content="Nem besorolt diákok"
                         Command="{Binding StudentHaveNoClassCommand}"       
-                />
+                    />
                     <ListBox Margin="5" x:Name="lbStudentNoClass"
                          ItemsSource="{Binding StudentHaveNoClass}"
                          SelectedItem="{Binding SelectedStudentHaveNoClass}"                      
-                 />
+                    />
                     <Button Margin="5" x:Name="btStudentToClass" 
                         Command="{Binding AddStudentToClassCommand}" 
                         Content="Kiválasztott diák hozzáadása" />
-                    <Button Margin="5" x:Name="btDeleteStudentFromClass"
-                        Command="{Binding DeleteStudentFromClassCommand}"
-                        Content="A diák eltávolítása az osztályból"/>
+
                 </StackPanel>
             </StackPanel>
         </StackPanel>
