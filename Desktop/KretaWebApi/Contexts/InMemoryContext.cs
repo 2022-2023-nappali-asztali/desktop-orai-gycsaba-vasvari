@@ -78,8 +78,8 @@ namespace KretaWebApi.Contexts
                     Student.Add(new Student(8, "Német Nelli", 3, 18));
                     Student.Add(new Student(9, "Megértő Mari", 3, 19));
                     Student.Add(new Student(10, "Felelő Fanni", 3, 20));
-                    Student.Add(new Student(11, "Új Ubul", -1, -1));
-                    Student.Add(new Student(12, "Új Vilma", -1, -1));
+                    Student.Add(new Student(11, "Új Ubul", -1, 12));
+                    Student.Add(new Student(12, "Új Vilma", -1, 14));
                 }
                 if (Subject is object)
                 {

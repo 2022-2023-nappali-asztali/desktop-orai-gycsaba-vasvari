@@ -1,6 +1,7 @@
 ﻿using KretaCommandLine.Model;
 using KretaDesktop.Services;
 using KretaDesktop.ViewModel.BaseClass;
+using KretaDesktop.ViewModel.Command;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -13,14 +14,6 @@ namespace KretaDesktop.ViewModel.Content
         private IAPIService _service;
         private IWrapService _wrapService;
         private IStudentAPIService _studentAPIService;
-
-        private int _selectedSchoolClassIndex;
-        public int SelectedSchoolClassIndex
-        {
-            get { return _selectedSchoolClassIndex; }
-            set { _selectedSchoolClassIndex = value; }
-        }
-
 
         private ObservableCollection<SchoolClass> _schoolClasses;
         public ObservableCollection<SchoolClass> SchoolClasses
@@ -54,8 +47,17 @@ namespace KretaDesktop.ViewModel.Content
             }
         }
 
-        private List<Student> _selectedStudentHaveNoClass;
-        public List<Student> SelectedStudentHaveNoClass
+        private Student _selectedStudentOfClass;
+
+        public Student SelectedStudentOfClass
+        {
+            get { return _selectedStudentOfClass; }
+            set { SetValue(ref _selectedStudentOfClass, value); }
+        }
+
+
+        private Student _selectedStudentHaveNoClass;
+        public Student SelectedStudentHaveNoClass
         {
             get { return _selectedStudentHaveNoClass; }
             set { SetValue(ref _selectedStudentHaveNoClass, value); }
@@ -70,34 +72,66 @@ namespace KretaDesktop.ViewModel.Content
             _schoolClasses = new ObservableCollection<SchoolClass>();
             _studentsOfClass = new ObservableCollection<Student>();
             _studentsHaveNoClass = new ObservableCollection<Student>();
+
+            AddStudentCommand = new AsyncRelayCommand(OnAddStudent, (ex) => OnException());
+            RemoveStudentCommand = new AsyncRelayCommand(OnRemoveStudent, (ex) => OnException());
         }
+
+        public AsyncRelayCommand AddStudentCommand { get; private set; }
+        public AsyncRelayCommand RemoveStudentCommand { get; private set; }
 
         public async override Task OnInitialize()
         {
             if (SchoolClasses is object)
             {
-                //_schoolClasses.Clear();
+                _schoolClasses.Clear();
                 List<SchoolClass> schoolClasses = await _service.SelectAllRecordAsync<SchoolClass>();
                 SchoolClasses = new ObservableCollection<SchoolClass>(schoolClasses);
             }
             await Refresh();
-            //SelectedSchoolClassIndex = 0;
+        }
+
+        public async Task OnAddStudent()
+        {
+            if (SelectedStudentHaveNoClass is object && SelectedSchoolClass is object)
+            {
+                Student student = SelectedStudentHaveNoClass;
+                student.SchoolClassId = SelectedSchoolClass.Id;
+                await _service.Save<Student>(student);
+
+                await Refresh();
+            }
+        }
+
+        public async Task OnRemoveStudent()
+        {
+            if (SelectedStudentOfClass is object)
+            {
+                Student student = SelectedStudentOfClass;
+                student.SchoolClassId = -1;
+                await _service.Save<Student>(student);
+                await Refresh();
+            }
         }
 
         private async Task Refresh()
         {
-
-
-            if (SelectedSchoolClass is object)
+            if (_selectedSchoolClass is object)
             {                
-                //_studentsOfClass.Clear();
+                _studentsOfClass.Clear();
+                
                 List<Student> sutdents= await _studentAPIService.SelectStudentOfClass<Student>(_selectedSchoolClass.Id);
                 StudentsOfClass = new ObservableCollection<Student>(sutdents);
 
-                //_studentsHaveNoClass.Clear();
+                _studentsHaveNoClass.Clear();
                 List<Student> noClass= await _service.SelectAllByIdProperty<Student>("SchoolClassId", -1);
                 StudentsHaveNoClass = new ObservableCollection<Student>(noClass);
             }
+        }
+
+        private void OnException()
+        {
+
         }
     }
 }
