@@ -10,8 +10,6 @@ namespace KretaDesktop.ViewModel.BaseClass
     public class CRUDListViewModel<TEntity> : SearchAndSortViewModel<TEntity>, ICRUDListViewModelBase<TEntity>
         where TEntity : ClassWithId, new()
     {
-
-
         public CRUDListViewModel(IAPIService service) : base(service)
         {
             RemoveCommand = new AsyncRelayCommandWithParameter(parameter => Remove(parameter), (ex) => OnException());
@@ -44,11 +42,11 @@ namespace KretaDesktop.ViewModel.BaseClass
 
         protected async Task SaveAndRefresh(object parameter)
         {
-            if (parameter is TEntity entity)
+            if (DisplayedItem is object)
             {
-                await SaveRecord(entity);
+                await SaveRecord(DisplayedItem);
                 IsNewMode = false;
-                SelectRowContains(entity);
+                SelectRowContains(DisplayedItem);
             }
         }
 

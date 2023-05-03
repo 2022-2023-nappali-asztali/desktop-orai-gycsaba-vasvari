@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KretaWebApi.Repos.Base
 {
-    public abstract class IncludedRepoBase<TDbContext> : RepoBase<TDbContext>, IIncludedRepoBase where TDbContext : DbContext
+    public abstract class IncludedRepoBase<TDbContext> : ClassWithIdRepoBase<TDbContext>, IIncludedRepoBase where TDbContext : DbContext
     {
         private IDbContextFactory<TDbContext> _dbContextFactory;
 

@@ -15,7 +15,7 @@ namespace KretaWebApi.Repos.Base
             _dbContextFactory = dbContextFactory;
         }
 
-        public async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>(QueryParameters? queryParameters) where TEntity : ClassWithId, new()
+        public async ValueTask<List<TEntity>> SelectAllRecordAsync<TEntity>(QueryParameters? queryParameters) where TEntity : class, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
             if (queryParameters == null || (string.IsNullOrEmpty(queryParameters.SearchPropertyName) && string.IsNullOrEmpty(queryParameters.SearchTerm) && string.IsNullOrEmpty(queryParameters.OrderBy)))
@@ -53,59 +53,27 @@ namespace KretaWebApi.Repos.Base
             return new List<TEntity>();
         }
 
-        public async ValueTask<PagedList<TEntity>> GetPaged<TEntity>(PagingParameters parameters, QueryParameters? queryParameters) where TEntity : ClassWithId, new()
+        public async ValueTask<List<TEntity>> SearchByIdAsync<TEntity>(string propertyName, long id) where TEntity : class, new()
+        {
+            var dbContext = _dbContextFactory.CreateDbContext();
+            if (!string.IsNullOrEmpty(propertyName))
+            {
+                return await dbContext
+                    .GetDbSet<TEntity>()
+                    .AsNoTracking()
+                    .SearchById<TEntity>(propertyName, id);
+            }
+            else
+                return new List<TEntity>();
+        }
+
+        public async ValueTask<PagedList<TEntity>> GetPaged<TEntity>(PagingParameters parameters, QueryParameters? queryParameters) where TEntity : class, new()
         {
             List<TEntity> items = await SelectAllRecordAsync<TEntity>(queryParameters);
             return PagedList<TEntity>.ToPagedList(items, parameters.PageNumber, parameters.PageSize);
         }
 
-        public async ValueTask<TEntity> GetBy<TEntity>(long id) where TEntity : ClassWithId, new()
-        {
-
-            var dbContext = _dbContextFactory.CreateDbContext();
-            var dbSet = dbContext.GetDbSet<TEntity>();
-            var result = await dbSet.FirstOrDefaultAsync(entity => entity.Id == id) ?? new TEntity();
-
-            return result;
-        }
-
-        public async ValueTask<APICallState> Save<TEntity>(TEntity itemToSave) where TEntity : ClassWithId, new()
-        {
-
-            if (itemToSave.HasId)
-            {
-                return await UpdateItem(itemToSave);
-            }
-            else
-            {
-                return await AddNewItem(itemToSave);
-            }
-        }
-
-        public async ValueTask<APICallState> Delete<TEntity>(long id) where TEntity : ClassWithId, new()
-        {
-
-            var dbContext = _dbContextFactory.CreateDbContext();
-            var dbSet = dbContext.GetDbSet<TEntity>();
-            TEntity entityToDelete = await GetBy<TEntity>(id);
-            if (entityToDelete != null && entityToDelete != default)
-            {
-                try
-                {
-                    dbContext.ChangeTracker.Clear();
-                    dbContext.Entry(entityToDelete).State = EntityState.Deleted;
-                    await dbContext.SaveChangesAsync();
-                }
-                catch (Exception)
-                {
-                    return await ValueTask.FromResult(APICallState.DeleteFail);
-                }
-                return await ValueTask.FromResult(APICallState.Success);
-            }
-            return await ValueTask.FromResult(APICallState.DeleteFail);
-        }
-
-        private async ValueTask<APICallState> UpdateItem<TEntity>(TEntity itemToSave) where TEntity : ClassWithId, new()
+        public async ValueTask<APICallState> UpdateItem<TEntity>(TEntity itemToSave) where TEntity : class, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
             var dbSet = dbContext.GetDbSet<TEntity>();
@@ -123,12 +91,10 @@ namespace KretaWebApi.Repos.Base
             return await ValueTask.FromResult(APICallState.Success);
         }
 
-        private async ValueTask<APICallState> AddNewItem<TEntity>(TEntity itemToSave) where TEntity : ClassWithId, new()
+        public virtual async ValueTask<APICallState> AddNewItem<TEntity>(TEntity itemToSave) where TEntity : class, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
             var dbSet = dbContext.GetDbSet<TEntity>();
-
-            itemToSave.Id = GetNextId<TEntity>();
 
             dbSet.Add(itemToSave);
             try
@@ -142,7 +108,7 @@ namespace KretaWebApi.Repos.Base
             return await ValueTask.FromResult(APICallState.Success);
         }
 
-        public int GetNumberOfEntity<TEntity>() where TEntity : ClassWithId, new()
+        public int GetNumberOfEntity<TEntity>() where TEntity : class, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
             DbSet<TEntity> dbSet =  dbContext.GetDbSet<TEntity>();
@@ -150,23 +116,32 @@ namespace KretaWebApi.Repos.Base
             return number;
         }
 
+        public async ValueTask<APICallState> Delete<TEntity>(TEntity entityToDelete) where TEntity : class, new()
+        {
+
+            var dbContext = _dbContextFactory.CreateDbContext();
+            var dbSet = dbContext.GetDbSet<TEntity>();
+            if (entityToDelete != null && entityToDelete != default)
+            {
+                try
+                {
+                    dbContext.ChangeTracker.Clear();
+                    dbContext.Entry(entityToDelete).State = EntityState.Deleted;
+                    await dbContext.SaveChangesAsync();
+                }
+                catch (Exception)
+                {
+                    return await ValueTask.FromResult(APICallState.DeleteFail);
+                }
+                return await ValueTask.FromResult(APICallState.Success);
+            }
+            return await ValueTask.FromResult(APICallState.DeleteFail);
+        }
+
         protected DbSet<TEntity>? DbSet<TEntity>() where TEntity : class, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();
             return dbContext.GetDbSet<TEntity>();
         }
-
-        private long GetNextId<TEntity>() where TEntity : ClassWithId, new()
-        {
-            var dbContext = _dbContextFactory.CreateDbContext();
-            var dbSet = dbContext.GetDbSet<TEntity>();
-
-            long maxId = dbSet.Select(entity => entity.Id).Max();
-            if (maxId < 0)
-                maxId = 0;
-            return maxId + 1;
-        }
-
-
     }
 }

@@ -14,7 +14,7 @@ namespace KretaWebApi.Repos
 
         }
 
-        protected override IQueryable<TEntity>? GetAllIncluded<TEntity>()
+        protected override IQueryable<TEntity>? GetAllIncluded<TEntity>() where TEntity : class
         {
             return null;
         }

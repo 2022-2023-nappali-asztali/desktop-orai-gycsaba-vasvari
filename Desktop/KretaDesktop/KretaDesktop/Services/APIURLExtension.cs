@@ -20,7 +20,7 @@ namespace KretaDesktop.Services
             return uri;
         }
 
-        public static string SetRelativUrl<TEntity>() where TEntity : ClassWithId, new()
+        public static string SetRelativUrl<TEntity>() where TEntity : class, new()
         {
             return $"/api/{typeof(TEntity).Name}";
         }

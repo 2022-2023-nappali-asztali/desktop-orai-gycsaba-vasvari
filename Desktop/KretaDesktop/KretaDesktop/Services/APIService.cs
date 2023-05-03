@@ -121,10 +121,37 @@ namespace KretaDesktop.Services
                 }
                 else
                 {
-                    List<TEntity>? result = await client.GetFromJsonAsync<List<TEntity>>(path);
-                    if (result is object)
-                        return result;
+                    HttpResponseMessage response = await client.GetAsync(path);
+                    if (response is object && response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<List<TEntity>>(content);
+                    }
                 }
+            }
+            return new List<TEntity>();
+        }
+
+        public async ValueTask<List<TEntity>> SelectAllByIdProperty<TEntity>(string property, int id) where TEntity : class, new()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();
+            if (client is object)
+            {
+                string path = APIURLExtension.SetRelativUrl<TEntity>();
+
+
+                Dictionary<string, string> parameter = new Dictionary<string, string>();
+                parameter.Add("propertyName", property);
+                parameter.Add("id",id.ToString());
+
+                HttpResponseMessage response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/byidproperty", parameter));
+                if (response is object && response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<TEntity>>(content);
+                }
+
             }
             return new List<TEntity>();
         }
@@ -187,7 +214,6 @@ namespace KretaDesktop.Services
             return result;
         }
 
-
         public async ValueTask<APICallState> Save<TEntity>(TEntity item) where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();
@@ -211,6 +237,7 @@ namespace KretaDesktop.Services
             return APICallState.SaveFaild;
         }
 
+
         public async ValueTask<APICallState> Delete<TEntity>(long id) where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();
@@ -219,6 +246,34 @@ namespace KretaDesktop.Services
             {
                 string path = APIURLExtension.SetRelativUrl<TEntity>();
                 HttpResponseMessage response = await client.DeleteAsync($"{path}/{id}");
+                if (response is object && response.IsSuccessStatusCode)
+                    return APICallState.Success;
+            }
+            return APICallState.DeleteFail;
+        }
+
+        public async ValueTask<APICallState> SaveNewEntity<TEntity>(TEntity item) where TEntity : class, new()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();
+            if (client is object)
+            {
+                string path = APIURLExtension.SetRelativUrl<TEntity>();
+                HttpResponseMessage response = await client.PostAsJsonAsync($"{path}/savewithoutid", item);
+                if (response is object && response.IsSuccessStatusCode)
+                    return APICallState.Success;
+            }
+            return APICallState.SaveFaild;
+        }
+
+        public async ValueTask<APICallState> DeleteObject<TEntity>(TEntity item) where TEntity : class, new()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();
+            if (client is object)
+            {
+                string path = APIURLExtension.SetRelativUrl<TEntity>();
+                HttpResponseMessage response = await client.PostAsJsonAsync($"{path}/delete", item);
                 if (response is object && response.IsSuccessStatusCode)
                     return APICallState.Success;
             }
@@ -258,6 +313,5 @@ namespace KretaDesktop.Services
             };
             return dictionary;
         }
-
     }
 }

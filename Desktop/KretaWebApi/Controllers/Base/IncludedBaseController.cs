@@ -9,23 +9,16 @@ using Newtonsoft.Json;
 
 namespace KretaWebApi.Controllers.Base
 {
-    public partial class BaseController<TEntity> : ControllerBase where TEntity : ClassWithId, new()
+    public class IncludedBaseController<TEntity> : ClassWithIdBaseController<TEntity> where TEntity : ClassWithId, new()
     {
-        [HttpGet("included")]
-        public async Task<ActionResult<List<TEntity>>> SelectAllIncludedRecordAsync()
-        {
-            List<TEntity>? entitys = null;
-            try
-            {
-                entitys = await _service.SelectAllIncludedRecordAsync<TEntity>(null);
+        private IIncludedRepoBase _service;
 
-            }
-            catch (Exception ex)
-            {
-                return BadRequest("Az adatbázis nem elérhető.");
-            }
-            return Ok(entitys);
+        public IncludedBaseController(IIncludedRepoBase service, IClassWithIdRepoBase includedRepoBase, IRepoBase repoBase) :base(includedRepoBase, repoBase)
+        {
+            _service = service ?? throw new ArgumentNullException(nameof(_service));
         }
+
+
 
         [HttpGet("includedwithparameters")]
         public async Task<ActionResult<List<TEntity>>> SelectAllIncludedRecordAsync([FromQuery] QueryParameters queryParameters)

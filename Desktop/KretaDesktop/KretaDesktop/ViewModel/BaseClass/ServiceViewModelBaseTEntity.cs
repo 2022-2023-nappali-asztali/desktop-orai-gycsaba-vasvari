@@ -52,6 +52,5 @@ namespace KretaDesktop.ViewModel.BaseClass
         {
             return await _service.Delete<TEntity>(id);
         }
-
     }
 }

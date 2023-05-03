@@ -5,7 +5,7 @@ using KretaCommandLine.QueryParameter;
 
 namespace KretaWebApi.Repos.Base
 {
-    public interface IIncludedRepoBase :  IRepoBase
+    public interface IIncludedRepoBase :  IClassWithIdRepoBase
     {
         public ValueTask<List<TEntity>> SelectAllIncludedRecordAsync<TEntity>(QueryParameters? queryParameters) where TEntity : ClassWithId, new();
         public ValueTask<PagedList<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(PagingParameters parameters, QueryParameters? queryParameters) where TEntity : ClassWithId, new();

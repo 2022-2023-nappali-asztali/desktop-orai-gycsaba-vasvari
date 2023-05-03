@@ -1,9 +1,12 @@
 ﻿using KretaCommandLine.DTO;
 using KretaCommandLine.Model;
+using KretaCommandLine.QueryParameter;
+using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
 namespace KretaDesktop.Services
@@ -39,6 +42,23 @@ namespace KretaDesktop.Services
                     return result;
             }
             return new List<SchoolClass>();
+        }
+
+        public async ValueTask<List<Subject>> GetTeacherSubjects(long teacherId)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();
+            if (client is object)
+            {
+                string path = APIURLExtension.SetRelativUrl();
+                HttpResponseMessage response = await client.GetAsync($"{path}/teachersubjects/{teacherId}");
+                if (response is object && response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<Subject>>(content);
+                }
+            }
+            return new List<Subject>();
         }
     }
 }

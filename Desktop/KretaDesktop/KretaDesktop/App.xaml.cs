@@ -74,6 +74,13 @@ namespace KretaDesktop
                             DataContext=s.GetRequiredService<DataManagmentHeaderViewModel>()
                         }
                     );
+                    services.AddSingleton<DataSettingsViewModel>();
+                    services.AddSingleton<DataSettingsView>(
+                        s => new DataSettingsView()
+                        {
+                            DataContext = s.GetRequiredService<DataSettingsViewModel>()
+                        }
+                    );
                     services.AddSingleton<StatisticsHeaderViewModel>();
                     services.AddSingleton<StatisticsHeaderView>(
                         s => new StatisticsHeaderView()
@@ -116,6 +123,20 @@ namespace KretaDesktop
                         s => new SchoolClassStatisticsView()
                         {
                             DataContext = s.GetRequiredService<SchoolClassStatisticsViewMoldel>()
+                        }
+                    );
+                    services.AddSingleton<TeachTeacherSubjectViewModel>();
+                    services.AddSingleton<TeachTeacherSubjectView>(
+                        s => new TeachTeacherSubjectView()
+                        {
+                            DataContext = s.GetRequiredService<TeachTeacherSubjectViewModel>()
+                        }
+                    );
+                    services.AddSingleton<StudentOfClassViewModel>();
+                    services.AddSingleton<StudentOfClassView>(
+                        s => new StudentOfClassView()
+                        {
+                            DataContext = s.GetRequiredService<StudentOfClassViewModel>()
                         }
                     );
 

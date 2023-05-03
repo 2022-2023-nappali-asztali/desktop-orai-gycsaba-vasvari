@@ -11,7 +11,13 @@
 
         public long SubjectId { get => subjectId; set => subjectId = value; }
         // navigatin property
-        public virtual Subject Subject { get; set; } 
+        public virtual Subject Subject { get; set; }
+
+        public TeachTeacherSubject()
+        {
+            this.teacherId = -1;
+            this.subjectId = -1;
+        }
 
         public TeachTeacherSubject(long teacherId, long subjectId)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KretaDesktop.Services
 {
-    public interface IStudentAPIService
+    public interface IStudentAPIService : IAPIService
     {
         public ValueTask<List<Student>> SelectStudentOfClass<TEntity>(long schoolClassId) where TEntity : Student, new();
     }
