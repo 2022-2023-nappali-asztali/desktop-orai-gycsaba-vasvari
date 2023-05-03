@@ -213,20 +213,6 @@ namespace KretaDesktop.Services
             return APICallState.SaveFaild;
         }
 
-        public async ValueTask<APICallState> SaveNewEntity<TEntity>(TEntity item) where TEntity : class, new()
-        {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = APIURLExtension.GetHttpClientUri();
-            if (client is object)
-            {
-                string path = APIURLExtension.SetRelativUrl<TEntity>();
-                HttpResponseMessage response = await client.PostAsJsonAsync("${path}/savewithoutid", item);
-                if (response is object && response.IsSuccessStatusCode)
-                   return APICallState.Success;
-            }
-            return APICallState.SaveFaild;
-        }
-
         public async ValueTask<APICallState> Delete<TEntity>(long id) where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();
@@ -235,6 +221,34 @@ namespace KretaDesktop.Services
             {
                 string path = APIURLExtension.SetRelativUrl<TEntity>();
                 HttpResponseMessage response = await client.DeleteAsync($"{path}/{id}");
+                if (response is object && response.IsSuccessStatusCode)
+                    return APICallState.Success;
+            }
+            return APICallState.DeleteFail;
+        }
+
+        public async ValueTask<APICallState> SaveNewEntity<TEntity>(TEntity item) where TEntity : class, new()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();
+            if (client is object)
+            {
+                string path = APIURLExtension.SetRelativUrl<TEntity>();
+                HttpResponseMessage response = await client.PostAsJsonAsync($"{path}/savewithoutid", item);
+                if (response is object && response.IsSuccessStatusCode)
+                    return APICallState.Success;
+            }
+            return APICallState.SaveFaild;
+        }
+
+        public async ValueTask<APICallState> DeleteObject<TEntity>(TEntity item) where TEntity : class, new()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();
+            if (client is object)
+            {
+                string path = APIURLExtension.SetRelativUrl<TEntity>();
+                HttpResponseMessage response = await client.PostAsJsonAsync($"{path}/delete", item);
                 if (response is object && response.IsSuccessStatusCode)
                     return APICallState.Success;
             }

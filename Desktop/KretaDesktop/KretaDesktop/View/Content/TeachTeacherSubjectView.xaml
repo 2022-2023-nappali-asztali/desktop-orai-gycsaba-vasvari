@@ -32,10 +32,13 @@
                 <StackPanel Orientation="Vertical" Margin="10" Width="180">
                     <Button Margin="5" x:Name="btDeleteSubject"
                         Content="Tantárgy törlése" 
+                        Command="{Binding DeleteSubjectCommand}"
                     />
                     <Label Margin="5">Tárgyai:</Label>
                     <ListBox x:Name="lbSubjects" Margin="5"
                          ItemsSource="{Binding SubjectsOfTeacher,UpdateSourceTrigger=PropertyChanged}"
+                         SelectedItem="{Binding SelectedSubjectToDelete}"
+                         SelectedIndex="0"    
                      />
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="10" Width="180">

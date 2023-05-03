@@ -102,6 +102,28 @@ namespace KretaWebApi.Repos.Base
             return number;
         }
 
+        public async ValueTask<APICallState> Delete<TEntity>(TEntity entityToDelete) where TEntity : class, new()
+        {
+
+            var dbContext = _dbContextFactory.CreateDbContext();
+            var dbSet = dbContext.GetDbSet<TEntity>();
+            if (entityToDelete != null && entityToDelete != default)
+            {
+                try
+                {
+                    dbContext.ChangeTracker.Clear();
+                    dbContext.Entry(entityToDelete).State = EntityState.Deleted;
+                    await dbContext.SaveChangesAsync();
+                }
+                catch (Exception)
+                {
+                    return await ValueTask.FromResult(APICallState.DeleteFail);
+                }
+                return await ValueTask.FromResult(APICallState.Success);
+            }
+            return await ValueTask.FromResult(APICallState.DeleteFail);
+        }
+
         protected DbSet<TEntity>? DbSet<TEntity>() where TEntity : class, new()
         {
             var dbContext = _dbContextFactory.CreateDbContext();

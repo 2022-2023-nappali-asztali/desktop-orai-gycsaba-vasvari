@@ -15,7 +15,7 @@ namespace KretaDesktop.ViewModel.Content
         private IAPIService _service;
         private IWrapService _wrapService;
 
-        private List<Subject> _allSubjects= new List<Subject>();
+        private List<Subject> _allSubjects = new List<Subject>();
 
         private List<Teacher> _teachers;
         public List<Teacher> Teachers
@@ -28,15 +28,15 @@ namespace KretaDesktop.ViewModel.Content
         public Teacher SelectedTeacher
         {
             get { return _selectedTeacher; }
-            set 
-            { 
+            set
+            {
                 SetValue(ref _selectedTeacher, value);
                 Refresh();
             }
         }
 
         private List<Subject> _subjectOfTeacher;
-        public  List<Subject> SubjectsOfTeacher
+        public List<Subject> SubjectsOfTeacher
         {
             get { return _subjectOfTeacher; }
             set { SetValue(ref _subjectOfTeacher, value); }
@@ -56,6 +56,14 @@ namespace KretaDesktop.ViewModel.Content
             set { SetValue(ref _selectedNoTeachedSubject, value); }
         }
 
+        private Subject _selectedTeacherToDelete;
+        public Subject SelectedSubjectToDelete
+        {
+            get { return _selectedTeacherToDelete; }
+            set { SetValue(ref _selectedTeacherToDelete, value); }
+        }
+
+
 
         public TeachTeacherSubjectViewModel(IAPIService service, IWrapService wrapService) : base(service)
         {
@@ -63,9 +71,11 @@ namespace KretaDesktop.ViewModel.Content
             _wrapService = wrapService;
 
             AddSubjectCommand = new AsyncRelayCommand(OnAddSubject, (ex) => OnException());
+            DeleteSubjectCommand = new AsyncRelayCommand(OnDeleteSubject, (ex) => OnException());
         }
 
         public AsyncRelayCommand AddSubjectCommand { get; private set; }
+        public AsyncRelayCommand DeleteSubjectCommand { get; private set; }
 
         public async override Task OnInitialize()
         {
@@ -76,19 +86,31 @@ namespace KretaDesktop.ViewModel.Content
         private async void Refresh()
         {
             if (_selectedTeacher is object)
-            {                
+            {
                 SubjectsOfTeacher = await _wrapService.GetTeacherSubjects(_selectedTeacher.Id);
                 SubjectComparer comparer = new SubjectComparer();
-                OtherSubjects = _allSubjects.Except(SubjectsOfTeacher,comparer).ToList();
+                OtherSubjects = _allSubjects.Except(SubjectsOfTeacher, comparer).ToList();
             }
         }
 
         private async Task OnAddSubject()
         {
-            TeachTeacherSubject newTeachTeacherSubject = new TeachTeacherSubject(SelectedTeacher.Id, SelectedNoTeachedSubject.Id);
-            await _service.SaveNewEntity<TeachTeacherSubject>(newTeachTeacherSubject);
-            Refresh();
+            if (SelectedTeacher is object && SelectedNoTeachedSubject is object)
+            {
+                TeachTeacherSubject newTeachTeacherSubject = new TeachTeacherSubject(SelectedTeacher.Id, SelectedNoTeachedSubject.Id);
+                await _service.SaveNewEntity<TeachTeacherSubject>(newTeachTeacherSubject);
+                Refresh();
+            }
+        }
 
+        private async Task OnDeleteSubject()
+        {
+            if (SelectedTeacher is object && SelectedSubjectToDelete is object)
+            {
+                TeachTeacherSubject teachTeachserSubjectToDelete = new TeachTeacherSubject(SelectedTeacher.Id, SelectedSubjectToDelete.Id);
+                await _service.DeleteObject(teachTeachserSubjectToDelete);
+                Refresh();
+            }
         }
 
         private void OnException()

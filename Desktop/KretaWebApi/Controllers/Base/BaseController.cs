@@ -1,5 +1,6 @@
 ﻿using APIHelpersLibrary.Paged;
 using KretaCommandLine.API;
+using KretaCommandLine.Model;
 using KretaCommandLine.Model.Abstract;
 using KretaCommandLine.QueryParameter;
 using KretaWebApi.Repos.Base;
@@ -89,6 +90,27 @@ namespace KretaWebApi.Controllers.Base
             }
             await _service.AddNewItem(item);
             return Ok();
+        }
+
+        [HttpPost("delete")]
+        public async Task<IActionResult> Delete(TEntity entity)
+        {
+            try
+            {
+                APICallState callState = await _service.Delete<TEntity>(entity);
+                if (callState == APICallState.Success)
+                {
+                    return Ok("Törlés sikerült.");
+                }
+                else
+                {
+                    return BadRequest("Törlés sikertelen.");
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
 
