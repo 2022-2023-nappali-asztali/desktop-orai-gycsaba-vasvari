@@ -15,7 +15,7 @@ namespace KretaCommandLine.Model
         public long SchoolClassId { get; set; }
         public virtual SchoolClass SchoolClassOfStudent { get; set; }
 
-        public Student(long id, string name, int schoolClassId, long studentAddressId)
+        public Student(long id, string name, long schoolClassId, long studentAddressId)
             : base(id)
         {
 
@@ -34,11 +34,8 @@ namespace KretaCommandLine.Model
 
         public override object Clone()
         {
-            return new Student
-            {
-                Id = this.Id,
-                Name = this.Name
-            };
+
+            return new Student(Id, Name, SchoolClassId, StudentAddressId);
         }
     }
 }

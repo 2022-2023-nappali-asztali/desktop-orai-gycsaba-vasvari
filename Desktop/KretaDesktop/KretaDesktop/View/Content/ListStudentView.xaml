@@ -20,6 +20,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" 
                Content="Tanulók kezelése"
@@ -158,6 +159,23 @@
                     IsEnabled="{Binding MetaData.HasLast, UpdateSourceTrigger=PropertyChanged}">
             </Button>
         </StackPanel>
+        <StackPanel Orientation="Vertical" Margin="10" Grid.Row="5">
+            <Label Margin="5">Osztályba nem sorolt diákok:</Label>
+            <ListBox Margin="5" x:Name="lbStudentNoClass"
+                         ItemsSource="{Binding StudentsHaveNoClass, UpdateSourceTrigger=PropertyChanged}"
+            >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=Id}"/>
+                            <TextBlock Text=". "/>
+                            <TextBlock Text="{Binding Path=Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
     </Grid>
 
 </UserControl>
