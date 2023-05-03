@@ -14,8 +14,8 @@
                 <StackPanel Orientation="Vertical" Margin="10">
                     <TextBlock Margin="5">Válassza ki az osztályt:</TextBlock>
                     <ComboBox x:Name="cbClasses" Margin="5"
-                          ItemsSource="{Binding SchoolClasses}"
-                          SelectedItem="{Binding SelectedSchoolClass}"
+                          ItemsSource="{Binding Path=SchoolClasses,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedSchoolClass }"
                           SelectedIndex="0"
                      >
                         <ComboBox.ItemTemplate>
@@ -32,9 +32,19 @@
                     </ComboBox>
                     <TextBlock Margin="5">Az osztály tanulói</TextBlock>
                     <ListBox x:Name="lbStudents" Margin="5"
-                         ItemsSource="{Binding StudentsOfClass}"   
-                         SelectedItem="{Binding SelectedStudentOfClass}"
-                    />
+                         ItemsSource="{Binding StudentsOfClass,  UpdateSourceTrigger=PropertyChanged}"   
+                         SelectedItem="{Binding SelectedStudentOfClass}"                             
+                    >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=Id}"/>
+                                    <TextBlock Text=". "/>
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                     <Button Margin="5" x:Name="btDeleteStudentFromClass"
                         Command="{Binding DeleteStudentFromClassCommand}"
                         Content="A diák eltávolítása az osztályból"/>
@@ -46,9 +56,19 @@
                         Command="{Binding StudentHaveNoClassCommand}"       
                     />
                     <ListBox Margin="5" x:Name="lbStudentNoClass"
-                         ItemsSource="{Binding StudentHaveNoClass}"
+                         ItemsSource="{Binding StudentsHaveNoClass, UpdateSourceTrigger=PropertyChanged}"
                          SelectedItem="{Binding SelectedStudentHaveNoClass}"                      
-                    />
+                    >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=Id}"/>
+                                    <TextBlock Text=". "/>
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                     <Button Margin="5" x:Name="btStudentToClass" 
                         Command="{Binding AddStudentToClassCommand}" 
                         Content="Kiválasztott diák hozzáadása" />

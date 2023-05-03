@@ -21,11 +21,27 @@ namespace KretaWebApi.Controllers.Base
         [HttpGet]
         public async Task<IActionResult> SelectAllRecordAsync()
         {
-            List<TEntity>? entitys = null;
+            List<TEntity>? entitys = new List<TEntity>(); 
             try
             {
                 entitys = await _service.SelectAllRecordAsync<TEntity>(null);
 
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Az adatbázis nem elérhető.");
+            }
+            return Ok(entitys);
+        }
+
+
+        [HttpGet("byidproperty")]
+        public async Task<IActionResult> SelectAllRecordByIdPropertyAsync([FromQuery] string propertyName,long id)
+        {
+            List<TEntity>? entitys = new List<TEntity>(); 
+            try
+            {
+                entitys = await _service.SearchByIdAsync<TEntity>(propertyName, id);
             }
             catch (Exception ex)
             {

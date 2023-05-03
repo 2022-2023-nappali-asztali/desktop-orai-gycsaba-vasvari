@@ -53,6 +53,20 @@ namespace KretaWebApi.Repos.Base
             return new List<TEntity>();
         }
 
+        public async ValueTask<List<TEntity>> SearchByIdAsync<TEntity>(string propertyName, long id) where TEntity : class, new()
+        {
+            var dbContext = _dbContextFactory.CreateDbContext();
+            if (!string.IsNullOrEmpty(propertyName))
+            {
+                return await dbContext
+                    .GetDbSet<TEntity>()
+                    .AsNoTracking()
+                    .SearchById<TEntity>(propertyName, id);
+            }
+            else
+                return new List<TEntity>();
+        }
+
         public async ValueTask<PagedList<TEntity>> GetPaged<TEntity>(PagingParameters parameters, QueryParameters? queryParameters) where TEntity : class, new()
         {
             List<TEntity> items = await SelectAllRecordAsync<TEntity>(queryParameters);

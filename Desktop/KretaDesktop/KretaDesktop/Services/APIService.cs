@@ -132,6 +132,30 @@ namespace KretaDesktop.Services
             return new List<TEntity>();
         }
 
+        public async ValueTask<List<TEntity>> SelectAllByIdProperty<TEntity>(string property, int id) where TEntity : class, new()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = APIURLExtension.GetHttpClientUri();
+            if (client is object)
+            {
+                string path = APIURLExtension.SetRelativUrl<TEntity>();
+
+
+                Dictionary<string, string> parameter = new Dictionary<string, string>();
+                parameter.Add("propertyName", property);
+                parameter.Add("id",id.ToString());
+
+                HttpResponseMessage response = await client.GetAsync(QueryHelpers.AddQueryString($"{path}/byidproperty", parameter));
+                if (response is object && response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<TEntity>>(content);
+                }
+
+            }
+            return new List<TEntity>();
+        }
+
         public async ValueTask<List<TEntity>> SelectAllIncludedRecordAsync<TEntity>(QueryParameters? queryParameters=null) where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();
@@ -213,6 +237,7 @@ namespace KretaDesktop.Services
             return APICallState.SaveFaild;
         }
 
+
         public async ValueTask<APICallState> Delete<TEntity>(long id) where TEntity : ClassWithId, new()
         {
             HttpClient client = new HttpClient();
@@ -288,6 +313,5 @@ namespace KretaDesktop.Services
             };
             return dictionary;
         }
-
     }
 }

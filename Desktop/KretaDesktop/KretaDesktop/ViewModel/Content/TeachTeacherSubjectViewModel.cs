@@ -4,6 +4,7 @@ using KretaDesktop.Services;
 using KretaDesktop.ViewModel.BaseClass;
 using KretaDesktop.ViewModel.Command;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,8 +18,8 @@ namespace KretaDesktop.ViewModel.Content
 
         private List<Subject> _allSubjects = new List<Subject>();
 
-        private List<Teacher> _teachers;
-        public List<Teacher> Teachers
+        private ObservableCollection<Teacher> _teachers;
+        public ObservableCollection<Teacher> Teachers
         {
             get { return _teachers; }
             set { SetValue(ref _teachers, value); }
@@ -35,15 +36,15 @@ namespace KretaDesktop.ViewModel.Content
             }
         }
 
-        private List<Subject> _subjectOfTeacher;
-        public List<Subject> SubjectsOfTeacher
+        private ObservableCollection<Subject> _subjectOfTeacher;
+        public ObservableCollection<Subject> SubjectsOfTeacher
         {
             get { return _subjectOfTeacher; }
             set { SetValue(ref _subjectOfTeacher, value); }
         }
 
-        private List<Subject> _otherSubjects;
-        public List<Subject> OtherSubjects
+        private ObservableCollection<Subject> _otherSubjects;
+        public ObservableCollection<Subject> OtherSubjects
         {
             get { return _otherSubjects; }
             set { SetValue(ref _otherSubjects, value); }
@@ -80,16 +81,19 @@ namespace KretaDesktop.ViewModel.Content
         public async override Task OnInitialize()
         {
             _allSubjects = await _service.SelectAllRecordAsync<Subject>();
-            Teachers = await _service.SelectAllRecordAsync<Teacher>();
+            List<Teacher> teachers= await _service.SelectAllRecordAsync<Teacher>();
+            Teachers = new ObservableCollection<Teacher>(teachers);
         }
 
         private async void Refresh()
         {
             if (_selectedTeacher is object)
             {
-                SubjectsOfTeacher = await _wrapService.GetTeacherSubjects(_selectedTeacher.Id);
+                List<Subject> allSubjects = await _wrapService.GetTeacherSubjects(_selectedTeacher.Id);
+                SubjectsOfTeacher = new ObservableCollection<Subject>(allSubjects);
                 SubjectComparer comparer = new SubjectComparer();
-                OtherSubjects = _allSubjects.Except(SubjectsOfTeacher, comparer).ToList();
+                List<Subject> otherSubject= _allSubjects.Except(SubjectsOfTeacher, comparer).ToList();
+                OtherSubjects = new ObservableCollection<Subject>(otherSubject);
             }
         }
 

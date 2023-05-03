@@ -18,9 +18,11 @@ namespace KretaDesktop.Services
         public ValueTask<APICallState> SaveNewEntity<TEntity>(TEntity item) where TEntity : class, new();
         public ValueTask<APICallState> Delete<TEntity>(long id) where TEntity : ClassWithId, new();
         public ValueTask<APICallState> DeleteObject<TEntity>(TEntity item) where TEntity : class, new();
+        public ValueTask<List<TEntity>> SelectAllByIdProperty<TEntity>(string property, int id) where TEntity : class, new ();
 
         public ValueTask<List<TEntity>> SelectAllIncludedRecordAsync<TEntity>(QueryParameters? queryParameters=null) where TEntity : ClassWithId, new ();
         public ValueTask<PagingResponse<TEntity>> SelectAllIncludedRecordPagedAsync<TEntity>(PagingParameters parameters, QueryParameters? queryParameters = null) where TEntity : ClassWithId, new();
         public ValueTask<int> GetCountOf<TEntity>() where TEntity : ClassWithId, new();
+
     }
 }
