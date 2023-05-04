@@ -37,9 +37,12 @@ namespace KretaDesktop.Services
             if (client is object)
             {
                 string path = APIURLExtension.SetRelativUrl();
-                List<SchoolClass>? result = await client.GetFromJsonAsync<List<SchoolClass>>($"{path}/schoolclasswithnostudent");
-                if (result is object)
-                    return result;
+                HttpResponseMessage response = await client.GetAsync($"{path}/schoolclasswithnostudent");
+                if (response is object && response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<SchoolClass>>(content);
+                };
             }
             return new List<SchoolClass>();
         }
