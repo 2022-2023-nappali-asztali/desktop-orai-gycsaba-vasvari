@@ -12,7 +12,6 @@ namespace KretaDesktop.ViewModel.Content
     public class StudentOfClassViewModel : ServiceViewModelBase<Student>
     {
         private IAPIService _service;
-        private IWrapService _wrapService;
         private IStudentAPIService _studentAPIService;
 
         private ObservableCollection<SchoolClass> _schoolClasses;
@@ -63,10 +62,9 @@ namespace KretaDesktop.ViewModel.Content
             set { SetValue(ref _selectedStudentHaveNoClass, value); }
         }
 
-        public StudentOfClassViewModel(IAPIService service, IWrapService wrapService, IStudentAPIService studentAPIService) : base(service)
+        public StudentOfClassViewModel(IAPIService service, IStudentAPIService studentAPIService) : base(service)
         {
             _service = service;
-            _wrapService = wrapService;
             _studentAPIService = studentAPIService;
 
             _schoolClasses = new ObservableCollection<SchoolClass>();
